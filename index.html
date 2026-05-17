@@ -1,439 +1,237 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0086)file:///D:/C_Drive/%D8%A7%D9%84%D8%AA%D9%86%D8%B2%D9%8A%D9%84%D8%A7%D8%AA/index_2.html -->
+<html dir="rtl" lang="ar"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="theme-color" content="#0a0f1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>دفتر الدين — نسخة خفيفة</title>
-<link rel="manifest" href="/manifest.json">
+<link rel="manifest" href="file:///D:/manifest.json">
 <style>
-:root{
-  --bg:#0a0f1a;--bg2:#131c2e;--bg3:#1e2d42;
-  --txt:#ffffff;--txt2:#cbd5e1;--txt3:#64748b;
-  --pri:#60a5fa;--grn:#34d399;--red:#f87171;--yel:#fbbf24;
-  --brd:rgba(255,255,255,.13);
-}
+:root{--bg:#0a0f1a;--bg2:#131c2e;--bg3:#1e2d42;--txt:#ffffff;--txt2:#cbd5e1;--txt3:#64748b;--pri:#60a5fa;--grn:#34d399;--red:#f87171;--yel:#fbbf24;--brd:rgba(255,255,255,.13);}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
-  font-size:18px;-webkit-font-smoothing:antialiased}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:18px;-webkit-font-smoothing:antialiased}
 .screen{display:none;flex-direction:column;height:100vh;overflow:hidden;position:absolute;inset:0}
 .screen.active{display:flex}
 .content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:84px}
 .content::-webkit-scrollbar{display:none}
-
-/* ===== شريط الحالة — شفاف بدون خلفية ===== */
-.status-bar{display:flex;align-items:center;padding:5px 16px;
-  font-size:14px;font-weight:700;flex-shrink:0}
+.status-bar{display:flex;align-items:center;padding:5px 16px;font-size:14px;font-weight:700;flex-shrink:0}
 .bar-online{background:transparent;color:var(--grn)}
 .bar-offline{background:transparent;color:var(--red)}
 .bar-pending{background:transparent;color:var(--yel)}
-
-/* ===== topnav ===== */
-.topnav{display:flex;align-items:center;justify-content:space-between;
-  padding:0 16px;height:62px;border-bottom:2px solid var(--brd);
-  background:var(--bg);flex-shrink:0}
+.topnav{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:62px;border-bottom:2px solid var(--brd);background:var(--bg);flex-shrink:0}
 .topnav-center{display:flex;flex-direction:column;align-items:center}
 .topnav h2{font-size:1.1em;font-weight:900;line-height:1.2}
 .ver-tag{font-size:11px;font-weight:600;color:var(--txt3);margin-top:1px}
-.back-btn{width:44px;height:44px;border:none;border-radius:10px;
-  background:var(--bg3);color:var(--txt);font-size:22px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center}
-
-/* ===== زر الرجوع العائم ===== */
-.float-back{position:fixed;top:14px;right:14px;width:48px;height:48px;
-  border-radius:14px;border:none;
-  background:rgba(30,45,66,.92);
-  color:var(--txt);font-size:24px;cursor:pointer;z-index:150;
-  display:none;align-items:center;justify-content:center;
-  box-shadow:0 4px 16px rgba(0,0,0,.5);backdrop-filter:blur(8px)}
+.back-btn{width:44px;height:44px;border:none;border-radius:10px;background:var(--bg3);color:var(--txt);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.float-back{position:fixed;top:14px;right:14px;width:48px;height:48px;border-radius:14px;border:none;background:rgba(30,45,66,.92);color:var(--txt);font-size:24px;cursor:pointer;z-index:150;display:none;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.5)}
 .float-back.show{display:flex}
-
-/* ===== botnav ===== */
-.botnav{position:sticky;bottom:0;display:flex;background:var(--bg);
-  border-top:2px solid var(--brd);height:68px;flex-shrink:0}
-.bnt{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  border:none;background:transparent;color:var(--txt3);font-size:13px;
-  font-weight:700;cursor:pointer;gap:4px}
+.botnav{position:sticky;bottom:0;display:flex;background:var(--bg);border-top:2px solid var(--brd);height:68px;flex-shrink:0}
+.bnt{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border:none;background:transparent;color:var(--txt3);font-size:13px;font-weight:700;cursor:pointer;gap:4px}
 .bnt .ic{font-size:28px}
 .bnt.active{color:var(--pri)}
-
-/* ===== inputs ===== */
-.fi{width:100%;padding:16px 18px;border-radius:14px;border:2px solid var(--brd);
-  background:var(--bg3);color:var(--txt);font-size:20px;outline:none;
-  font-family:inherit;transition:border-color .2s}
+.fi{width:100%;padding:16px 18px;border-radius:14px;border:2px solid var(--brd);background:var(--bg3);color:var(--txt);font-size:20px;outline:none;font-family:inherit;transition:border-color .2s}
 .fi:focus{border-color:var(--pri)}
 .fi::placeholder{color:var(--txt3)}
 .fg{margin-bottom:12px}
 .fg label{display:block;font-size:17px;font-weight:700;color:var(--txt2);margin-bottom:6px}
-
-/* ===== buttons ===== */
-.btn{width:100%;padding:18px;border:none;border-radius:14px;
-  font-size:20px;font-weight:800;cursor:pointer;color:#fff;transition:opacity .2s}
+.btn{width:100%;padding:18px;border:none;border-radius:14px;font-size:20px;font-weight:800;cursor:pointer;color:#fff;transition:opacity .2s}
 .btn:active{opacity:.8}
 .btn-pri{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}
 .btn-grn{background:linear-gradient(135deg,#065f46,#10b981)}
 .btn-red{background:linear-gradient(135deg,#b91c1c,#ef4444)}
 .btn-gray{background:var(--bg3);color:var(--txt2)}
-
-/* ===== بطاقة الملخص المدمجة ===== */
-.summary-bar{display:flex;align-items:center;justify-content:space-between;
-  margin:10px 16px;padding:14px 20px;
-  background:linear-gradient(135deg,#1e3a8a,#2563eb);
-  border-radius:14px;box-shadow:0 4px 16px rgba(29,78,216,.25)}
+.summary-bar{display:flex;align-items:center;justify-content:space-between;margin:10px 16px;padding:14px 20px;background:linear-gradient(135deg,#1e3a8a,#2563eb);border-radius:14px;box-shadow:0 4px 16px rgba(29,78,216,.25)}
 .summary-total{font-size:32px;font-weight:900;color:#fff}
 .summary-lbl{font-size:13px;color:rgba(255,255,255,.72);font-weight:600;margin-bottom:2px}
 .summary-right{text-align:center}
 .summary-count{font-size:26px;font-weight:900;color:#fff}
 .summary-count-lbl{font-size:12px;color:rgba(255,255,255,.72)}
-
-/* ===== أزرار الفلتر ===== */
 .filter-bar{display:flex;gap:8px;padding:6px 16px 4px}
-.filter-btn{flex:1;padding:10px 6px;border:none;border-radius:10px;
-  font-size:15px;font-weight:800;cursor:pointer;transition:all .2s}
+.filter-btn{flex:1;padding:10px 6px;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:all .2s}
 .filter-btn.active{background:var(--pri);color:#fff}
 .filter-btn:not(.active){background:var(--bg3);color:var(--txt2)}
-
-/* ===== شريط الفرز ===== */
-.sort-bar{display:flex;gap:6px;padding:4px 16px 6px;
-  overflow-x:auto;scrollbar-width:none}
+.sort-bar{display:flex;gap:6px;padding:4px 16px 6px;overflow-x:auto;scrollbar-width:none}
 .sort-bar::-webkit-scrollbar{display:none}
-.sort-btn{flex-shrink:0;padding:5px 12px;border-radius:16px;
-  border:1.5px solid var(--brd);background:transparent;
-  color:var(--txt3);font-size:13px;font-weight:700;cursor:pointer;
-  white-space:nowrap;transition:all .2s}
+.sort-btn{flex-shrink:0;padding:5px 12px;border-radius:16px;border:1.5px solid var(--brd);background:transparent;color:var(--txt3);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s}
 .sort-btn.active{background:var(--bg3);color:var(--txt);border-color:var(--txt3)}
-
-/* ===== سطر الدين — المبلغ يمين، الاسم وسط، الدائرة يسار ===== */
-.debt-item{display:flex;align-items:center;padding:14px 16px;
-  border-bottom:2px solid var(--brd);min-height:72px;
-  border-right:4px solid transparent}
+.debt-item{display:flex;align-items:center;padding:14px 16px;border-bottom:2px solid var(--brd);min-height:72px;border-right:4px solid transparent}
 .debt-item:active{background:rgba(255,255,255,.04)}
 .debt-item.old{border-right-color:var(--red)}
 .debt-item.week{border-right-color:var(--yel)}
-/* المبلغ — أول عنصر = أقصى اليمين */
 .debt-amount-wrap{flex-shrink:0;margin-left:14px;cursor:pointer}
 .debt-amount{font-size:24px;font-weight:900;color:var(--red)}
 .debt-days{font-size:13px;color:var(--txt3);margin-top:2px;text-align:right}
-/* الاسم — وسط */
 .debt-info{flex:1;min-width:0;cursor:pointer}
-.debt-name{font-size:19px;font-weight:800;white-space:nowrap;
-  overflow:hidden;text-overflow:ellipsis}
+.debt-name{font-size:19px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .debt-meta{font-size:14px;color:var(--txt3);margin-top:3px}
-/* رقم الفاتورة — آخر عنصر = أقصى اليسار */
-.debt-avatar{width:48px;height:48px;border-radius:12px;
-  background:linear-gradient(135deg,#1d4ed8,#3b82f6);
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;font-weight:900;margin-right:12px;
-  flex-shrink:0;color:#fff;cursor:pointer}
-
-/* ===== الآلة الحاسبة — bottom sheet ===== */
-.calc-sheet{position:fixed;bottom:0;left:0;right:0;z-index:180;
-  background:var(--bg);border-radius:20px 20px 0 0;
-  box-shadow:0 -4px 24px rgba(0,0,0,.5);
-  transform:translateY(100%);transition:transform .3s cubic-bezier(.22,.68,0,1.2)}
+.debt-avatar{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;margin-right:12px;flex-shrink:0;color:#fff;cursor:pointer}
+.calc-sheet{position:fixed;bottom:0;left:0;right:0;z-index:180;background:var(--bg);border-radius:20px 20px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.5);transform:translateY(100%);transition:transform .3s cubic-bezier(.22,.68,0,1.2)}
 .calc-sheet.open{transform:translateY(0)}
-.calc-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);
-  z-index:170;display:none}
+.calc-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:170;display:none}
 .calc-overlay.show{display:block}
-.calc-handle{width:40px;height:4px;background:var(--brd);
-  border-radius:2px;margin:10px auto 0}
-.calc-display{padding:10px 18px 8px;background:var(--bg2);
-  border-bottom:1px solid var(--brd)}
-.calc-expr{font-size:14px;color:var(--txt3);font-weight:600;
-  direction:ltr;text-align:left;min-height:20px;word-break:break-all}
-.calc-num{font-size:42px;font-weight:900;color:var(--yel);
-  direction:ltr;text-align:left;line-height:1.1}
-.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
-  background:var(--brd)}
-.ck{padding:18px 8px;border:none;background:var(--bg2);
-  color:var(--txt);font-size:22px;font-weight:800;cursor:pointer;
-  text-align:center;transition:background .1s}
+.calc-handle{width:40px;height:4px;background:var(--brd);border-radius:2px;margin:10px auto 0}
+.calc-display{padding:10px 18px 8px;background:var(--bg2);border-bottom:1px solid var(--brd)}
+.calc-expr{font-size:14px;color:var(--txt3);font-weight:600;direction:ltr;text-align:left;min-height:20px}
+.calc-num{font-size:42px;font-weight:900;color:var(--yel);direction:ltr;text-align:left;line-height:1.1}
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--brd)}
+.ck{padding:18px 8px;border:none;background:var(--bg2);color:var(--txt);font-size:22px;font-weight:800;cursor:pointer;text-align:center;transition:background .1s}
 .ck:active{background:var(--bg3)}
 .ck.op{color:var(--pri);font-size:24px}
 .ck.eq{background:linear-gradient(135deg,#1d4ed8,#3b82f6);color:#fff}
-.ck.eq:active{opacity:.85}
 .ck.del{color:var(--yel)}
 .ck.clr{color:var(--red)}
-.inv-issue-btn{width:100%;padding:16px;border:none;
-  background:linear-gradient(135deg,#065f46,#10b981);
-  color:#fff;font-size:19px;font-weight:900;cursor:pointer;
-  letter-spacing:.3px}
+.inv-issue-btn{width:100%;padding:16px;border:none;background:linear-gradient(135deg,#065f46,#10b981);color:#fff;font-size:19px;font-weight:900;cursor:pointer}
 .inv-issue-btn:active{opacity:.85}
-
-/* ===== bottom sheet الزبون ===== */
-.bs-wrap{position:fixed;bottom:0;left:0;right:0;z-index:190;
-  background:var(--bg);border-radius:20px 20px 0 0;
-  box-shadow:0 -4px 24px rgba(0,0,0,.5);
-  transform:translateY(100%);transition:transform .3s cubic-bezier(.22,.68,0,1.2);
-  max-height:85vh;display:flex;flex-direction:column}
+.bs-wrap{position:fixed;bottom:0;left:0;right:0;z-index:190;background:var(--bg);border-radius:20px 20px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.5);transform:translateY(100%);transition:transform .3s cubic-bezier(.22,.68,0,1.2);max-height:85vh;display:flex;flex-direction:column}
 .bs-wrap.open{transform:translateY(0)}
-.bs-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);
-  z-index:185;display:none}
+.bs-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:185;display:none}
 .bs-overlay.show{display:block}
 .bs-head{padding:16px 20px 10px;border-bottom:1px solid var(--brd);flex-shrink:0}
 .bs-title{font-size:20px;font-weight:900;margin-bottom:4px}
 .bs-amount{font-size:28px;font-weight:900;color:var(--grn)}
 .bs-body{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:10px}
-.bs-cust-item{padding:14px 16px;border:1.5px solid var(--brd);border-radius:12px;
-  cursor:pointer;display:flex;align-items:center;justify-content:space-between;
-  background:var(--bg2)}
+.bs-cust-item{padding:14px 16px;border:1.5px solid var(--brd);border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:var(--bg2)}
 .bs-cust-item:active{border-color:var(--pri)}
 .bs-cust-name{font-size:18px;font-weight:800}
 .bs-cust-bal{font-size:16px;font-weight:700;color:var(--red)}
-
-/* ===== numpad للدفع ===== */
 .numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px;direction:ltr}
-.npk{padding:20px 10px;border:none;border-radius:14px;background:var(--bg3);
-  color:var(--txt);font-size:28px;font-weight:800;cursor:pointer;transition:background .15s}
+.npk{padding:20px 10px;border:none;border-radius:14px;background:var(--bg3);color:var(--txt);font-size:28px;font-weight:800;cursor:pointer;transition:background .15s}
 .npk:active{background:var(--pri)}
-.amount-display{text-align:center;font-size:52px;font-weight:900;
-  padding:20px 16px;color:var(--yel);letter-spacing:2px;
-  background:var(--bg2);border-bottom:2px solid var(--brd);min-height:96px}
+.amount-display{text-align:center;font-size:52px;font-weight:900;padding:20px 16px;color:var(--yel);letter-spacing:2px;background:var(--bg2);border-bottom:2px solid var(--brd);min-height:96px}
 .amount-lbl{font-size:16px;color:var(--txt3);font-weight:600;margin-bottom:6px}
-
-/* ===== tx ===== */
-.tx-item{padding:16px;border-bottom:1.5px solid var(--brd);
-  display:flex;justify-content:space-between;align-items:center}
+.tx-item{padding:16px;border-bottom:1.5px solid var(--brd);display:flex;justify-content:space-between;align-items:center}
 .tx-left{flex:1}
 .tx-desc{font-size:18px;font-weight:700}
 .tx-date{font-size:14px;color:var(--txt3);margin-top:3px}
 .tx-amt{font-size:22px;font-weight:900}
 .tx-debt{color:var(--red)}
 .tx-pay{color:var(--grn)}
-
-/* ===== login ===== */
-.login-wrap{display:flex;flex-direction:column;align-items:center;
-  justify-content:flex-start;height:100%;padding:12px 16px;
-  overflow-y:auto;-webkit-overflow-scrolling:touch;
-  background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(59,130,246,.18),transparent)}
-.login-card{width:100%;max-width:360px;background:var(--bg2);
-  border:2px solid var(--brd);border-radius:20px;padding:18px 18px 20px}
-.err{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);
-  border-radius:10px;padding:12px;font-size:16px;color:#fca5a5;
-  margin-bottom:14px;display:none}
-
-/* ===== الكتاب ===== */
-.book-wrap{display:flex;justify-content:center;margin-bottom:16px;margin-top:8px;
-  perspective:600px;perspective-origin:50% 50%}
+.login-wrap{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;height:100%;padding:12px 16px;overflow-y:auto;-webkit-overflow-scrolling:touch;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(59,130,246,.18),transparent)}
+.login-card{width:100%;max-width:360px;background:var(--bg2);border:2px solid var(--brd);border-radius:20px;padding:18px 18px 20px}
+.err{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:12px;font-size:16px;color:#fca5a5;margin-bottom:14px;display:none}
+.book-wrap{display:flex;justify-content:center;margin-bottom:16px;margin-top:8px;perspective:600px}
 .book-shadow-wrap{position:relative;filter:drop-shadow(-4px 12px 20px rgba(0,0,0,.6))}
-.arabic-book{width:100px;height:128px;position:relative;transform-style:preserve-3d;
-  transform:rotateX(12deg) rotateY(25deg)}
-.b-front{position:absolute;width:100px;height:128px;
-  background:linear-gradient(135deg,#a06030 0%,#7c4a1e 45%,#4a2810 100%);
-  border-radius:3px 6px 6px 3px;transform:translateZ(11px);overflow:hidden;
-  display:flex;flex-direction:column;justify-content:center;align-items:center}
-.b-front::before{content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(transparent,transparent 11px,rgba(0,0,0,.08) 11px,rgba(0,0,0,.08) 12px)}
-.b-front::after{content:'';position:absolute;inset:0;
-  background:linear-gradient(120deg,rgba(255,255,255,.07) 0%,transparent 50%,rgba(0,0,0,.08) 100%)}
-.book-corner{position:absolute;top:0;left:0;width:22px;height:22px;
-  background:linear-gradient(135deg,#f0f0f0 0%,#c8c8c8 25%,#909090 55%,#d0d0d0 80%,#a0a0a0 100%);
-  clip-path:polygon(0 0,100% 0,0 100%);z-index:3;border-radius:2px 0 0 0}
-.b-spine{position:absolute;width:22px;height:128px;
-  background:linear-gradient(to right,#1e0c04,#4a2810,#2a1408);
-  right:-11px;transform-origin:left center;transform:rotateY(90deg) translateZ(11px)}
-.b-top{position:absolute;width:90px;height:22px;left:5px;
-  background:repeating-linear-gradient(90deg,#f8f0e0 0,#f8f0e0 1px,#d8c8a8 1px,#d8c8a8 2px);
-  top:-11px;transform-origin:bottom center;transform:rotateX(90deg) translateZ(11px)}
-.b-pages{position:absolute;width:22px;height:116px;left:-11px;top:6px;
-  background:repeating-linear-gradient(to bottom,#f8f0e0 0,#f8f0e0 1px,#e8d8b8 1px,#e8d8b8 2px);
-  transform-origin:right center;transform:rotateY(-90deg) translateZ(11px)}
-.b-back{position:absolute;width:100px;height:128px;background:#3a2010;
-  border-radius:3px 6px 6px 3px;transform:translateZ(-11px)}
+.arabic-book{width:100px;height:128px;position:relative;transform-style:preserve-3d;transform:rotateX(12deg) rotateY(25deg)}
+.b-front{position:absolute;width:100px;height:128px;background:linear-gradient(135deg,#a06030 0%,#7c4a1e 45%,#4a2810 100%);border-radius:3px 6px 6px 3px;transform:translateZ(11px);overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.b-front::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(transparent,transparent 11px,rgba(0,0,0,.08) 11px,rgba(0,0,0,.08) 12px)}
+.b-front::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.07) 0%,transparent 50%,rgba(0,0,0,.08) 100%)}
+.book-corner{position:absolute;top:0;left:0;width:22px;height:22px;background:linear-gradient(135deg,#f0f0f0,#909090,#d0d0d0);clip-path:polygon(0 0,100% 0,0 100%);z-index:3}
+.b-spine{position:absolute;width:22px;height:128px;background:linear-gradient(to right,#1e0c04,#4a2810,#2a1408);right:-11px;transform-origin:left center;transform:rotateY(90deg) translateZ(11px)}
+.b-top{position:absolute;width:90px;height:22px;left:5px;background:repeating-linear-gradient(90deg,#f8f0e0 0,#f8f0e0 1px,#d8c8a8 1px,#d8c8a8 2px);top:-11px;transform-origin:bottom center;transform:rotateX(90deg) translateZ(11px)}
+.b-pages{position:absolute;width:22px;height:116px;left:-11px;top:6px;background:repeating-linear-gradient(to bottom,#f8f0e0 0,#f8f0e0 1px,#e8d8b8 1px,#e8d8b8 2px);transform-origin:right center;transform:rotateY(-90deg) translateZ(11px)}
+.b-back{position:absolute;width:100px;height:128px;background:#3a2010;border-radius:3px 6px 6px 3px;transform:translateZ(-11px)}
 .book-title-cover{position:relative;z-index:2;text-align:center}
-.book-title-cover .line1{font-size:22px;font-weight:900;color:rgba(255,245,210,.95);
-  text-shadow:0 2px 6px rgba(0,0,0,.7);letter-spacing:1px}
+.book-title-cover .line1{font-size:22px;font-weight:900;color:rgba(255,245,210,.95);text-shadow:0 2px 6px rgba(0,0,0,.7)}
 .book-title-cover .line2{font-size:11px;font-weight:700;color:rgba(255,230,170,.65);margin-top:4px}
 .book-ver{font-size:10px;color:rgba(255,215,130,.4);margin-top:6px;position:relative;z-index:2}
-
-/* ===== cust header ===== */
-.cust-header{padding:24px 16px;
-  background:linear-gradient(135deg,var(--bg2),var(--bg3));
-  border-bottom:2px solid var(--brd)}
+.cust-header{padding:24px 16px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border-bottom:2px solid var(--brd)}
 .cust-name-big{font-size:26px;font-weight:900}
 .cust-phone-lbl{font-size:16px;color:var(--txt3);margin-top:4px}
-.cust-balance-box{display:flex;justify-content:space-between;align-items:center;
-  margin-top:16px;background:rgba(248,113,113,.1);
-  border:1.5px solid rgba(248,113,113,.25);border-radius:14px;padding:14px 18px}
+.cust-balance-box{display:flex;justify-content:space-between;align-items:center;margin-top:16px;background:rgba(248,113,113,.1);border:1.5px solid rgba(248,113,113,.25);border-radius:14px;padding:14px 18px}
 .cust-balance-lbl{font-size:16px;color:var(--txt2);font-weight:700}
 .cust-balance-val{font-size:32px;font-weight:900;color:var(--red)}
 .cust-actions{display:flex;gap:10px;padding:16px}
-.cust-btn{flex:1;padding:16px;border:none;border-radius:12px;
-  font-size:17px;font-weight:800;cursor:pointer;color:#fff}
-
-/* ===== misc ===== */
+.cust-btn{flex:1;padding:16px;border:none;border-radius:12px;font-size:17px;font-weight:800;cursor:pointer;color:#fff}
 .sec-hdr{padding:10px 16px 4px;font-size:13px;font-weight:700;color:var(--txt3)}
 .empty{text-align:center;padding:50px 24px;color:var(--txt3)}
 .empty .icon{font-size:4em;margin-bottom:16px}
 .empty p{font-size:18px;font-weight:600;line-height:1.6}
-.fab{position:fixed;bottom:80px;left:16px;width:64px;height:64px;
-  border-radius:18px;border:none;font-size:32px;cursor:pointer;
-  background:linear-gradient(135deg,#065f46,#10b981);
-  color:#fff;box-shadow:0 4px 20px rgba(16,185,129,.4);
-  display:flex;align-items:center;justify-content:center;z-index:50}
-
-/* ===== desc chips ===== */
+.fab{position:fixed;bottom:80px;left:16px;width:64px;height:64px;border-radius:18px;border:none;font-size:32px;cursor:pointer;background:linear-gradient(135deg,#065f46,#10b981);color:#fff;box-shadow:0 4px 20px rgba(16,185,129,.4);display:flex;align-items:center;justify-content:center;z-index:50}
 .desc-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
-.desc-chip{padding:8px 14px;border:1.5px solid var(--brd);border-radius:20px;
-  background:var(--bg3);color:var(--txt2);font-size:15px;font-weight:700;cursor:pointer}
+.desc-chip{padding:8px 14px;border:1.5px solid var(--brd);border-radius:20px;background:var(--bg3);color:var(--txt2);font-size:15px;font-weight:700;cursor:pointer}
 .desc-chip:active{background:var(--pri);color:#fff;border-color:var(--pri)}
-
-/* ===== modal ===== */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
-  z-index:200;align-items:flex-end}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:flex-end}
 .modal-bg.open{display:flex}
-.modal-sheet{width:100%;background:var(--bg);border-radius:20px 20px 0 0;
-  padding:24px;max-height:70vh;overflow-y:auto}
+.modal-sheet{width:100%;background:var(--bg);border-radius:20px 20px 0 0;padding:24px;max-height:70vh;overflow-y:auto}
 .modal-title{font-size:20px;font-weight:900;margin-bottom:20px}
-
-/* ===== bank match ===== */
-.match-card{margin:12px 16px;background:var(--bg2);border:2px solid var(--brd);
-  border-radius:16px;overflow:hidden}
-.match-head{padding:14px 16px;background:rgba(251,191,36,.1);
-  border-bottom:1.5px solid rgba(251,191,36,.2);font-size:16px;font-weight:800;color:var(--yel)}
+.match-card{margin:12px 16px;background:var(--bg2);border:2px solid var(--brd);border-radius:16px;overflow:hidden}
+.match-head{padding:14px 16px;background:rgba(251,191,36,.1);border-bottom:1.5px solid rgba(251,191,36,.2);font-size:16px;font-weight:800;color:var(--yel)}
 .match-body{padding:14px 16px}
 .match-row{display:flex;justify-content:space-between;font-size:16px;margin-bottom:8px}
 .match-lbl{color:var(--txt3)}
 .match-val{font-weight:800}
 .match-btns{display:flex;gap:10px;padding:10px 16px}
-.mbtn{flex:1;padding:14px;border:none;border-radius:10px;
-  font-size:17px;font-weight:800;cursor:pointer;color:#fff}
+.mbtn{flex:1;padding:14px;border:none;border-radius:10px;font-size:17px;font-weight:800;cursor:pointer;color:#fff}
 .mbtn-ok{background:var(--grn)}
 .mbtn-no{background:var(--bg3);color:var(--txt3)}
-
-/* ===== spinner ===== */
-#spinner{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
-  z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+#spinner{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 #spinner.show{display:flex}
-.spin{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);
-  border-top-color:var(--pri);border-radius:50%;animation:sp .8s linear infinite}
+.spin{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--pri);border-radius:50%;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 .spin-txt{font-size:18px;font-weight:700;color:#fff}
+new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,.25);border-radius:14px;padding:16px;margin-bottom:16px;display:none}
 </style>
 </head>
 <body>
 
-<!-- ===== زر الرجوع العائم ===== -->
+<!-- زر الرجوع العائم -->
 <button class="float-back" id="float-back-btn" onclick="goBack()">←</button>
 
-<!-- ===== إعداد أول مرة ===== -->
+<!-- الإعداد -->
 <div class="screen" id="s-setup">
-  <div style="flex:1;overflow-y:auto;padding:28px 18px 20px;-webkit-overflow-scrolling:touch">
-    <div style="margin-bottom:24px">
-      <div style="font-size:28px;font-weight:900;color:var(--yel);
-        margin-bottom:8px;text-align:center;cursor:pointer"
-        onclick="devLogin()">دفتر الدين</div>
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div style="font-size:20px;font-weight:800;color:var(--txt)">إنشاء حساب جديد</div>
-        <div style="font-size:11px;color:var(--txt3)">v1.2</div>
-      </div>
-    </div>
-    <div class="err" id="setup-err"></div>
-    <div class="fg">
-      <label>اسم التاجر <span style="color:var(--red)">*</span></label>
-      <input type="text" id="setup-owner" class="fi" placeholder="مثال: أبو محمد">
-    </div>
-    <div class="fg">
-      <label>اسم المحل
-        <span style="font-size:13px;color:var(--txt3);font-weight:500"> — اختياري</span>
-      </label>
-      <input type="text" id="setup-shop" class="fi"
-        placeholder="اتركه فارغاً إن لم يكن للمحل اسم">
-    </div>
-    <div class="fg">
-      <label>رقم الجوال</label>
-      <input type="tel" id="setup-phone" class="fi" placeholder="05XXXXXXXX"
-        style="direction:ltr;letter-spacing:1px;font-size:22px">
-    </div>
-    <div class="fg">
-      <label>رقم سري
-        <span style="font-size:13px;color:var(--txt3);font-weight:500"> — 6 أرقام</span>
-      </label>
-      <input type="password" id="setup-pin" class="fi"
-        placeholder="••••••" maxlength="6" inputmode="numeric"
-        style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900">
-    </div>
-    <button class="btn btn-grn" onclick="doSetup()" style="margin-top:4px">إنشاء الحساب</button>
-  </div>
+<div style="flex:1;overflow-y:auto;padding:28px 18px 20px">
+  <div style="text-align:center;font-size:28px;font-weight:900;color:var(--yel);margin-bottom:16px;cursor:pointer" onclick="devLogin()">دفتر الدين</div>
+  <div style="font-size:20px;font-weight:800;margin-bottom:20px">إنشاء حساب جديد <span style="font-size:11px;color:var(--txt3)">v1.2</span></div>
+  <div class="err" id="setup-err"></div>
+  <div class="fg"><label>اسم التاجر *</label><input type="text" id="setup-owner" class="fi" placeholder="مثال: أبو محمد"></div>
+  <div class="fg"><label>اسم المحل <span style="font-size:13px;color:var(--txt3)">— اختياري</span></label><input type="text" id="setup-shop" class="fi" placeholder="اتركه فارغاً"></div>
+  <div class="fg"><label>رقم الجوال</label><input type="tel" id="setup-phone" class="fi" placeholder="05XXXXXXXX" style="direction:ltr;letter-spacing:1px;font-size:22px"></div>
+  <div class="fg"><label>رقم سري <span style="font-size:13px;color:var(--txt3)">— 6 أرقام</span></label><input type="password" id="setup-pin" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900"></div>
+  <button class="btn btn-grn" onclick="doSetup()">إنشاء الحساب</button>
+</div>
 </div>
 
-<!-- ===== الدخول ===== -->
+<!-- الدخول -->
 <div class="screen" id="s-login">
-  <div class="login-wrap">
-    <div class="login-card">
-      <div class="book-wrap" onclick="devLogin()" style="cursor:pointer">
-        <div class="book-shadow-wrap">
-          <div class="arabic-book">
-            <div class="b-front">
-              <div class="book-corner"></div>
-              <div class="book-title-cover">
-                <div class="line1">دفتر</div>
-                <div class="line1">الدين</div>
-                <div class="line2" id="login-shop-on-book">نسخة خفيفة</div>
-              </div>
-              <div class="book-ver">v1.2</div>
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="book-wrap" onclick="devLogin()" style="cursor:pointer">
+      <div class="book-shadow-wrap">
+        <div class="arabic-book">
+          <div class="b-front">
+            <div class="book-corner"></div>
+            <div class="book-title-cover">
+              <div class="line1">دفتر</div>
+              <div class="line1">الدين</div>
+              <div class="line2" id="login-shop-on-book">نسخة خفيفة</div>
             </div>
-            <div class="b-spine"></div>
-            <div class="b-top"></div>
-            <div class="b-pages"></div>
-            <div class="b-back"></div>
+            <div class="book-ver">v1.2</div>
           </div>
+          <div class="b-spine"></div><div class="b-top"></div>
+          <div class="b-pages"></div><div class="b-back"></div>
         </div>
       </div>
-      <div style="text-align:center;margin-bottom:20px">
-        <div style="font-size:19px;font-weight:900" id="login-shop">دفتر الدين</div>
-        <div style="font-size:15px;color:var(--txt3);margin-top:4px" id="login-phone"></div>
-        <div style="font-size:11px;color:var(--txt3);margin-top:6px">v1.2</div>
-      </div>
-      <div class="err" id="login-err"></div>
-      <div class="fg">
-        <label>الرقم السري</label>
-        <input type="password" id="login-pin" class="fi"
-          placeholder="••••••" maxlength="6" inputmode="numeric"
-          style="text-align:center;letter-spacing:10px;font-size:32px;font-weight:900"
-          onkeydown="if(event.key==='Enter')doLogin()">
-      </div>
-      <button class="btn btn-pri" id="login-btn" onclick="doLogin()">دخول</button>
-      <button onclick="openForgotPin()"
-        style="width:100%;margin-top:12px;background:none;border:none;
-        color:var(--pri);font-size:16px;font-weight:700;cursor:pointer;padding:8px">
-        نسيت الرقم السري؟
-      </button>
-      <button id="btn-new-account" onclick="showScreen('s-setup')"
-        style="width:100%;margin-top:4px;background:none;border:none;
-        color:var(--txt3);font-size:15px;cursor:pointer;padding:8px;display:none">
-        إنشاء حساب جديد
-      </button>
     </div>
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:19px;font-weight:900" id="login-shop">دفتر الدين</div>
+      <div style="font-size:15px;color:var(--txt3);margin-top:4px" id="login-phone"></div>
+      <div style="font-size:11px;color:var(--txt3);margin-top:6px">v1.2</div>
+    </div>
+    <div class="err" id="login-err"></div>
+    <div class="fg">
+      <label>الرقم السري</label>
+      <input type="password" id="login-pin" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:32px;font-weight:900" onkeydown="if(event.key===&#39;Enter&#39;)doLogin()">
+    </div>
+    <button class="btn btn-pri" id="login-btn" onclick="doLogin()">دخول</button>
+    <button onclick="openForgotPin()" style="width:100%;margin-top:12px;background:none;border:none;color:var(--pri);font-size:16px;font-weight:700;cursor:pointer;padding:8px">نسيت الرقم السري؟</button>
+    <button id="btn-new-account" onclick="showScreen(&#39;s-setup&#39;)" style="width:100%;margin-top:4px;background:none;border:none;color:var(--txt3);font-size:15px;cursor:pointer;padding:8px;display:none">إنشاء حساب جديد</button>
   </div>
 </div>
+</div>
 
-<!-- ===== الرئيسية ===== -->
+<!-- الرئيسية -->
 <div class="screen" id="s-home">
-  <!-- الشريط العلوي: اسم المحل أكبر + إيموجي يفتح الإعدادات -->
-  <div style="display:flex;align-items:center;justify-content:space-between;
-    padding:0 16px;height:62px;border-bottom:2px solid var(--brd);
-    background:var(--bg);flex-shrink:0">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:62px;border-bottom:2px solid var(--brd);background:var(--bg);flex-shrink:0">
     <div onclick="openSettings()" style="cursor:pointer">
       <div style="font-size:1.45em;font-weight:900" id="home-shop-name">دفتر الدين</div>
       <div style="font-size:11px;color:var(--txt3);margin-top:1px">الرئيسية — v1.2</div>
     </div>
-    <button onclick="openSettings()"
-      style="width:46px;height:46px;border:none;border-radius:12px;
-      background:var(--bg3);color:var(--txt);font-size:28px;cursor:pointer"
-      id="home-shop-logo">🏪</button>
+    <button onclick="openSettings()" style="width:46px;height:46px;border:none;border-radius:12px;background:var(--bg3);color:var(--txt);font-size:28px;cursor:pointer" id="home-shop-logo">🏪</button>
   </div>
-
-  <!-- شريط الحالة — شفاف بدون خلفية -->
-  <div class="status-bar bar-offline" id="status-bar">
-    <span id="status-txt">جاري التحقق...</span>
-  </div>
-
+  <div class="status-bar bar-offline" id="status-bar"><span id="status-txt">جاري التحقق...</span></div>
   <div class="content">
-    <!-- بطاقة الملخص المدمجة -->
     <div class="summary-bar">
       <div>
         <div class="summary-lbl">إجمالي الديون</div>
@@ -444,79 +242,50 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);
         <div class="summary-count-lbl">زبون</div>
       </div>
     </div>
-
-    <!-- أزرار الفلتر -->
     <div class="filter-bar">
-      <button class="filter-btn active" id="filter-today"
-        onclick="setHomeFilter('today')">اليوم</button>
-      <button class="filter-btn" id="filter-old"
-        onclick="setHomeFilter('old')">ديون قديمة</button>
-      <button class="filter-btn" id="filter-all"
-        onclick="setHomeFilter('all')">الكل</button>
+      <button class="filter-btn active" id="filter-today" onclick="setHomeFilter(&#39;today&#39;)">اليوم</button>
+      <button class="filter-btn" id="filter-old" onclick="setHomeFilter(&#39;old&#39;)">ديون قديمة</button>
+      <button class="filter-btn" id="filter-all" onclick="setHomeFilter(&#39;all&#39;)">الكل</button>
     </div>
-
-    <!-- شريط الفرز -->
     <div class="sort-bar">
-      <button class="sort-btn active" id="sort-old-first"
-        onclick="setHomeSort('old-first')">↑ الأقدم أولاً</button>
-      <button class="sort-btn" id="sort-new-first"
-        onclick="setHomeSort('new-first')">↓ الأحدث أولاً</button>
-      <button class="sort-btn" id="sort-high-first"
-        onclick="setHomeSort('high-first')">↑ الأكبر مبلغاً</button>
-      <button class="sort-btn" id="sort-low-first"
-        onclick="setHomeSort('low-first')">↓ الأصغر مبلغاً</button>
+      <button class="sort-btn active" id="sort-old-first" onclick="setHomeSort(&#39;old-first&#39;)">↑ الأقدم</button>
+      <button class="sort-btn" id="sort-new-first" onclick="setHomeSort(&#39;new-first&#39;)">↓ الأحدث</button>
+      <button class="sort-btn" id="sort-high-first" onclick="setHomeSort(&#39;high-first&#39;)">↑ الأكبر</button>
+      <button class="sort-btn" id="sort-low-first" onclick="setHomeSort(&#39;low-first&#39;)">↓ الأصغر</button>
     </div>
-
     <div id="home-list"></div>
   </div>
-
-  <!-- زر الآلة الحاسبة بدل + -->
-  <button class="fab" onclick="openCalc()" title="آلة حاسبة — إصدار فاتورة">
-    🧮
-  </button>
-
+  <button class="fab" onclick="openCalc()">🧮</button>
   <div class="botnav">
-    <button class="bnt active" onclick="showTab('home')"><span class="ic">🏠</span>الرئيسية</button>
-    <button class="bnt" onclick="showTab('customers')"><span class="ic">👥</span>الزبائن</button>
-    <button class="bnt" onclick="showTab('bank')"><span class="ic">🏦</span>مطابقة</button>
+    <button class="bnt active" onclick="showTab(&#39;home&#39;)"><span class="ic">🏠</span>الرئيسية</button>
+    <button class="bnt" onclick="showTab(&#39;customers&#39;)"><span class="ic">👥</span>الزبائن</button>
+    <button class="bnt" onclick="showTab(&#39;bank&#39;)"><span class="ic">🏦</span>مطابقة</button>
   </div>
 </div>
 
-<!-- ===== الزبائن ===== -->
+<!-- الزبائن -->
 <div class="screen" id="s-customers">
   <div class="topnav">
-    <button class="back-btn" onclick="showTab('home')">←</button>
+    <button class="back-btn" onclick="showTab(&#39;home&#39;)">←</button>
     <div class="topnav-center"><h2>الزبائن</h2><div class="ver-tag">v1.2</div></div>
-    <button onclick="openCalc()"
-      style="padding:8px 16px;border:none;border-radius:10px;
-      background:var(--pri);color:#fff;font-size:16px;font-weight:700;cursor:pointer">
-      + فاتورة
-    </button>
+    <button onclick="openCalc()" style="padding:8px 16px;border:none;border-radius:10px;background:var(--pri);color:#fff;font-size:16px;font-weight:700;cursor:pointer">+ فاتورة</button>
   </div>
   <div style="padding:12px 16px;flex-shrink:0">
-    <input type="text" id="cust-search" class="fi"
-      placeholder="بحث بالاسم أو الجوال..." oninput="filterCustomers(this.value)"
-      style="font-size:18px">
+    <input type="text" id="cust-search" class="fi" placeholder="بحث بالاسم أو الجوال..." oninput="filterCustomers(this.value)" style="font-size:18px">
   </div>
   <div class="content" style="padding-bottom:20px"><div id="customers-list"></div></div>
 </div>
 
-<!-- ===== إضافة / تفاصيل الفاتورة ===== -->
+<!-- إضافة فاتورة -->
 <div class="screen" id="s-add">
   <div class="topnav">
     <div style="width:44px"></div>
-    <div class="topnav-center">
-      <h2>تفاصيل الفاتورة</h2>
-      <div class="ver-tag" id="add-inv-num">—</div>
-    </div>
+    <div class="topnav-center"><h2>فاتورة جديدة</h2><div class="ver-tag" id="add-inv-num">—</div></div>
     <div style="width:44px"></div>
   </div>
   <div class="content">
     <div style="padding:16px">
-
-      <!-- معلومات الفاتورة -->
-      <div style="background:var(--bg2);border:1.5px solid var(--brd);
-        border-radius:14px;padding:16px;margin-bottom:16px">
+      <div style="background:var(--bg2);border:1.5px solid var(--brd);border-radius:14px;padding:16px;margin-bottom:16px">
         <div style="display:flex;justify-content:space-between;align-items:center">
           <div>
             <div style="font-size:13px;color:var(--txt3);font-weight:700">الزبون</div>
@@ -524,48 +293,28 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);
           </div>
           <div style="text-align:left">
             <div style="font-size:13px;color:var(--txt3);font-weight:700">المبلغ</div>
-            <div style="font-size:28px;font-weight:900;color:var(--grn);margin-top:3px"
-              id="add-amount-display">0 ₪</div>
+            <div style="font-size:28px;font-weight:900;color:var(--grn);margin-top:3px" id="add-amount-display">0 ₪</div>
           </div>
         </div>
       </div>
-
-      <!-- البيان -->
       <div class="fg">
-        <label>البيان
-          <span style="font-size:13px;color:var(--txt3);font-weight:500"> — اختياري</span>
-        </label>
-        <input type="text" id="add-desc" class="fi"
-          placeholder="اكتب أو اختر من الأكثر شيوعاً..."
-          oninput="onDescInput(this.value)"
-          onfocus="showDescSuggestions()"
-          autocomplete="off">
-        <div class="desc-chips" id="desc-chips-container"></div>
+        <label>البيان <span style="font-size:13px;color:var(--txt3)">— اختياري</span></label>
+        <input type="text" id="add-desc" class="fi" placeholder="اكتب أو اختر من الأكثر شيوعاً..." oninput="onDescInput(this.value)" onfocus="showDescSuggestions()" autocomplete="off">
+        <div class="desc-chips" id="desc-chips-container" style="display:none"></div>
       </div>
-
       <div class="err" id="add-err"></div>
-
-      <button class="btn btn-grn" onclick="saveDebt()" style="margin-top:8px">
-        حفظ الفاتورة
-      </button>
-      <button onclick="goBack()"
-        style="width:100%;margin-top:10px;padding:14px;background:none;border:none;
-        color:var(--txt3);font-size:16px;font-weight:700;cursor:pointer">
-        إلغاء
-      </button>
+      <button class="btn btn-grn" onclick="saveDebt()" style="margin-top:8px">حفظ الفاتورة</button>
+      <button onclick="goBack()" style="width:100%;margin-top:10px;padding:14px;background:none;border:none;color:var(--txt3);font-size:16px;font-weight:700;cursor:pointer">إلغاء</button>
     </div>
   </div>
 </div>
 
-<!-- ===== تفاصيل الزبون ===== -->
+<!-- تفاصيل الزبون -->
 <div class="screen" id="s-cust">
   <div class="topnav">
     <button class="back-btn" onclick="goBack()">←</button>
     <div class="topnav-center"><h2 id="cust-title">الزبون</h2><div class="ver-tag">v1.2</div></div>
-    <button onclick="sendReminder()"
-      style="padding:8px 14px;border:none;border-radius:10px;
-      background:rgba(37,211,102,.15);color:#25d366;font-size:15px;font-weight:700;
-      cursor:pointer;border:1px solid rgba(37,211,102,.3)">واتساب</button>
+    <button onclick="sendReminder()" style="padding:8px 14px;border:none;border-radius:10px;background:rgba(37,211,102,.15);color:#25d366;font-size:15px;font-weight:700;cursor:pointer;border:1px solid rgba(37,211,102,.3)">واتساب</button>
   </div>
   <div class="content">
     <div class="cust-header">
@@ -577,49 +326,32 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);
       </div>
     </div>
     <div class="cust-actions">
-      <button class="cust-btn" onclick="payFull()"
-        style="background:linear-gradient(135deg,#065f46,#10b981)">دفع كامل</button>
-      <button class="cust-btn" onclick="openPartialPay()"
-        style="background:linear-gradient(135deg,#7c3aed,#a855f7)">دفع جزئي</button>
-      <button class="cust-btn" onclick="addDebtForCust()"
-        style="background:var(--bg3);color:var(--txt2);font-size:15px">+ فاتورة</button>
+      <button class="cust-btn" onclick="payFull()" style="background:linear-gradient(135deg,#065f46,#10b981)">دفع كامل</button>
+      <button class="cust-btn" onclick="openPartialPay()" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">دفع جزئي</button>
+      <button class="cust-btn" onclick="addDebtForCust()" style="background:var(--bg3);color:var(--txt2);font-size:15px">+ فاتورة</button>
     </div>
     <div class="sec-hdr">سجل المعاملات</div>
     <div id="cust-tx-list"></div>
   </div>
 </div>
 
-<!-- ===== مطابقة البنك ===== -->
+<!-- مطابقة البنك -->
 <div class="screen" id="s-bank">
   <div class="topnav">
-    <button class="back-btn" onclick="showTab('home')">←</button>
+    <button class="back-btn" onclick="showTab(&#39;home&#39;)">←</button>
     <div class="topnav-center"><h2>مطابقة البنك</h2><div class="ver-tag">v1.2</div></div>
     <div style="width:44px"></div>
   </div>
-  <div class="content">
-    <div style="padding:16px">
-      <div style="background:rgba(59,130,246,.1);border:1.5px solid rgba(59,130,246,.25);
-        border-radius:14px;padding:16px;margin-bottom:20px;font-size:16px;
-        color:var(--txt2);line-height:1.8">
-        <div style="font-size:17px;font-weight:800;color:var(--pri);margin-bottom:8px">كيف تستخدم؟</div>
-        1. افتح تطبيق بنك فلسطين<br>
-        2. اذهب لـ "الحركات الواردة"<br>
-        3. انسخ النص والصقه أدناه<br>
-        4. التطبيق يطابق تلقائياً
-      </div>
-      <div class="fg">
-        <label>نص كشف الحساب</label>
-        <textarea id="bank-text" class="fi"
-          placeholder="الصق هنا نص الحركات الواردة..."
-          style="height:140px;resize:none;font-size:16px;line-height:1.7"
-          oninput="autoMatchBank()"></textarea>
-      </div>
-      <div id="bank-results"></div>
+  <div class="content"><div style="padding:16px">
+    <div class="fg">
+      <label>نص كشف الحساب</label>
+      <textarea id="bank-text" class="fi" placeholder="الصق هنا نص الحركات الواردة..." style="height:140px;resize:none;font-size:16px;line-height:1.7" oninput="autoMatchBank()"></textarea>
     </div>
-  </div>
+    <div id="bank-results"></div>
+  </div></div>
 </div>
 
-<!-- ===== الإعدادات ===== -->
+<!-- الإعدادات -->
 <div class="screen" id="s-settings">
   <div class="topnav">
     <button class="back-btn" onclick="goBack()">←</button>
@@ -627,282 +359,169 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);
     <div style="width:44px"></div>
   </div>
   <div class="content" style="padding:16px;padding-bottom:40px">
-    <div style="background:var(--bg2);border:2px solid var(--brd);
-      border-radius:16px;padding:20px;margin-bottom:16px">
+    <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;padding:20px;margin-bottom:16px">
       <div style="font-size:13px;font-weight:700;color:var(--txt3);margin-bottom:14px">معلومات الحساب</div>
       <div style="display:flex;align-items:center;gap:14px">
-        <div style="width:54px;height:54px;border-radius:14px;
-          background:linear-gradient(135deg,#1d4ed8,#3b82f6);
-          display:flex;align-items:center;justify-content:center;font-size:26px"
-          id="settings-logo">🏪</div>
+        <div style="width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:26px" id="settings-logo">🏪</div>
         <div>
           <div style="font-size:20px;font-weight:900" id="settings-shop"></div>
           <div style="font-size:15px;color:var(--txt3);margin-top:3px" id="settings-phone"></div>
         </div>
       </div>
     </div>
-    <div style="background:var(--bg2);border:2px solid var(--brd);
-      border-radius:16px;overflow:hidden;margin-bottom:16px">
+    <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;overflow:hidden;margin-bottom:16px">
       <div style="font-size:13px;font-weight:700;color:var(--txt3);padding:14px 16px 0">الأمان</div>
-      <button onclick="openChangePin()"
-        style="width:100%;padding:18px 16px;border:none;border-top:1.5px solid var(--brd);
-        margin-top:10px;background:transparent;color:var(--txt);font-size:18px;font-weight:700;
-        cursor:pointer;display:flex;align-items:center;justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:12px">
-          <span style="font-size:24px">🔒</span><span>تغيير الرقم السري</span>
-        </div>
+      <button onclick="openChangePin()" style="width:100%;padding:18px 16px;border:none;border-top:1.5px solid var(--brd);margin-top:10px;background:transparent;color:var(--txt);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:12px"><span style="font-size:24px">🔒</span><span>تغيير الرقم السري</span></div>
         <span style="color:var(--txt3);font-size:22px">›</span>
       </button>
     </div>
-    <div style="background:var(--bg2);border:2px solid var(--brd);
-      border-radius:16px;overflow:hidden;margin-bottom:16px">
+    <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;overflow:hidden;margin-bottom:16px">
       <div style="font-size:13px;font-weight:700;color:var(--txt3);padding:14px 16px 0">البيانات</div>
-      <button onclick="doSync()"
-        style="width:100%;padding:18px 16px;border:none;border-top:1.5px solid var(--brd);
-        margin-top:10px;background:transparent;color:var(--txt);font-size:18px;font-weight:700;
-        cursor:pointer;display:flex;align-items:center;justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:12px">
-          <span style="font-size:24px">🔄</span><span>مزامنة البيانات الآن</span>
-        </div>
+      <button onclick="doSync()" style="width:100%;padding:18px 16px;border:none;border-top:1.5px solid var(--brd);margin-top:10px;background:transparent;color:var(--txt);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:12px"><span style="font-size:24px">🔄</span><span>مزامنة البيانات الآن</span></div>
         <span style="color:var(--txt3);font-size:22px">›</span>
       </button>
     </div>
-    <button onclick="doLogout()" class="btn btn-red" style="margin-top:8px;font-size:18px">
-      تسجيل الخروج
-    </button>
-    <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--txt3)">
-      دفتر الدين — نسخة خفيفة v1.2
-    </div>
+    <button onclick="doLogout()" class="btn btn-red" style="margin-top:8px;font-size:18px">تسجيل الخروج</button>
+    <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--txt3)">دفتر الدين — v1.2</div>
   </div>
 </div>
 
-<!-- ===== مودال نسيت الرقم السري ===== -->
+<!-- مودال نسيت الرقم -->
 <div class="modal-bg" id="m-forgot-pin">
-  <div class="modal-sheet">
-    <div class="modal-title">نسيت الرقم السري</div>
-    <div id="forgot-step-1">
-      <div style="background:rgba(96,165,250,.1);border:1.5px solid rgba(96,165,250,.2);
-        border-radius:12px;padding:14px;margin-bottom:20px;font-size:15px;
-        color:var(--txt2);line-height:1.8">
-        سنرسل رمز تحقق على واتساب لرقم جوالك المسجل
-      </div>
-      <div class="fg">
-        <label>رقم الجوال المسجل</label>
-        <input type="tel" id="forgot-phone" class="fi" placeholder="05XXXXXXXX"
-          style="direction:ltr;font-size:22px;letter-spacing:1px">
-      </div>
-      <div class="err" id="forgot-err"></div>
-      <div style="display:flex;gap:10px">
-        <button class="btn btn-pri" style="font-size:18px" onclick="sendForgotOTP()">إرسال الرمز</button>
-        <button class="btn btn-gray" style="font-size:18px" onclick="closeForgotPin()">إلغاء</button>
-      </div>
-    </div>
-    <div id="forgot-step-2" style="display:none">
-      <div class="fg">
-        <label>رمز التحقق</label>
-        <input type="text" id="forgot-otp" class="fi"
-          placeholder="000000" maxlength="6" inputmode="numeric"
-          style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900;direction:ltr">
-      </div>
-      <div class="fg">
-        <label>الرقم السري الجديد (6 أرقام)</label>
-        <input type="password" id="forgot-new-pin" class="fi"
-          placeholder="••••••" maxlength="6" inputmode="numeric"
-          style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900">
-      </div>
-      <div class="err" id="forgot-err2"></div>
-      <div style="display:flex;gap:10px">
-        <button class="btn btn-grn" style="font-size:18px" onclick="confirmForgotPin()">تغيير الرقم</button>
-        <button class="btn btn-gray" style="font-size:18px" onclick="closeForgotPin()">إلغاء</button>
-      </div>
-    </div>
-    <div id="forgot-step-3" style="display:none;text-align:center;padding:16px 0">
-      <div style="font-size:4em;margin-bottom:12px">✅</div>
-      <div style="font-size:20px;font-weight:900;color:var(--grn)">تم تغيير الرقم بنجاح</div>
-      <button class="btn btn-pri" style="margin-top:20px;font-size:18px"
-        onclick="closeForgotPin()">دخول</button>
+<div class="modal-sheet">
+  <div class="modal-title">نسيت الرقم السري</div>
+  <div id="forgot-step-1">
+    <div class="fg"><label>رقم الجوال المسجل</label><input type="tel" id="forgot-phone" class="fi" placeholder="05XXXXXXXX" style="direction:ltr;font-size:22px;letter-spacing:1px"></div>
+    <div class="err" id="forgot-err"></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-pri" style="font-size:18px" onclick="sendForgotOTP()">إرسال الرمز</button>
+      <button class="btn btn-gray" style="font-size:18px" onclick="closeForgotPin()">إلغاء</button>
     </div>
   </div>
+  <div id="forgot-step-2" style="display:none">
+    <div class="fg"><label>رمز التحقق</label><input type="text" id="forgot-otp" class="fi" placeholder="000000" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900;direction:ltr"></div>
+    <div class="fg"><label>الرقم السري الجديد (6 أرقام)</label><input type="password" id="forgot-new-pin" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900"></div>
+    <div class="err" id="forgot-err2"></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-grn" style="font-size:18px" onclick="confirmForgotPin()">تغيير الرقم</button>
+      <button class="btn btn-gray" style="font-size:18px" onclick="closeForgotPin()">إلغاء</button>
+    </div>
+  </div>
+  <div id="forgot-step-3" style="display:none;text-align:center;padding:16px 0">
+    <div style="font-size:4em;margin-bottom:12px">✅</div>
+    <div style="font-size:20px;font-weight:900;color:var(--grn)">تم تغيير الرقم بنجاح</div>
+    <button class="btn btn-pri" style="margin-top:20px;font-size:18px" onclick="closeForgotPin()">دخول</button>
+  </div>
+</div>
 </div>
 
-<!-- ===== مودال تغيير الرقم ===== -->
+<!-- مودال تغيير الرقم -->
 <div class="modal-bg" id="m-change-pin">
-  <div class="modal-sheet">
-    <div class="modal-title">تغيير الرقم السري</div>
-    <div id="pin-step-1">
-      <div class="fg">
-        <label>الرقم الحالي</label>
-        <input type="password" id="pin-old" class="fi" placeholder="••••••"
-          maxlength="6" inputmode="numeric"
-          style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900">
-      </div>
-      <div class="fg">
-        <label>الرقم الجديد (6 أرقام)</label>
-        <input type="password" id="pin-new1" class="fi" placeholder="••••••"
-          maxlength="6" inputmode="numeric"
-          style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900">
-      </div>
-      <div class="fg">
-        <label>تأكيد الرقم الجديد</label>
-        <input type="password" id="pin-new2" class="fi" placeholder="••••••"
-          maxlength="6" inputmode="numeric"
-          style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900">
-      </div>
-      <div class="err" id="pin-err"></div>
-      <div style="display:flex;gap:10px;margin-top:4px">
-        <button class="btn btn-grn" style="font-size:18px" onclick="saveNewPin()">حفظ</button>
-        <button class="btn btn-gray" style="font-size:18px" onclick="closeChangePin()">إلغاء</button>
-      </div>
-    </div>
-    <div id="pin-step-2" style="display:none;text-align:center;padding:16px 0">
-      <div style="font-size:4em;margin-bottom:12px">✅</div>
-      <div style="font-size:20px;font-weight:900;color:var(--grn)">تم تغيير الرقم بنجاح</div>
-      <button class="btn btn-pri" style="margin-top:20px;font-size:18px"
-        onclick="closeChangePin()">تم</button>
+<div class="modal-sheet">
+  <div class="modal-title">تغيير الرقم السري</div>
+  <div id="pin-step-1">
+    <div class="fg"><label>الرقم الحالي</label><input type="password" id="pin-old" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900"></div>
+    <div class="fg"><label>الرقم الجديد</label><input type="password" id="pin-new1" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900"></div>
+    <div class="fg"><label>تأكيد الرقم الجديد</label><input type="password" id="pin-new2" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900"></div>
+    <div class="err" id="pin-err"></div>
+    <div style="display:flex;gap:10px;margin-top:4px">
+      <button class="btn btn-grn" style="font-size:18px" onclick="saveNewPin()">حفظ</button>
+      <button class="btn btn-gray" style="font-size:18px" onclick="closeChangePin()">إلغاء</button>
     </div>
   </div>
+  <div id="pin-step-2" style="display:none;text-align:center;padding:16px 0">
+    <div style="font-size:4em;margin-bottom:12px">✅</div>
+    <div style="font-size:20px;font-weight:900;color:var(--grn)">تم تغيير الرقم بنجاح</div>
+    <button class="btn btn-pri" style="margin-top:20px;font-size:18px" onclick="closeChangePin()">تم</button>
+  </div>
+</div>
 </div>
 
-<!-- ===== مودال الدفع الجزئي ===== -->
+<!-- الدفع الجزئي -->
 <div class="modal-bg" id="m-partial">
-  <div class="modal-sheet">
-    <div class="modal-title">دفع جزئي</div>
-    <div class="amount-display" style="border-radius:14px;border:2px solid var(--brd);margin-bottom:12px">
-      <div class="amount-lbl">المبلغ المدفوع</div>
-      <div id="partial-display">0</div>
-    </div>
-    <div class="numpad">
-      <button class="npk" onclick="partialKey('1')">1</button>
-      <button class="npk" onclick="partialKey('2')">2</button>
-      <button class="npk" onclick="partialKey('3')">3</button>
-      <button class="npk" onclick="partialKey('4')">4</button>
-      <button class="npk" onclick="partialKey('5')">5</button>
-      <button class="npk" onclick="partialKey('6')">6</button>
-      <button class="npk" onclick="partialKey('7')">7</button>
-      <button class="npk" onclick="partialKey('8')">8</button>
-      <button class="npk" onclick="partialKey('9')">9</button>
-      <button class="npk" onclick="partialKey('.')">.</button>
-      <button class="npk" onclick="partialKey('0')">0</button>
-      <button class="npk" onclick="partialDel()">⌫</button>
-    </div>
-    <div style="display:flex;gap:10px;margin-top:12px">
-      <button class="btn btn-grn" style="font-size:18px" onclick="savePartial()">تأكيد الدفع</button>
-      <button class="btn btn-gray" style="font-size:18px"
-        onclick="document.getElementById('m-partial').classList.remove('open')">إلغاء</button>
-    </div>
+<div class="modal-sheet">
+  <div class="modal-title">دفع جزئي</div>
+  <div class="amount-display" style="border-radius:14px;border:2px solid var(--brd);margin-bottom:12px">
+    <div class="amount-lbl">المبلغ المدفوع</div>
+    <div id="partial-display">0</div>
+  </div>
+  <div class="numpad">
+    <button class="npk" onclick="partialKey(&#39;1&#39;)">1</button><button class="npk" onclick="partialKey(&#39;2&#39;)">2</button><button class="npk" onclick="partialKey(&#39;3&#39;)">3</button>
+    <button class="npk" onclick="partialKey(&#39;4&#39;)">4</button><button class="npk" onclick="partialKey(&#39;5&#39;)">5</button><button class="npk" onclick="partialKey(&#39;6&#39;)">6</button>
+    <button class="npk" onclick="partialKey(&#39;7&#39;)">7</button><button class="npk" onclick="partialKey(&#39;8&#39;)">8</button><button class="npk" onclick="partialKey(&#39;9&#39;)">9</button>
+    <button class="npk" onclick="partialKey(&#39;.&#39;)">.</button><button class="npk" onclick="partialKey(&#39;0&#39;)">0</button><button class="npk" onclick="partialDel()">⌫</button>
+  </div>
+  <div style="display:flex;gap:10px;margin-top:12px">
+    <button class="btn btn-grn" style="font-size:18px" onclick="savePartial()">تأكيد الدفع</button>
+    <button class="btn btn-gray" style="font-size:18px" onclick="document.getElementById(&#39;m-partial&#39;).classList.remove(&#39;open&#39;)">إلغاء</button>
   </div>
 </div>
+</div>
 
-<!-- ===== الآلة الحاسبة — bottom sheet ===== -->
+<!-- الحاسبة -->
 <div class="calc-overlay" id="calc-overlay" onclick="closeCalc()"></div>
 <div class="calc-sheet" id="calc-sheet">
   <div class="calc-handle"></div>
   <div class="calc-display">
-    <div>
-      <div class="calc-expr" id="calc-expr">—</div>
-      <div class="calc-num" id="calc-num">0</div>
-    </div>
-    <div style="font-size:13px;color:var(--txt3);font-weight:700;text-align:left;
-      align-self:flex-end;padding-bottom:4px" id="calc-cur-lbl">₪</div>
+    <div class="calc-expr" id="calc-expr">—</div>
+    <div class="calc-num" id="calc-num">0</div>
   </div>
   <div class="calc-grid">
-    <button class="ck clr" onclick="calcKey('C')">C</button>
-    <button class="ck op" onclick="calcKey('(')">(</button>
-    <button class="ck op" onclick="calcKey(')')">)</button>
-    <button class="ck op" onclick="calcKey('÷')">÷</button>
-
-    <button class="ck" onclick="calcKey('7')">7</button>
-    <button class="ck" onclick="calcKey('8')">8</button>
-    <button class="ck" onclick="calcKey('9')">9</button>
-    <button class="ck op" onclick="calcKey('×')">×</button>
-
-    <button class="ck" onclick="calcKey('4')">4</button>
-    <button class="ck" onclick="calcKey('5')">5</button>
-    <button class="ck" onclick="calcKey('6')">6</button>
-    <button class="ck op" onclick="calcKey('−')">−</button>
-
-    <button class="ck" onclick="calcKey('1')">1</button>
-    <button class="ck" onclick="calcKey('2')">2</button>
-    <button class="ck" onclick="calcKey('3')">3</button>
-    <button class="ck op" onclick="calcKey('+')">+</button>
-
-    <button class="ck" onclick="calcKey('.')">.</button>
-    <button class="ck" onclick="calcKey('0')">0</button>
+    <button class="ck clr" onclick="calcKey(&#39;C&#39;)">C</button>
+    <button class="ck op" onclick="calcKey(&#39;(&#39;)">(</button>
+    <button class="ck op" onclick="calcKey(&#39;)&#39;)">)</button>
+    <button class="ck op" onclick="calcKey(&#39;/&#39;)">÷</button>
+    <button class="ck" onclick="calcKey(&#39;7&#39;)">7</button>
+    <button class="ck" onclick="calcKey(&#39;8&#39;)">8</button>
+    <button class="ck" onclick="calcKey(&#39;9&#39;)">9</button>
+    <button class="ck op" onclick="calcKey(&#39;*&#39;)">×</button>
+    <button class="ck" onclick="calcKey(&#39;4&#39;)">4</button>
+    <button class="ck" onclick="calcKey(&#39;5&#39;)">5</button>
+    <button class="ck" onclick="calcKey(&#39;6&#39;)">6</button>
+    <button class="ck op" onclick="calcKey(&#39;-&#39;)">−</button>
+    <button class="ck" onclick="calcKey(&#39;1&#39;)">1</button>
+    <button class="ck" onclick="calcKey(&#39;2&#39;)">2</button>
+    <button class="ck" onclick="calcKey(&#39;3&#39;)">3</button>
+    <button class="ck op" onclick="calcKey(&#39;+&#39;)">+</button>
+    <button class="ck" onclick="calcKey(&#39;.&#39;)">.</button>
+    <button class="ck" onclick="calcKey(&#39;0&#39;)">0</button>
     <button class="ck del" onclick="calcDel()">⌫</button>
     <button class="ck eq" onclick="calcEqual()">=</button>
   </div>
-  <button class="inv-issue-btn" onclick="openCustSheet()">
-    إصدار فاتورة ←
-  </button>
+  <button class="inv-issue-btn" onclick="openCustSheet()">إصدار فاتورة ←</button>
 </div>
 
-<!-- ===== اختيار الزبون — bottom sheet ===== -->
+<!-- اختيار الزبون -->
 <div class="bs-overlay" id="bs-overlay" onclick="closeCustSheet()"></div>
 <div class="bs-wrap" id="bs-wrap">
   <div class="bs-head">
-    <div class="bs-handle" style="width:40px;height:4px;background:var(--brd);
-      border-radius:2px;margin:0 auto 12px"></div>
+    <div style="width:40px;height:4px;background:var(--brd);border-radius:2px;margin:0 auto 12px"></div>
     <div class="bs-title">لمين الفاتورة؟</div>
     <div class="bs-amount" id="bs-amount-lbl">0 ₪</div>
   </div>
   <div style="padding:10px 16px 4px;flex-shrink:0">
-    <input type="text" id="bs-search" class="fi"
-      placeholder="ابحث بالاسم أو الجوال..."
-      oninput="filterCustSheet(this.value)"
-      style="font-size:18px">
+    <input type="text" id="bs-search" class="fi" placeholder="ابحث بالاسم أو الجوال..." oninput="filterCustSheet(this.value)" style="font-size:18px">
   </div>
   <div class="bs-body" id="bs-cust-list"></div>
   <div style="padding:12px 16px 20px;flex-shrink:0">
-    <button onclick="selectCustSheet(null,'بدون اسم','')"
-      style="width:100%;padding:16px;border:1.5px dashed var(--brd);
-      border-radius:12px;background:transparent;color:var(--txt3);
-      font-size:17px;font-weight:700;cursor:pointer">
-      إصدار بدون اسم
-    </button>
+    <button onclick="selectCustSheet(null,&#39;&#39;,&#39;&#39;)" style="width:100%;padding:16px;border:1.5px dashed var(--brd);border-radius:12px;background:transparent;color:var(--txt3);font-size:17px;font-weight:700;cursor:pointer">إصدار بدون اسم</button>
   </div>
 </div>
 
-<!-- ===== spinner ===== -->
-<div id="spinner">
-  <div class="spin"></div>
-  <div class="spin-txt" id="spinner-txt">جاري التحميل...</div>
-</div>
-
+<!-- spinner -->
+<div id="spinner"><div class="spin"></div><div class="spin-txt" id="spinner-txt">جاري التحميل...</div></div>
 <script>
-const SUPA_URL ='https://ziehhwdphavnbmltxnmc.supabase.co';
+const SUPA_URL='https://ziehhwdphavnbmltxnmc.supabase.co';
 const LOGIN_URL=SUPA_URL+'/functions/v1/login-final';
-const SYNC_URL =SUPA_URL+'/functions/v1/offline-sync';
-const CUR='₪';
-let SESSION=null,prevScreen='s-home',currentCustomer=null;
-let partialAmountStr='0';
-
-// متغيرات الرئيسية
-let homeFilter='today';
-let homeSort='old-first';
-
-// متغيرات الآلة الحاسبة
-let calcStr='';
-let calcResult=0;
-
-// متغيرات الفاتورة المعلقة
-let pendingAmount=0;
-let pendingCustId=null;
-let pendingCustName='';
-let pendingIsNew=false;
-let pendingPhone='';
-
-const SUPA_URL ='https://ziehhwdphavnbmltxnmc.supabase.co';
-const LOGIN_URL=SUPA_URL+'/functions/v1/login-final';
-const SYNC_URL =SUPA_URL+'/functions/v1/offline-sync';
-const CUR='';
-let SESSION=null,prevScreen='s-home',currentCustomer=null;
-let partialAmountStr='0';
+const SYNC_URL=SUPA_URL+'/functions/v1/offline-sync';
+const CUR='\u20AA';
+let SESSION=null,prevScreen='s-home',currentCustomer=null,partialAmountStr='0';
 let homeFilter='today',homeSort='old-first';
-let calcStr='',calcResult=0;
+let calcStr='';
 let pendingAmount=0,pendingCustId=null,pendingCustName='',pendingIsNew=false,pendingPhone='';
 
-
-// ── DB ──────────────────────────────────────────────────────────
 class LocalDB{
   constructor(n){this.name=n;this.db=null}
   async open(){return new Promise((res,rej)=>{
@@ -912,8 +531,8 @@ class LocalDB{
       ['customers','transactions','sync_queue'].forEach(s=>{
         if(!d.objectStoreNames.contains(s)){
           const st=d.createObjectStore(s,{keyPath:s==='sync_queue'?'qid':'id'});
-          if(s==='sync_queue')   st.createIndex('synced','synced');
-          if(s==='customers')    st.createIndex('merchant_id','merchant_id');
+          if(s==='sync_queue') st.createIndex('synced','synced');
+          if(s==='customers') st.createIndex('merchant_id','merchant_id');
           if(s==='transactions') st.createIndex('customer_id','customer_id');
         }
       });
@@ -936,114 +555,97 @@ class LocalDB{
 }
 const db=new LocalDB('GazaDafter');
 
-// -- رقم الفاتورة
-function getNextInvNum(){
-  let n=parseInt(localStorage.getItem('gz_inv_num')||'1000');
-  n++;localStorage.setItem('gz_inv_num',n.toString());return n;
-}
+function getNextInvNum(){let n=parseInt(localStorage.getItem('gz_inv_num')||'1000');n++;localStorage.setItem('gz_inv_num',n.toString());return n}
 
-// -- Navigation
 function showScreen(id){
   const p=document.querySelector('.screen.active');
   if(p){prevScreen=p.id;p.classList.remove('active')}
   document.getElementById(id).classList.add('active');
   const fb=document.getElementById('float-back-btn');
-  const nonHome=['s-cust','s-settings','s-add'];
-  if(fb) fb.className='float-back'+(nonHome.includes(id)?' show':'');
+  if(fb) fb.className='float-back'+(['s-cust','s-settings','s-add'].includes(id)?' show':'');
 }
 function goBack(){showScreen(prevScreen)}
 function showTab(tab){
   const map={home:'s-home',customers:'s-customers',bank:'s-bank'};
   document.querySelectorAll('.bnt').forEach(b=>b.classList.remove('active'));
-  if(tab==='home')      document.querySelectorAll('.bnt')[0].classList.add('active');
+  if(tab==='home') document.querySelectorAll('.bnt')[0].classList.add('active');
   if(tab==='customers') document.querySelectorAll('.bnt')[1].classList.add('active');
-  if(tab==='bank')      document.querySelectorAll('.bnt')[2].classList.add('active');
+  if(tab==='bank') document.querySelectorAll('.bnt')[2].classList.add('active');
   showScreen(map[tab]||'s-home');
-  if(tab==='home')      loadHome();
+  if(tab==='home') loadHome();
   if(tab==='customers') loadCustomers();
 }
-function showSpinner(t='...'){document.getElementById('spinner-txt').textContent=t;document.getElementById('spinner').classList.add('show')}
+function showSpinner(t){document.getElementById('spinner-txt').textContent=t||'...';document.getElementById('spinner').classList.add('show')}
 function hideSpinner(){document.getElementById('spinner').classList.remove('show')}
 function showErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.style.display='block';setTimeout(()=>e.style.display='none',4000)}
 
-// -- Setup
 async function doSetup(){
   const owner=document.getElementById('setup-owner').value.trim();
-  const shop =document.getElementById('setup-shop').value.trim();
+  const shop=document.getElementById('setup-shop').value.trim();
   const phone=document.getElementById('setup-phone').value.trim();
-  const pin  =document.getElementById('setup-pin').value.trim();
+  const pin=document.getElementById('setup-pin').value.trim();
   const displayName=shop||owner;
-  if(!owner)       {showErr('setup-err','ادخل اسم التاجر');return}
-  if(!phone)       {showErr('setup-err','ادخل رقم الجوال');return}
-  if(pin.length<6) {showErr('setup-err','الرقم السري 6 ارقام');return}
-  showSpinner('جاري انشاء الحساب...');
+  if(!owner){showErr('setup-err','\u0627\u062f\u062e\u0644 \u0627\u0633\u0645 \u0627\u0644\u062a\u0627\u062c\u0631');return}
+  if(!phone){showErr('setup-err','\u0627\u062f\u062e\u0644 \u0631\u0642\u0645 \u0627\u0644\u062c\u0648\u0627\u0644');return}
+  if(pin.length<6){showErr('setup-err','\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0633\u0631\u064a 6 \u0623\u0631\u0642\u0627\u0645');return}
+  showSpinner('\u062c\u0627\u0631\u064a \u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u062d\u0633\u0627\u0628...');
   try{
-    const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'register',phone,name:displayName})});
+    const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'register',phone,name:displayName})});
     const d1=await r1.json();
     if(d1.error){hideSpinner();showErr('setup-err',d1.error);return}
-    const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'set_pin',merchant_id:d1.merchant_id,pin})});
+    const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'set_pin',merchant_id:d1.merchant_id,pin})});
     const d2=await r2.json();
     if(d2.error){hideSpinner();showErr('setup-err',d2.error);return}
-    localStorage.setItem('gz_phone',phone);
-    localStorage.setItem('gz_shop',displayName);
-    localStorage.setItem('gz_owner',owner);
-    hideSpinner();
-    await doLoginWithCredentials(phone,pin);
-  }catch(e){hideSpinner();showErr('setup-err','لا يوجد اتصال')}
+    localStorage.setItem('gz_phone',phone);localStorage.setItem('gz_shop',displayName);localStorage.setItem('gz_owner',owner);
+    hideSpinner();await doLoginWithCredentials(phone,pin);
+  }catch(e){hideSpinner();showErr('setup-err','\u0644\u0627 \u064a\u0648\u062c\u062f \u0627\u062a\u0635\u0627\u0644')}
 }
 
-// -- Login
 async function doLogin(){
   const pin=document.getElementById('login-pin').value.trim();
   const phone=localStorage.getItem('gz_phone')||'';
   if(!phone){showScreen('s-setup');return}
-  if(pin.length<4){showErr('login-err','ادخل الرقم السري');return}
+  if(pin.length<4){showErr('login-err','\u0627\u062f\u062e\u0644 \u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0633\u0631\u064a');return}
   const btn=document.getElementById('login-btn');
-  btn.textContent='جاري الدخول...';btn.disabled=true;
+  btn.textContent='\u062c\u0627\u0631\u064a...';btn.disabled=true;
   await doLoginWithCredentials(phone,pin);
-  btn.textContent='دخول';btn.disabled=false;
+  btn.textContent='\u062f\u062e\u0648\u0644';btn.disabled=false;
 }
 
 async function doLoginWithCredentials(phone,pin){
   try{
     const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',phone,pin})});
     const d=await res.json();
-    if(!d.ok){showErr('login-err',d.error||'الرقم السري غير صحيح');return}
-    SESSION={...d,phone};
-    localStorage.setItem('gz_session',JSON.stringify(SESSION));
+    if(!d.ok){showErr('login-err',d.error||'\u0627\u0644\u0631\u0642\u0645 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d');return}
+    SESSION={...d,phone};localStorage.setItem('gz_session',JSON.stringify(SESSION));
     document.getElementById('login-pin').value='';
-    const shop=localStorage.getItem('gz_shop')||'';
-    document.getElementById('home-shop-name').textContent=shop||'دفتر الدين';
-    showTab('home');
-    if(navigator.onLine) pullFromServer();
+    document.getElementById('home-shop-name').textContent=localStorage.getItem('gz_shop')||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';
+    showTab('home');if(navigator.onLine) pullFromServer();
   }catch(e){
     const c=localStorage.getItem('gz_session');
-    if(c){SESSION=JSON.parse(c);const shop=localStorage.getItem('gz_shop')||'';document.getElementById('home-shop-name').textContent=shop||'دفتر الدين';showTab('home');}
-    else{showErr('login-err','لا يوجد اتصال')}
+    if(c){SESSION=JSON.parse(c);document.getElementById('home-shop-name').textContent=localStorage.getItem('gz_shop')||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';showTab('home');}
+    else showErr('login-err','\u0644\u0627 \u064a\u0648\u062c\u062f \u0627\u062a\u0635\u0627\u0644');
   }
 }
 
-const DEV_PHONE='0599123456',DEV_PIN='000000',DEV_SHOP='مطور';
+const DEV_PHONE='0599123456',DEV_PIN='000000',DEV_SHOP='\u0645\u0637\u0648\u0631';
 async function devLogin(){
-  showSpinner('جاري الدخول...');
+  showSpinner('...');
   try{
     const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',phone:DEV_PHONE,pin:DEV_PIN})});
     const d=await res.json();
     if(d.ok){SESSION={...d,phone:DEV_PHONE};localStorage.setItem('gz_session',JSON.stringify(SESSION));localStorage.setItem('gz_shop',DEV_SHOP);localStorage.setItem('gz_phone',DEV_PHONE);document.getElementById('home-shop-name').textContent=DEV_SHOP;hideSpinner();showTab('home');}
-    else{hideSpinner();alert('خطأ: '+(d.error||'غير معروف'));}
-  }catch(e){hideSpinner();alert('لا يوجد اتصال');}
+    else{hideSpinner();alert(d.error||'\u062e\u0637\u0623');}
+  }catch(e){hideSpinner();alert('\u0644\u0627 \u064a\u0648\u062c\u062f \u0627\u062a\u0635\u0627\u0644');}
 }
 
-// -- Sync
 async function pullFromServer(){
   if(!SESSION||!navigator.onLine) return;
   try{
     const res=await fetch(SYNC_URL+'?tok='+encodeURIComponent(SESSION.token));
     const d=await res.json();
     if(!d.ok) return;
-    if(d.customers?.length)    for(const c of d.customers)    await db.put('customers',c);
+    if(d.customers?.length) for(const c of d.customers) await db.put('customers',c);
     if(d.transactions?.length) for(const t of d.transactions) await db.put('transactions',t);
     await loadHome();updateStatusBar();
   }catch(e){}
@@ -1065,33 +667,25 @@ async function doSync(){
 async function addToQueue(type,data){return db.add('sync_queue',{type,data,created_at:new Date().toISOString(),synced:0})}
 
 async function updateStatusBar(state){
-  const bar=document.getElementById('status-bar');
-  const txt=document.getElementById('status-txt');
+  const bar=document.getElementById('status-bar'),txt=document.getElementById('status-txt');
   if(!bar) return;
   const pending=await db.getPendingSync();
-  if(state==='syncing'){bar.className='status-bar bar-pending';txt.textContent='جاري المزامنة...';return}
+  if(state==='syncing'){bar.className='status-bar bar-pending';txt.textContent='\u062c\u0627\u0631\u064a \u0627\u0644\u0645\u0632\u0627\u0645\u0646\u0629...';return}
   if(!navigator.onLine){
     bar.className='status-bar bar-offline';
-    txt.textContent=pending.length>0?`غير متصل - ${pending.length} تغيير معلق`:'غير متصل - محفوظ محليا';
+    txt.textContent=pending.length>0?'\u063a\u064a\u0631 \u0645\u062a\u0635\u0644 \u2014 '+pending.length+' \u062a\u063a\u064a\u064a\u0631 \u0645\u0639\u0644\u0642':'\u063a\u064a\u0631 \u0645\u062a\u0635\u0644 \u2014 \u0645\u062d\u0641\u0648\u0638 \u0645\u062d\u0644\u064a\u0627\u064b';
     return;
   }
-  if(pending.length>0){bar.className='status-bar bar-pending';txt.textContent=`متصل - ${pending.length} تغيير لم يزامن`}
+  if(pending.length>0){bar.className='status-bar bar-pending';txt.textContent='\u0645\u062a\u0635\u0644 \u2014 '+pending.length+' \u062a\u063a\u064a\u064a\u0631 \u0644\u0645 \u064a\u064f\u0632\u0627\u0645\u0646';}
   else{
     const last=localStorage.getItem('gz_last_sync');
-    let timeStr='';
-    if(last){
-      const diff=Math.floor((Date.now()-parseInt(last))/1000);
-      if(diff<60) timeStr='منذ اقل من دقيقة';
-      else if(diff<3600) timeStr=`منذ ${Math.floor(diff/60)} دقيقة`;
-      else if(diff<86400) timeStr=`منذ ${Math.floor(diff/3600)} ساعة`;
-      else timeStr=`منذ ${Math.floor(diff/86400)} يوم`;
-    }
+    let ts='';
+    if(last){const d=Math.floor((Date.now()-parseInt(last))/1000);if(d<60)ts='\u0623\u0642\u0644 \u0645\u0646 \u062f\u0642\u064a\u0642\u0629';else if(d<3600)ts=Math.floor(d/60)+' \u062f\u0642\u064a\u0642\u0629';else if(d<86400)ts=Math.floor(d/3600)+' \u0633\u0627\u0639\u0629';}
     bar.className='status-bar bar-online';
-    txt.textContent=timeStr?`متصل - اخر مزامنة ${timeStr}`:' متصل - البيانات محدثة';
+    txt.textContent=ts?'\u0645\u062a\u0635\u0644 \u2014 \u0622\u062e\u0631 \u0645\u0632\u0627\u0645\u0646\u0629 \u0645\u0646\u0630 '+ts:'\u0645\u062a\u0635\u0644 \u2014 \u0645\u062d\u062f\u062b \u2713';
   }
 }
 
-// -- فلتر وفرز الرئيسية
 function setHomeFilter(f){
   homeFilter=f;
   ['today','old','all'].forEach(k=>{const b=document.getElementById('filter-'+k);if(b)b.className='filter-btn'+(k===f?' active':'');});
@@ -1103,117 +697,87 @@ function setHomeSort(s){
   loadHome();
 }
 
-// -- Home
 async function loadHome(){
   if(!SESSION) return;
-  const logoBtn=document.getElementById('home-shop-logo');
-  if(logoBtn&&SESSION?.store_logo) logoBtn.textContent=SESSION.store_logo;
-  const custs=await db.getAll('customers');
-  const txs  =await db.getAll('transactions');
-  const mine =custs.filter(c=>c.merchant_id===SESSION.merchant_id);
-  const txm  =txs.filter(t=>t.merchant_id===SESSION.merchant_id);
+  const custs=await db.getAll('customers'),txs=await db.getAll('transactions');
+  const mine=custs.filter(c=>c.merchant_id===SESSION.merchant_id);
+  const txm=txs.filter(t=>t.merchant_id===SESSION.merchant_id);
   const bal={},oldest={},invNums={};
   txm.forEach(t=>{
     if(!bal[t.customer_id]) bal[t.customer_id]=0;
     const d=new Date(t.created_at);
-    if(t.status==='غير مدفوع'||t.status==='مدفوع جزئيا'){
-      const amt=t.status==='مدفوع جزئيا'?(t.remaining||t.amount):t.amount;
-      bal[t.customer_id]+=amt;
+    const unpaid=t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639',partial=t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b';
+    if(unpaid||partial){
+      bal[t.customer_id]+=(partial?(t.remaining||t.amount):t.amount);
       if(!oldest[t.customer_id]||d<oldest[t.customer_id]) oldest[t.customer_id]=d;
       if(!invNums[t.customer_id]&&t.inv_num) invNums[t.customer_id]=t.inv_num;
     }
   });
-  const today=new Date().toDateString();
+  const todayStr=new Date().toDateString();
   let debtors=mine.filter(c=>(bal[c.id]||0)>0);
-  if(homeFilter==='today') debtors=debtors.filter(c=>oldest[c.id]&&new Date(oldest[c.id]).toDateString()===today);
-  else if(homeFilter==='old') debtors=debtors.filter(c=>oldest[c.id]&&new Date(oldest[c.id]).toDateString()!==today);
+  if(homeFilter==='today') debtors=debtors.filter(c=>oldest[c.id]&&new Date(oldest[c.id]).toDateString()===todayStr);
+  else if(homeFilter==='old') debtors=debtors.filter(c=>oldest[c.id]&&new Date(oldest[c.id]).toDateString()!==todayStr);
   const now=Date.now();
-  if(homeSort==='old-first') debtors.sort((a,b)=>(oldest[a.id]||new Date())-(oldest[b.id]||new Date()));
-  else if(homeSort==='new-first') debtors.sort((a,b)=>(oldest[b.id]||new Date())-(oldest[a.id]||new Date()));
+  if(homeSort==='old-first') debtors.sort((a,b)=>(oldest[a.id]||0)-(oldest[b.id]||0));
+  else if(homeSort==='new-first') debtors.sort((a,b)=>(oldest[b.id]||0)-(oldest[a.id]||0));
   else if(homeSort==='high-first') debtors.sort((a,b)=>(bal[b.id]||0)-(bal[a.id]||0));
-  else if(homeSort==='low-first') debtors.sort((a,b)=>(bal[a.id]||0)-(bal[b.id]||0));
+  else debtors.sort((a,b)=>(bal[a.id]||0)-(bal[b.id]||0));
   const totalAll=mine.filter(c=>(bal[c.id]||0)>0).reduce((s,c)=>s+(bal[c.id]||0),0);
   const countAll=mine.filter(c=>(bal[c.id]||0)>0).length;
   document.getElementById('home-total').textContent=totalAll.toFixed(0)+' '+CUR;
   document.getElementById('home-count').textContent=countAll;
   const list=document.getElementById('home-list');
-  if(!debtors.length){list.innerHTML='<div class="empty"><div class="icon">smiley</div><p>ما في ديون معلقة<br>اضغط calculator لاضافة فاتورة</p></div>';updateStatusBar();return}
+  if(!debtors.length){
+    list.innerHTML='<div class="empty"><div class="icon">\uD83D\uDE0A</div><p>\u0645\u0627 \u0641\u064a \u062f\u064a\u0648\u0646 \u0645\u0639\u0644\u0642\u0629<br>\u0627\u0636\u063a\u0637 \uD83E\uDDEE \u0644\u0625\u0636\u0627\u0641\u0629 \u0641\u0627\u062a\u0648\u0631\u0629</p></div>';
+    updateStatusBar();return;
+  }
   list.innerHTML=debtors.map(c=>{
     const b=bal[c.id]||0,o=oldest[c.id];
     const days=o?Math.floor((now-o)/86400000):0;
     const cls=days>7?'debt-item old':days>3?'debt-item week':'debt-item';
-    const dl=days===0?'اليوم':days===1?'امس':`منذ ${days} يوم`;
-    const invNum=invNums[c.id]||'--';
-    return `<div class="${cls}">
-      <div class="debt-amount-wrap" onclick="openCustomer('${c.id}')">
-        <div class="debt-amount">${b.toFixed(0)} ${CUR}</div>
-        <div class="debt-days">${dl}</div>
-      </div>
-      <div class="debt-info" onclick="openCustomer('${c.id}')">
-        <div class="debt-name">${c.name}</div>
-        <div class="debt-meta">${c.phone||'بدون جوال'}</div>
-      </div>
-      <div class="debt-avatar" onclick="openCustomer('${c.id}')">${invNum}</div>
-    </div>`;
+    const dl=days===0?'\u0627\u0644\u064a\u0648\u0645':days===1?'\u0623\u0645\u0633':'\u0645\u0646\u0630 '+days+' \u064a\u0648\u0645';
+    const inv=invNums[c.id]||'\u2014';
+    return '<div class="'+cls+'"><div class="debt-amount-wrap" onclick="openCustomer(\''+c.id+'\')"><div class="debt-amount">'+b.toFixed(0)+' '+CUR+'</div><div class="debt-days">'+dl+'</div></div><div class="debt-info" onclick="openCustomer(\''+c.id+'\')"><div class="debt-name">'+c.name+'</div><div class="debt-meta">'+(c.phone||'\u0628\u062f\u0648\u0646 \u062c\u0648\u0627\u0644')+'</div></div><div class="debt-avatar" onclick="openCustomer(\''+c.id+'\')">'+inv+'</div></div>';
   }).join('');
   updateStatusBar();
 }
 
-// -- Customers
-async function loadCustomers(q=''){
-  const all=await db.getAll('customers');
-  const txAll=await db.getAll('transactions');
+async function loadCustomers(q){
+  q=q||'';
+  const all=await db.getAll('customers'),txAll=await db.getAll('transactions');
   const mine=all.filter(c=>c.merchant_id===SESSION.merchant_id);
   const txm=txAll.filter(t=>t.merchant_id===SESSION.merchant_id);
   const bal={};
-  txm.forEach(t=>{if(!bal[t.customer_id])bal[t.customer_id]=0;if(t.status==='غير مدفوع')bal[t.customer_id]+=t.amount;else if(t.status==='مدفوع جزئيا')bal[t.customer_id]+=(t.remaining||t.amount);});
+  txm.forEach(t=>{if(!bal[t.customer_id])bal[t.customer_id]=0;if(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639')bal[t.customer_id]+=t.amount;else if(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b')bal[t.customer_id]+=(t.remaining||t.amount);});
   const filtered=mine.filter(c=>!q||c.name.includes(q)||(c.phone||'').includes(q)).sort((a,b)=>(bal[b.id]||0)-(bal[a.id]||0));
   const list=document.getElementById('customers-list');
-  if(!filtered.length){list.innerHTML='<div class="empty"><div class="icon">group</div><p>ما في زبائن بعد</p></div>';return}
+  if(!filtered.length){list.innerHTML='<div class="empty"><div class="icon">\uD83D\uDC65</div><p>\u0645\u0627 \u0641\u064a \u0632\u0628\u0627\u0626\u0646 \u0628\u0639\u062f</p></div>';return}
   list.innerHTML=filtered.map(c=>{
-    const b=bal[c.id]||0;const bc=b>0?'var(--red)':'var(--grn)';const bt=b>0?`${b.toFixed(0)} ${CUR}`:'مسوى';
-    return `<div class="debt-item" onclick="openCustomer('${c.id}')">
-      <div class="debt-amount-wrap"><div class="debt-amount" style="color:${bc}">${bt}</div></div>
-      <div class="debt-info"><div class="debt-name">${c.name}</div><div class="debt-meta">${c.phone||'بدون جوال'}</div></div>
-      <div class="debt-avatar">${(c.name||'?').charAt(0)}</div>
-    </div>`;
+    const b=bal[c.id]||0,bc=b>0?'var(--red)':'var(--grn)',bt=b>0?b.toFixed(0)+' '+CUR:'\u0645\u0633\u0648\u0651\u0649 \u2713';
+    return '<div class="debt-item" onclick="openCustomer(\''+c.id+'\')"><div class="debt-amount-wrap"><div class="debt-amount" style="color:'+bc+'">'+bt+'</div></div><div class="debt-info"><div class="debt-name">'+c.name+'</div><div class="debt-meta">'+(c.phone||'\u0628\u062f\u0648\u0646 \u062c\u0648\u0627\u0644')+'</div></div><div class="debt-avatar">'+(c.name||'?').charAt(0)+'</div></div>';
   }).join('');
 }
 function filterCustomers(q){loadCustomers(q)}
 
-// -- الالة الحاسبة
 function openCalc(){calcStr='';renderCalc();document.getElementById('calc-sheet').classList.add('open');document.getElementById('calc-overlay').classList.add('show')}
 function closeCalc(){document.getElementById('calc-sheet').classList.remove('open');document.getElementById('calc-overlay').classList.remove('show')}
-function calcKey(k){calcStr+=k;renderCalc()}
+function calcKey(k){if(k==='C'){calcStr='';}else{calcStr+=k;}renderCalc()}
 function calcDel(){calcStr=calcStr.slice(0,-1);renderCalc()}
-function calcEqual(){
-  try{
-    const safe=calcStr.replace(/x/g,'*').replace(/div/g,'/').replace(/minus/g,'-');
-    const result=Function('"use strict";return ('+safe+')')();
-    if(!isNaN(result)&&isFinite(result)){calcResult=parseFloat(result.toFixed(2));calcStr=calcResult.toString();}
-  }catch(e){}
-  renderCalc();
-}
+function calcEqual(){try{const r=Function('"use strict";return ('+calcStr+')')();if(!isNaN(r)&&isFinite(r)){calcStr=parseFloat(r.toFixed(2)).toString();}}catch(e){}renderCalc()}
 function renderCalc(){
-  const numEl=document.getElementById('calc-num');
-  const exprEl=document.getElementById('calc-expr');
-  if(!numEl) return;
-  try{
-    const safe=calcStr.replace(/x/g,'*').replace(/div/g,'/').replace(/minus/g,'-');
-    const result=Function('"use strict";return ('+safe+')')();
-    numEl.textContent=(!isNaN(result)&&isFinite(result))?parseFloat(result.toFixed(2)).toString():(calcStr||'0');
-  }catch(e){numEl.textContent=calcStr||'0'}
-  if(exprEl) exprEl.textContent=calcStr||'--';
+  const ne=document.getElementById('calc-num'),ee=document.getElementById('calc-expr');
+  if(!ne) return;
+  try{const r=Function('"use strict";return ('+calcStr+')')();ne.textContent=(!isNaN(r)&&isFinite(r)&&calcStr)?parseFloat(r.toFixed(2)).toString():(calcStr||'0');}
+  catch(e){ne.textContent=calcStr||'0';}
+  if(ee) ee.textContent=calcStr||'\u2014';
 }
 
-// -- اختيار الزبون
 async function openCustSheet(){
   let amount=0;
-  try{const safe=calcStr.replace(/x/g,'*').replace(/div/g,'/').replace(/minus/g,'-');amount=parseFloat(Function('"use strict";return ('+safe+')')().toFixed(2));}catch(e){}
-  if(!amount||amount<=0){alert('ادخل مبلغا صحيحا اولا');return}
+  try{amount=parseFloat(Function('"use strict";return ('+calcStr+')')().toFixed(2));}catch(e){}
+  if(!amount||amount<=0){alert('\u0627\u062f\u062e\u0644 \u0645\u0628\u0644\u063a\u0627\u064b \u0635\u062d\u064a\u062d\u0627\u064b \u0623\u0648\u0644\u0627\u064b');return}
   pendingAmount=amount;
-  const amountEl=document.getElementById('bs-amount-lbl');
-  if(amountEl) amountEl.textContent=amount.toFixed(0)+' '+CUR;
+  document.getElementById('bs-amount-lbl').textContent=amount.toFixed(0)+' '+CUR;
   await loadCustSheetList('');
   document.getElementById('bs-search').value='';
   closeCalc();
@@ -1224,37 +788,32 @@ function closeCustSheet(){document.getElementById('bs-wrap').classList.remove('o
 
 async function loadCustSheetList(q){
   if(!SESSION) return;
-  const all=await db.getAll('customers');
-  const txAll=await db.getAll('transactions');
+  const all=await db.getAll('customers'),txAll=await db.getAll('transactions');
   const mine=all.filter(c=>c.merchant_id===SESSION.merchant_id);
   const txm=txAll.filter(t=>t.merchant_id===SESSION.merchant_id);
   const bal={};
-  txm.forEach(t=>{if(!bal[t.customer_id])bal[t.customer_id]=0;if(t.status==='غير مدفوع')bal[t.customer_id]+=t.amount;else if(t.status==='مدفوع جزئيا')bal[t.customer_id]+=(t.remaining||t.amount);});
+  txm.forEach(t=>{if(!bal[t.customer_id])bal[t.customer_id]=0;if(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639')bal[t.customer_id]+=t.amount;else if(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b')bal[t.customer_id]+=(t.remaining||t.amount);});
   const filtered=mine.filter(c=>!q||c.name.includes(q)||(c.phone||'').includes(q)).sort((a,b)=>(bal[b.id]||0)-(bal[a.id]||0));
   const list=document.getElementById('bs-cust-list');
   let html=filtered.map(c=>{
-    const b=bal[c.id]||0;
-    return `<div class="bs-cust-item" onclick="selectCustSheet('${c.id}','${c.name.replace(/'/g,"\\'")}','${c.phone||''}')">
-      <div><div class="bs-cust-name">${c.name}</div><div style="font-size:14px;color:var(--txt3)">${c.phone||'بدون جوال'}</div></div>
-      ${b>0?`<div class="bs-cust-bal">${b.toFixed(0)} ${CUR}</div>`:'<div style="color:var(--grn);font-size:14px;font-weight:700">مسوى</div>'}
-    </div>`;
+    const b=bal[c.id]||0,n=c.name.replace(/'/g,"\\'"),p=c.phone||'';
+    return '<div class="bs-cust-item" onclick="selectCustSheet(\''+c.id+'\',\''+n+'\',\''+p+'\')"><div><div class="bs-cust-name">'+c.name+'</div><div style="font-size:14px;color:var(--txt3)">'+(c.phone||'\u0628\u062f\u0648\u0646 \u062c\u0648\u0627\u0644')+'</div></div>'+(b>0?'<div class="bs-cust-bal">'+b.toFixed(0)+' '+CUR+'</div>':'<div style="color:var(--grn);font-size:14px;font-weight:700">\u0645\u0633\u0648\u0651\u0649</div>')+'</div>';
   }).join('');
-  if(q){html+=`<div class="bs-cust-item" onclick="selectCustSheet(null,'${q}','')" style="border-color:rgba(96,165,250,.4);background:rgba(96,165,250,.08)"><div class="bs-cust-name" style="color:var(--pri)">+ اضافة زبون جديد: "${q}"</div></div>`;}
-  if(!filtered.length&&!q) html='<div style="text-align:center;padding:20px;color:var(--txt3)">ابحث عن زبون او اضغط بدون اسم</div>';
+  if(q) html+='<div class="bs-cust-item" onclick="selectCustSheet(null,\''+q.replace(/'/g,"\\'")+'','')" style="border-color:rgba(96,165,250,.4);background:rgba(96,165,250,.08)"><div class="bs-cust-name" style="color:var(--pri)">+ \u0625\u0636\u0627\u0641\u0629 &quot;'+q+'&quot; \u0643\u0632\u0628\u0648\u0646 \u062c\u062f\u064a\u062f</div></div>';
+  if(!filtered.length&&!q) html='<div style="text-align:center;padding:20px;color:var(--txt3)">\u0627\u0628\u062d\u062b \u0623\u0648 \u0627\u0636\u063a\u0637 \u0628\u062f\u0648\u0646 \u0627\u0633\u0645</div>';
   list.innerHTML=html;
 }
 function filterCustSheet(q){loadCustSheetList(q)}
 
 function selectCustSheet(id,name,phone){
-  pendingCustId=id;pendingCustName=name;pendingPhone=phone;pendingIsNew=!id;
+  pendingCustId=id;pendingCustName=name||'';pendingPhone=phone||'';pendingIsNew=!id;
   closeCustSheet();openAddScreen();
 }
 
-// -- شاشة الفاتورة
 async function openAddScreen(){
   const invNum=getNextInvNum();
   document.getElementById('add-inv-num').textContent='#'+invNum;
-  document.getElementById('add-cust-display').textContent=pendingCustName||'بدون اسم';
+  document.getElementById('add-cust-display').textContent=pendingCustName||'\u0628\u062f\u0648\u0646 \u0627\u0633\u0645';
   document.getElementById('add-amount-display').textContent=pendingAmount.toFixed(0)+' '+CUR;
   document.getElementById('add-desc').value='';
   document.getElementById('add-err').style.display='none';
@@ -1265,291 +824,256 @@ async function openAddScreen(){
 
 function addDebtForCust(){
   if(!currentCustomer) return;
-  pendingCustId=currentCustomer.id;pendingCustName=currentCustomer.name;
-  pendingPhone=currentCustomer.phone||'';pendingIsNew=false;pendingAmount=0;
+  pendingCustId=currentCustomer.id;pendingCustName=currentCustomer.name;pendingPhone=currentCustomer.phone||'';pendingIsNew=false;pendingAmount=0;
   calcStr='';renderCalc();openCalc();
 }
 
-// -- البيانات الذكية
 async function getTopDescs(){
   if(!SESSION) return[];
   const txAll=await db.getAll('transactions');
-  const mine=txAll.filter(t=>t.merchant_id===SESSION.merchant_id&&t.description);
   const counts={};
-  mine.forEach(t=>{const d=t.description;if(d&&d!=='دين'&&d!=='سداد كامل'&&d!=='دفع جزئي'){counts[d]=(counts[d]||0)+1;}});
+  txAll.filter(t=>t.merchant_id===SESSION.merchant_id&&t.description).forEach(t=>{
+    const d=t.description;
+    if(d&&d!=='\u062f\u064a\u0646'&&d!=='\u0633\u062f\u0627\u062f \u0643\u0627\u0645\u0644'&&d!=='\u062f\u0641\u0639 \u062c\u0632\u0626\u064a') counts[d]=(counts[d]||0)+1;
+  });
   return Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6).map(e=>e[0]);
 }
 async function loadDescSuggestions(q){
-  const container=document.getElementById('desc-chips-container');
-  if(!container) return;
+  const c=document.getElementById('desc-chips-container');if(!c) return;
   const top=await getTopDescs();
   const filtered=q?top.filter(d=>d.includes(q)):top;
-  if(!filtered.length){container.style.display='none';return}
-  container.style.display='flex';
-  container.innerHTML=filtered.map(d=>`<button class="desc-chip" onclick="setDescChip('${d.replace(/'/g,"\\'")}')"> ${d}</button>`).join('');
+  if(!filtered.length){c.style.display='none';return}
+  c.style.display='flex';
+  c.innerHTML=filtered.map(d=>'<button class="desc-chip" onclick="setDescChip(\''+d.replace(/'/g,"\\'")+'\'">'+d+'</button>').join('');
 }
-function setDescChip(t){document.getElementById('add-desc').value=t;document.getElementById('desc-chips-container').style.display='none';}
+function setDescChip(t){document.getElementById('add-desc').value=t;document.getElementById('desc-chips-container').style.display='none'}
 async function onDescInput(q){await loadDescSuggestions(q)}
 async function showDescSuggestions(){await loadDescSuggestions(document.getElementById('add-desc').value)}
 
-// -- حفظ الفاتورة
 async function saveDebt(){
-  const amount=pendingAmount;
-  const desc=document.getElementById('add-desc').value.trim()||'دين';
-  const invNum=window._pendingInvNum||getNextInvNum();
-  if(!amount||amount<=0){showErr('add-err','المبلغ غير صحيح');return}
-  showSpinner('جاري الحفظ...');
+  const amount=pendingAmount,desc=document.getElementById('add-desc').value.trim()||'\u062f\u064a\u0646',invNum=window._pendingInvNum||getNextInvNum();
+  if(!amount||amount<=0){showErr('add-err','\u0627\u0644\u0645\u0628\u0644\u063a \u063a\u064a\u0631 \u0635\u062d\u064a\u062d');return}
+  showSpinner('\u062c\u0627\u0631\u064a \u0627\u0644\u062d\u0641\u0638...');
   const now=new Date().toISOString();
   let custId=pendingCustId;
   if(!custId){
     custId=crypto.randomUUID();
-    const name=pendingCustName||'زبون #'+invNum;
+    const name=pendingCustName||'\u0632\u0628\u0648\u0646 #'+invNum;
     await db.put('customers',{id:custId,merchant_id:SESSION.merchant_id,name,phone:pendingPhone,created_at:now});
     await addToQueue('add_customer',{local_id:custId,name,phone:pendingPhone,created_at:now});
   }
   const txId=crypto.randomUUID();
-  await db.put('transactions',{id:txId,merchant_id:SESSION.merchant_id,customer_id:custId,amount,description:desc,status:'غير مدفوع',inv_num:invNum,created_at:now});
-  await addToQueue('add_tx',{local_id:txId,customer_id:custId,amount,description:desc,status:'غير مدفوع',inv_num:invNum,created_at:now});
+  await db.put('transactions',{id:txId,merchant_id:SESSION.merchant_id,customer_id:custId,amount,description:desc,status:'\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639',inv_num:invNum,created_at:now});
+  await addToQueue('add_tx',{local_id:txId,customer_id:custId,amount,description:desc,status:'\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639',inv_num:invNum,created_at:now});
   calcStr='';renderCalc();
-  hideSpinner();
-  if(navigator.onLine) doSync();
+  hideSpinner();if(navigator.onLine) doSync();
   await openCustomer(custId);
 }
 
-// -- Customer Detail
 async function openCustomer(id){
-  const all=await db.getAll('customers');
-  const txAll=await db.getAll('transactions');
-  const cust=all.find(c=>c.id===id);
-  if(!cust) return;
+  const all=await db.getAll('customers'),txAll=await db.getAll('transactions');
+  const cust=all.find(c=>c.id===id);if(!cust) return;
   currentCustomer=cust;
   const txList=txAll.filter(t=>t.customer_id===id).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
   let balance=0;
-  txList.forEach(t=>{if(t.status==='غير مدفوع')balance+=t.amount;else if(t.status==='مدفوع جزئيا')balance+=(t.remaining||t.amount);});
+  txList.forEach(t=>{if(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639')balance+=t.amount;else if(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b')balance+=(t.remaining||t.amount);});
   document.getElementById('cust-title').textContent=cust.name;
   document.getElementById('cust-name-big').textContent=cust.name;
-  document.getElementById('cust-phone-lbl').textContent=cust.phone||'بدون رقم جوال';
+  document.getElementById('cust-phone-lbl').textContent=cust.phone||'\u0628\u062f\u0648\u0646 \u0631\u0642\u0645 \u062c\u0648\u0627\u0644';
   const balEl=document.getElementById('cust-balance');
   balEl.style.color=balance>0?'var(--red)':'var(--grn)';
-  balEl.textContent=balance>0?balance.toFixed(0)+' '+CUR:'مسوى';
+  balEl.textContent=balance>0?balance.toFixed(0)+' '+CUR:'\u0645\u0633\u0648\u0651\u0649 \u2713';
   document.querySelector('.cust-actions').style.display=balance>0?'flex':'none';
   const el=document.getElementById('cust-tx-list');
-  if(!txList.length){el.innerHTML='<div class="empty"><div class="icon">clipboard</div><p>لا توجد معاملات</p></div>';showScreen('s-cust');return}
+  if(!txList.length){el.innerHTML='<div class="empty"><div class="icon">\uD83D\uDCCB</div><p>\u0644\u0627 \u062a\u0648\u062c\u062f \u0645\u0639\u0627\u0645\u0644\u0627\u062a</p></div>';showScreen('s-cust');return}
   el.innerHTML=txList.map(t=>{
-    const d=new Date(t.created_at);
-    const ds=d.toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'});
+    const d=new Date(t.created_at),ds=d.toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'});
     const isPay=t.type==='payment';
-    const icon=t.status==='مدفوع'?'check':t.status==='مدفوع جزئيا'?'partial':'red';
-    const invBadge=t.inv_num?`<span style="font-size:12px;color:var(--pri);margin-right:6px">#${t.inv_num}</span>`:'';
-    return `<div class="tx-item">
-      <div class="tx-left">
-        <div class="tx-desc">${invBadge}${t.description||'دين'}</div>
-        <div class="tx-date">${ds}</div>
-        ${t.status==='مدفوع جزئيا'&&t.remaining?`<div style="font-size:14px;color:var(--yel);margin-top:3px">متبقي: ${t.remaining.toFixed(0)} ${CUR}</div>`:''}
-      </div>
-      <div class="tx-amt ${isPay?'tx-pay':'tx-debt'}">${isPay?'-':'+'} ${t.amount.toFixed(0)} ${CUR}</div>
-    </div>`;
+    const icon=t.status==='\u0645\u062f\u0641\u0648\u0639'?'\u2705':t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'?'\u26A1':'\uD83D\uDD34';
+    const inv=t.inv_num?'<span style="font-size:12px;color:var(--pri);margin-right:6px">#'+t.inv_num+'</span>':'';
+    return '<div class="tx-item"><div class="tx-left"><div class="tx-desc">'+icon+' '+inv+(t.description||'\u062f\u064a\u0646')+'</div><div class="tx-date">'+ds+'</div>'+(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'&&t.remaining?'<div style="font-size:14px;color:var(--yel);margin-top:3px">\u0645\u062a\u0628\u0642\u064a: '+t.remaining.toFixed(0)+' '+CUR+'</div>':'')+'</div><div class="tx-amt '+(isPay?'tx-pay':'tx-debt')+'">'+  (isPay?'-':'+')+' '+t.amount.toFixed(0)+' '+CUR+'</div></div>';
   }).join('');
   showScreen('s-cust');
 }
 
-// -- Pay Full
 async function payFull(){
   if(!currentCustomer) return;
   const txAll=await db.getAll('transactions');
-  const pending=txAll.filter(t=>t.customer_id===currentCustomer.id&&(t.status==='غير مدفوع'||t.status==='مدفوع جزئيا'));
-  if(!pending.length){alert('لا توجد ديون معلقة');return}
-  const total=pending.reduce((s,t)=>s+(t.status==='مدفوع جزئيا'?(t.remaining||t.amount):t.amount),0);
-  if(!confirm(`تاكيد استلام ${total.toFixed(0)} ${CUR} من ${currentCustomer.name}?`)) return;
-  showSpinner('جاري التسجيل...');
+  const pending=txAll.filter(t=>t.customer_id===currentCustomer.id&&(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'));
+  if(!pending.length){alert('\u0644\u0627 \u062a\u0648\u062c\u062f \u062f\u064a\u0648\u0646 \u0645\u0639\u0644\u0642\u0629');return}
+  const total=pending.reduce((s,t)=>s+(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'?(t.remaining||t.amount):t.amount),0);
+  if(!confirm('\u062a\u0623\u0643\u064a\u062f \u0627\u0633\u062a\u0644\u0627\u0645 '+total.toFixed(0)+' '+CUR+' \u0645\u0646 '+currentCustomer.name+'?')) return;
+  showSpinner('\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u0633\u062c\u064a\u0644...');
   const now=new Date().toISOString();
-  for(const t of pending){await db.put('transactions',{...t,status:'مدفوع',paid_at:now});await addToQueue('update_tx',{id:t.id,status:'مدفوع',paid_at:now});}
+  for(const t of pending){await db.put('transactions',{...t,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});await addToQueue('update_tx',{id:t.id,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});}
   const pid=crypto.randomUUID();
-  await db.put('transactions',{id:pid,merchant_id:SESSION.merchant_id,customer_id:currentCustomer.id,amount:total,description:'سداد كامل',status:'مدفوع',type:'payment',created_at:now});
-  await addToQueue('add_tx',{local_id:pid,customer_id:currentCustomer.id,amount:total,description:'سداد كامل',status:'مدفوع',type:'payment',created_at:now});
+  await db.put('transactions',{id:pid,merchant_id:SESSION.merchant_id,customer_id:currentCustomer.id,amount:total,description:'\u0633\u062f\u0627\u062f \u0643\u0627\u0645\u0644',status:'\u0645\u062f\u0641\u0648\u0639',type:'payment',created_at:now});
+  await addToQueue('add_tx',{local_id:pid,customer_id:currentCustomer.id,amount:total,description:'\u0633\u062f\u0627\u062f \u0643\u0627\u0645\u0644',status:'\u0645\u062f\u0641\u0648\u0639',type:'payment',created_at:now});
   hideSpinner();if(navigator.onLine)doSync();sendThanks(total);await openCustomer(currentCustomer.id);
 }
 
-// -- Partial Pay
 function openPartialPay(){partialAmountStr='0';document.getElementById('partial-display').textContent='0';document.getElementById('m-partial').classList.add('open')}
 function partialKey(k){if(k==='.'&&partialAmountStr.includes('.'))return;if(partialAmountStr==='0'&&k!=='.')partialAmountStr=k;else partialAmountStr+=k;if(partialAmountStr.length>8)partialAmountStr=partialAmountStr.slice(0,-1);document.getElementById('partial-display').textContent=partialAmountStr}
 function partialDel(){partialAmountStr=partialAmountStr.length>1?partialAmountStr.slice(0,-1):'0';document.getElementById('partial-display').textContent=partialAmountStr}
+
 async function savePartial(){
   const paid=parseFloat(partialAmountStr);
-  if(!paid||paid<=0){alert('ادخل مبلغا صحيحا');return}
+  if(!paid||paid<=0){alert('\u0627\u062f\u062e\u0644 \u0645\u0628\u0644\u063a\u0627\u064b \u0635\u062d\u064a\u062d\u0627\u064b');return}
   if(!currentCustomer) return;
   document.getElementById('m-partial').classList.remove('open');
-  showSpinner('جاري التسجيل...');
+  showSpinner('\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u0633\u062c\u064a\u0644...');
   const txAll=await db.getAll('transactions');
-  const pending=txAll.filter(t=>t.customer_id===currentCustomer.id&&(t.status==='غير مدفوع'||t.status==='مدفوع جزئيا')).sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
+  const pending=txAll.filter(t=>t.customer_id===currentCustomer.id&&(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b')).sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
   let rem=paid;const now=new Date().toISOString();
   for(const t of pending){
     if(rem<=0) break;
-    const owed=t.status==='مدفوع جزئيا'?(t.remaining||t.amount):t.amount;
-    if(rem>=owed){await db.put('transactions',{...t,status:'مدفوع',paid_at:now,remaining:0});await addToQueue('update_tx',{id:t.id,status:'مدفوع',paid_at:now});rem-=owed;}
-    else{await db.put('transactions',{...t,status:'مدفوع جزئيا',remaining:owed-rem,paid_at:now});await addToQueue('update_tx',{id:t.id,status:'مدفوع جزئيا',remaining:owed-rem});rem=0;}
+    const owed=t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'?(t.remaining||t.amount):t.amount;
+    if(rem>=owed){await db.put('transactions',{...t,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now,remaining:0});await addToQueue('update_tx',{id:t.id,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});rem-=owed;}
+    else{await db.put('transactions',{...t,status:'\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b',remaining:owed-rem,paid_at:now});await addToQueue('update_tx',{id:t.id,status:'\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b',remaining:owed-rem});rem=0;}
   }
   const pid=crypto.randomUUID();
-  await db.put('transactions',{id:pid,merchant_id:SESSION.merchant_id,customer_id:currentCustomer.id,amount:paid,description:'دفع جزئي',status:'مدفوع',type:'payment',created_at:now});
-  await addToQueue('add_tx',{local_id:pid,customer_id:currentCustomer.id,amount:paid,description:'دفع جزئي',status:'مدفوع',type:'payment',created_at:now});
+  await db.put('transactions',{id:pid,merchant_id:SESSION.merchant_id,customer_id:currentCustomer.id,amount:paid,description:'\u062f\u0641\u0639 \u062c\u0632\u0626\u064a',status:'\u0645\u062f\u0641\u0648\u0639',type:'payment',created_at:now});
+  await addToQueue('add_tx',{local_id:pid,customer_id:currentCustomer.id,amount:paid,description:'\u062f\u0641\u0639 \u062c\u0632\u0626\u064a',status:'\u0645\u062f\u0641\u0648\u0639',type:'payment',created_at:now});
   hideSpinner();if(navigator.onLine)doSync();sendThanks(paid);await openCustomer(currentCustomer.id);
 }
 
-// -- WhatsApp
 function sendReminder(){
-  if(!currentCustomer?.phone){alert('ما في رقم جوال');return}
+  if(!currentCustomer?.phone){alert('\u0645\u0627 \u0641\u064a \u0631\u0642\u0645 \u062c\u0648\u0627\u0644');return}
   const phone=currentCustomer.phone.replace(/^0/,'970').replace(/\D/g,'');
-  const shop=localStorage.getItem('gz_shop')||'المحل';
+  const shop=localStorage.getItem('gz_shop')||'\u0627\u0644\u0645\u062d\u0644';
   const bal=document.getElementById('cust-balance').textContent;
-  const msg=encodeURIComponent('السلام عليكم '+currentCustomer.name+',\nتذكير ودي من '+shop+'.\nرصيدك المستحق: '+bal+'\nبارك الله فيك');
-  window.open('https://wa.me/'+phone+'?text='+msg,'_blank');
+  window.open('https://wa.me/'+phone+'?text='+encodeURIComponent('\u0627\u0644\u0633\u0644\u0627\u0645 \u0639\u0644\u064a\u0643\u0645 '+currentCustomer.name+',\n\u062a\u0630\u0643\u064a\u0631 \u0648\u062f\u064a \u0645\u0646 '+shop+'.\n\u0631\u0635\u064a\u062f\u0643 \u0627\u0644\u0645\u0633\u062a\u062d\u0642: '+bal+'\n\u0628\u0627\u0631\u0643 \u0627\u0644\u0644\u0647 \u0641\u064a\u0643 \uD83D\uDE4F'),'_blank');
 }
 function sendThanks(amount){
   if(!currentCustomer?.phone) return;
   const phone=currentCustomer.phone.replace(/^0/,'970').replace(/\D/g,'');
-  const shop=localStorage.getItem('gz_shop')||'المحل';
-  const msg=encodeURIComponent('شكرا '+currentCustomer.name+',\nتم استلام '+amount.toFixed(0)+' '+CUR+'\nشكرا لتعاملكم مع '+shop);
-  if(confirm('ارسال شكر للزبون على واتساب؟')) window.open('https://wa.me/'+phone+'?text='+msg,'_blank');
+  const shop=localStorage.getItem('gz_shop')||'\u0627\u0644\u0645\u062d\u0644';
+  if(confirm('\u0625\u0631\u0633\u0627\u0644 \u0634\u0643\u0631 \u0644\u0644\u0632\u0628\u0648\u0646 \u0639\u0644\u0649 \u0648\u0627\u062a\u0633\u0627\u0628\u061f'))
+    window.open('https://wa.me/'+phone+'?text='+encodeURIComponent('\u0634\u0643\u0631\u0627\u064b '+currentCustomer.name+',\n\u062a\u0645 \u0627\u0633\u062a\u0644\u0627\u0645 '+amount.toFixed(0)+' '+CUR+' \u2713\n\u0634\u0643\u0631\u0627\u064b \u0644\u062a\u0639\u0627\u0645\u0644\u0643\u0645 \u0645\u0639 '+shop+' \uD83D\uDE4F'),'_blank');
 }
 
-// -- Bank Match
-function autoMatchBank(){const text=document.getElementById('bank-text').value;if(!text||text.length<20){document.getElementById('bank-results').innerHTML='';return}parseAndMatch(text)}
+function autoMatchBank(){const t=document.getElementById('bank-text').value;if(!t||t.length<20){document.getElementById('bank-results').innerHTML='';return}parseAndMatch(t)}
 async function parseAndMatch(text){
-  const amounts=[];const rx=/(\d+(?:\.\d+)?)\s*(?:شيكل|ILS|NIS)/gi;let m;
+  const amounts=[];const rx=/(\d+(?:\.\d+)?)\s*(?:\u0634\u064a\u0643\u0644|\u20AA|ILS|NIS)/gi;let m;
   while((m=rx.exec(text))!==null){const a=parseFloat(m[1]);if(a>0&&a<100000)amounts.push(a);}
-  if(!amounts.length){document.getElementById('bank-results').innerHTML='<div style="padding:20px;text-align:center;color:var(--txt3)">لم اجد مبالغ</div>';return}
-  const txAll=await db.getAll('transactions');const custAll=await db.getAll('customers');
-  const pending=txAll.filter(t=>t.merchant_id===SESSION.merchant_id&&(t.status==='غير مدفوع'||t.status==='مدفوع جزئيا'));
-  let html=`<div class="sec-hdr">نتائج - ${amounts.length} حركة</div>`;
+  if(!amounts.length){document.getElementById('bank-results').innerHTML='<div style="padding:20px;text-align:center;color:var(--txt3)">\u0644\u0645 \u0623\u062c\u062f \u0645\u0628\u0627\u0644\u063a</div>';return}
+  const txAll=await db.getAll('transactions'),custAll=await db.getAll('customers');
+  const pending=txAll.filter(t=>t.merchant_id===SESSION.merchant_id&&(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'));
+  let html='<div class="sec-hdr">\u0646\u062a\u0627\u0626\u062c \u2014 '+amounts.length+' \u062d\u0631\u0643\u0629</div>';
   amounts.forEach((amt,i)=>{
-    const match=pending.find(t=>Math.abs((t.status==='مدفوع جزئيا'?(t.remaining||t.amount):t.amount)-amt)<0.5);
+    const match=pending.find(t=>Math.abs((t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'?(t.remaining||t.amount):t.amount)-amt)<0.5);
     const cust=match?custAll.find(c=>c.id===match.customer_id):null;
-    html+=`<div class="match-card"><div class="match-head">حركة ${i+1}: ${amt.toFixed(0)} ${CUR}</div><div class="match-body">${match&&cust?`<div class="match-row"><span class="match-lbl">يطابق:</span><span class="match-val">${cust.name}</span></div>`:'<div style="font-size:16px;color:var(--txt3)">لم اجد زبون مطابق</div>'}</div>${match&&cust?`<div class="match-btns"><button class="mbtn mbtn-ok" onclick="confirmMatch('${match.id}','${cust.id}',${amt})">تاكيد</button><button class="mbtn mbtn-no">تجاهل</button></div>`:''}</div>`;
+    html+='<div class="match-card"><div class="match-head">\u062d\u0631\u0643\u0629 '+(i+1)+': '+amt.toFixed(0)+' '+CUR+'</div><div class="match-body">'+(match&&cust?'<div class="match-row"><span class="match-lbl">\u064a\u0637\u0627\u0628\u0642:</span><span class="match-val">'+cust.name+'</span></div>':'<div style="font-size:16px;color:var(--txt3)">\u0644\u0645 \u0623\u062c\u062f \u0632\u0628\u0648\u0646 \u0645\u0637\u0627\u0628\u0642</div>')+'</div>'+(match&&cust?'<div class="match-btns"><button class="mbtn mbtn-ok" onclick="confirmMatch(\''+match.id+'\',\''+cust.id+'\','+amt+')">\u062a\u0623\u0643\u064a\u062f</button><button class="mbtn mbtn-no">\u062a\u062c\u0627\u0647\u0644</button></div>':'')+'</div>';
   });
   document.getElementById('bank-results').innerHTML=html;
 }
 async function confirmMatch(txId,custId,amount){
-  showSpinner('جاري التسجيل...');const now=new Date().toISOString();
-  const tx=await db.get('transactions',txId);
-  if(tx){await db.put('transactions',{...tx,status:'مدفوع',paid_at:now});await addToQueue('update_tx',{id:txId,status:'مدفوع',paid_at:now})}
+  showSpinner('\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u0633\u062c\u064a\u0644...');
+  const now=new Date().toISOString(),tx=await db.get('transactions',txId);
+  if(tx){await db.put('transactions',{...tx,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});await addToQueue('update_tx',{id:txId,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});}
   hideSpinner();if(navigator.onLine)doSync();
   document.getElementById('bank-text').value='';
-  document.getElementById('bank-results').innerHTML='<div style="padding:24px;text-align:center"><div style="font-size:3em">ok</div><div style="font-size:18px;font-weight:800;color:var(--grn);margin-top:12px">تم تسجيل الدفعة</div></div>';
+  document.getElementById('bank-results').innerHTML='<div style="padding:24px;text-align:center"><div style="font-size:3em">\u2705</div><div style="font-size:18px;font-weight:800;color:var(--grn);margin-top:12px">\u062a\u0645 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u0641\u0639\u0629</div></div>';
   setTimeout(()=>showTab('home'),1500);
 }
 
-// -- Settings
 function openSettings(){
-  const shop=localStorage.getItem('gz_shop')||'';
-  const owner=localStorage.getItem('gz_owner')||'';
-  const phone=localStorage.getItem('gz_phone')||'';
-  document.getElementById('settings-shop').textContent=shop;
-  document.getElementById('settings-phone').textContent=owner?`${owner} - ${phone}`:phone;
-  const logoEl=document.getElementById('settings-logo');
-  if(logoEl&&SESSION?.store_logo) logoEl.textContent=SESSION.store_logo;
+  document.getElementById('settings-shop').textContent=localStorage.getItem('gz_shop')||'';
+  const owner=localStorage.getItem('gz_owner')||'',phone=localStorage.getItem('gz_phone')||'';
+  document.getElementById('settings-phone').textContent=owner?owner+' \u2014 '+phone:phone;
   showScreen('s-settings');
 }
+
 function doLogout(){
-  if(!confirm('تسجيل الخروج؟\n\nالتطبيق يحفظ بياناتك تلقائيا على السحابة عند كل اتصال بالنت.\nفي حال فقدان الجهاز او تعطله، ستستعاد بياناتك بسهولة.')) return;
+  if(!confirm('\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062e\u0631\u0648\u062c\u061f\n\n\u0627\u0644\u062a\u0637\u0628\u064a\u0642 \u064a\u062d\u0641\u0638 \u0628\u064a\u0627\u0646\u0627\u062a\u0643 \u062a\u0644\u0642\u0627\u0626\u064a\u0627\u064b \u0639\u0644\u0649 \u0627\u0644\u0633\u062d\u0627\u0628\u0629 \u0639\u0646\u062f \u0643\u0644 \u0627\u062a\u0635\u0627\u0644 \u0628\u0627\u0644\u0646\u062a.\n\u0641\u064a \u062d\u0627\u0644 \u0641\u0642\u062f\u0627\u0646 \u0627\u0644\u062c\u0647\u0627\u0632 \u0623\u0648 \u062a\u0639\u0637\u0644\u0647\u060c \u0633\u062a\u064f\u0633\u062a\u0639\u0627\u062f \u0628\u064a\u0627\u0646\u0627\u062a\u0643 \u0628\u0633\u0647\u0648\u0644\u0629.')) return;
   localStorage.removeItem('gz_session');SESSION=null;showScreen('s-login');
 }
 
-// -- Forgot PIN
 let forgotMerchantId=null;
 function openForgotPin(){
-  document.getElementById('forgot-step-1').style.display='block';
-  document.getElementById('forgot-step-2').style.display='none';
-  document.getElementById('forgot-step-3').style.display='none';
+  ['forgot-step-1','forgot-step-2','forgot-step-3'].forEach((id,i)=>document.getElementById(id).style.display=i===0?'block':'none');
   document.getElementById('forgot-err').style.display='none';
-  document.getElementById('forgot-otp').value='';
-  document.getElementById('forgot-new-pin').value='';
+  document.getElementById('forgot-otp').value='';document.getElementById('forgot-new-pin').value='';
   document.getElementById('forgot-phone').value=localStorage.getItem('gz_phone')||'';
   document.getElementById('m-forgot-pin').classList.add('open');
 }
 function closeForgotPin(){document.getElementById('m-forgot-pin').classList.remove('open')}
 async function sendForgotOTP(){
-  const phone=document.getElementById('forgot-phone').value.trim();
-  const errEl=document.getElementById('forgot-err');
-  if(!phone){errEl.textContent='ادخل رقم الجوال';errEl.style.display='block';return}
-  if(!navigator.onLine){errEl.textContent='يحتاج اتصالا بالانترنت';errEl.style.display='block';return}
-  errEl.style.display='none';showSpinner('جاري ارسال الرمز...');
+  const phone=document.getElementById('forgot-phone').value.trim(),errEl=document.getElementById('forgot-err');
+  if(!phone){errEl.textContent='\u0627\u062f\u062e\u0644 \u0631\u0642\u0645 \u0627\u0644\u062c\u0648\u0627\u0644';errEl.style.display='block';return}
+  if(!navigator.onLine){errEl.textContent='\u064a\u062d\u062a\u0627\u062c \u0627\u062a\u0635\u0627\u0644\u0627\u064b';errEl.style.display='block';return}
+  errEl.style.display='none';showSpinner('...');
   try{
     const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'gen_otp',phone})});
     const d=await res.json();hideSpinner();
     if(d.error){errEl.textContent=d.error;errEl.style.display='block';return}
     forgotMerchantId=d.merchant_id;
-    document.getElementById('forgot-step-1').style.display='none';
-    document.getElementById('forgot-step-2').style.display='block';
-  }catch(e){hideSpinner();errEl.textContent='تعذر الاتصال';errEl.style.display='block'}
+    document.getElementById('forgot-step-1').style.display='none';document.getElementById('forgot-step-2').style.display='block';
+  }catch(e){hideSpinner();errEl.textContent='\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u0627\u062a\u0635\u0627\u0644';errEl.style.display='block'}
 }
 async function confirmForgotPin(){
-  const otp=document.getElementById('forgot-otp').value.trim();
-  const newPin=document.getElementById('forgot-new-pin').value.trim();
-  const errEl=document.getElementById('forgot-err2');
-  if(otp.length<4){errEl.textContent='ادخل رمز التحقق';errEl.style.display='block';return}
-  if(newPin.length<6){errEl.textContent='الرقم الجديد 6 ارقام';errEl.style.display='block';return}
-  errEl.style.display='none';showSpinner('جاري التحقق...');
+  const otp=document.getElementById('forgot-otp').value.trim(),newPin=document.getElementById('forgot-new-pin').value.trim(),errEl=document.getElementById('forgot-err2');
+  if(otp.length<4){errEl.textContent='\u0627\u062f\u062e\u0644 \u0631\u0645\u0632 \u0627\u0644\u062a\u062d\u0642\u0642';errEl.style.display='block';return}
+  if(newPin.length<6){errEl.textContent='\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062c\u062f\u064a\u062f 6 \u0623\u0631\u0642\u0627\u0645';errEl.style.display='block';return}
+  errEl.style.display='none';showSpinner('...');
   try{
     const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'verify_otp',merchant_id:forgotMerchantId,otp})});
     const d1=await r1.json();
-    if(d1.error||!d1.ok){hideSpinner();errEl.textContent='رمز التحقق غير صحيح';errEl.style.display='block';return}
+    if(d1.error||!d1.ok){hideSpinner();errEl.textContent='\u0631\u0645\u0632 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d';errEl.style.display='block';return}
     const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'set_pin',merchant_id:forgotMerchantId,pin:newPin})});
     const d2=await r2.json();hideSpinner();
     if(d2.error){errEl.textContent=d2.error;errEl.style.display='block';return}
-    document.getElementById('forgot-step-2').style.display='none';
-    document.getElementById('forgot-step-3').style.display='block';
-  }catch(e){hideSpinner();errEl.textContent='تعذر الاتصال';errEl.style.display='block'}
+    document.getElementById('forgot-step-2').style.display='none';document.getElementById('forgot-step-3').style.display='block';
+  }catch(e){hideSpinner();errEl.textContent='\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u0627\u062a\u0635\u0627\u0644';errEl.style.display='block'}
 }
 
-// -- Change PIN
-function openChangePin(){['pin-old','pin-new1','pin-new2'].forEach(id=>document.getElementById(id).value='');document.getElementById('pin-err').style.display='none';document.getElementById('pin-step-1').style.display='block';document.getElementById('pin-step-2').style.display='none';document.getElementById('m-change-pin').classList.add('open')}
+function openChangePin(){
+  ['pin-old','pin-new1','pin-new2'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pin-err').style.display='none';
+  document.getElementById('pin-step-1').style.display='block';document.getElementById('pin-step-2').style.display='none';
+  document.getElementById('m-change-pin').classList.add('open');
+}
 function closeChangePin(){document.getElementById('m-change-pin').classList.remove('open')}
 async function saveNewPin(){
-  const old=document.getElementById('pin-old').value.trim();
-  const n1=document.getElementById('pin-new1').value.trim();
-  const n2=document.getElementById('pin-new2').value.trim();
-  if(old.length<4){showPinErr('ادخل الرقم الحالي');return}
-  if(n1.length<6){showPinErr('الرقم الجديد 6 ارقام');return}
-  if(n1!==n2){showPinErr('الرقمان غير متطابقين');return}
-  if(n1===old){showPinErr('الرقم الجديد نفس القديم');return}
-  if(!navigator.onLine){showPinErr('يحتاج اتصالا بالانترنت');return}
-  showSpinner('جاري التحقق...');
+  const old=document.getElementById('pin-old').value.trim(),n1=document.getElementById('pin-new1').value.trim(),n2=document.getElementById('pin-new2').value.trim();
+  if(old.length<4){showPinErr('\u0627\u062f\u062e\u0644 \u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062d\u0627\u0644\u064a');return}
+  if(n1.length<6){showPinErr('\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062c\u062f\u064a\u062f 6 \u0623\u0631\u0642\u0627\u0645');return}
+  if(n1!==n2){showPinErr('\u0627\u0644\u0631\u0642\u0645\u0627\u0646 \u063a\u064a\u0631 \u0645\u062a\u0637\u0627\u0628\u0642\u064a\u0646');return}
+  if(n1===old){showPinErr('\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062c\u062f\u064a\u062f \u0646\u0641\u0633 \u0627\u0644\u0642\u062f\u064a\u0645');return}
+  if(!navigator.onLine){showPinErr('\u064a\u062d\u062a\u0627\u062c \u0627\u062a\u0635\u0627\u0644\u0627\u064b');return}
+  showSpinner('...');
   try{
     const phone=localStorage.getItem('gz_phone')||SESSION?.phone;
     const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',phone,pin:old})});
     const d1=await r1.json();
-    if(!d1.ok){hideSpinner();showPinErr('الرقم الحالي غير صحيح');return}
+    if(!d1.ok){hideSpinner();showPinErr('\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062d\u0627\u0644\u064a \u063a\u064a\u0631 \u0635\u062d\u064a\u062d');return}
     const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'set_pin',merchant_id:SESSION.merchant_id,pin:n1})});
     const d2=await r2.json();hideSpinner();
     if(d2.error){showPinErr(d2.error);return}
-    document.getElementById('pin-step-1').style.display='none';
-    document.getElementById('pin-step-2').style.display='block';
-  }catch(e){hideSpinner();showPinErr('تعذر الاتصال')}
+    document.getElementById('pin-step-1').style.display='none';document.getElementById('pin-step-2').style.display='block';
+  }catch(e){hideSpinner();showPinErr('\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u0627\u062a\u0635\u0627\u0644')}
 }
 function showPinErr(msg){const e=document.getElementById('pin-err');e.textContent=msg;e.style.display='block'}
 
-// -- Init
 async function init(){
   await db.open();
-  const savedSession=localStorage.getItem('gz_session');
-  const savedPhone=localStorage.getItem('gz_phone');
-  const savedShop=localStorage.getItem('gz_shop');
+  const savedSession=localStorage.getItem('gz_session'),savedPhone=localStorage.getItem('gz_phone'),savedShop=localStorage.getItem('gz_shop');
   document.getElementById('btn-new-account').style.display=savedPhone?'none':'block';
   if(savedSession||savedPhone){
-    document.getElementById('login-shop').textContent=savedShop||'دفتر الدين';
-    document.getElementById('login-shop-on-book').textContent=savedShop||'نسخة خفيفة';
+    document.getElementById('login-shop').textContent=savedShop||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';
+    document.getElementById('login-shop-on-book').textContent=savedShop||'\u0646\u0633\u062e\u0629 \u062e\u0641\u064a\u0641\u0629';
     document.getElementById('login-phone').textContent=savedPhone||'';
     if(savedSession) SESSION=JSON.parse(savedSession);
-    document.getElementById('home-shop-name').textContent=savedShop||'دفتر الدين';
+    document.getElementById('home-shop-name').textContent=savedShop||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';
     showScreen('s-login');
-  }else{showScreen('s-setup')}
+  }else showScreen('s-setup');
   window.addEventListener('online',()=>{updateStatusBar();doSync()});
   window.addEventListener('offline',()=>updateStatusBar());
 }
 
 if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
 init();
-
 </script>
-</body>
-</html>
+
+
+</body></html>
