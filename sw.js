@@ -1,4 +1,4 @@
-const V = 'gaza-v2';
+const V = 'gaza-v3';
 const SHELL = ['/', '/index.html'];
 
 self.addEventListener('install', e => {

@@ -1,122 +1,196 @@
 <!DOCTYPE html>
-<!-- saved from url=(0086)file:///D:/C_Drive/%D8%A7%D9%84%D8%AA%D9%86%D8%B2%D9%8A%D9%84%D8%A7%D8%AA/index_4.html -->
-<html dir="rtl" lang="ar"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="theme-color" content="#0a0f1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>دفتر الدين — نسخة خفيفة</title>
-<link rel="manifest" href="file:///D:/manifest.json">
+<title>دفتر الدين — v1.3</title>
+<link rel="manifest" href="/manifest.json">
 <style>
-:root{--bg:#0a0f1a;--bg2:#131c2e;--bg3:#1e2d42;--txt:#ffffff;--txt2:#cbd5e1;--txt3:#64748b;--pri:#60a5fa;--grn:#34d399;--red:#f87171;--yel:#fbbf24;--brd:rgba(255,255,255,.13);}
+:root{--bg:#0a0f1a;--bg2:#131c2e;--bg3:#1e2d42;--txt:#ffffff;--txt2:#cbd5e1;--txt3:#64748b;--pri:#60a5fa;--grn:#34d399;--red:#f87171;--yel:#fbbf24;--brd:rgba(255,255,255,.13);--inv-bg:#fffef0;--inv-txt:#1a1200;}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:18px;-webkit-font-smoothing:antialiased}
 .screen{display:none;flex-direction:column;height:100vh;overflow:hidden;position:absolute;inset:0}
 .screen.active{display:flex}
 .content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:84px}
 .content::-webkit-scrollbar{display:none}
-.status-bar{display:flex;align-items:center;padding:5px 16px;font-size:14px;font-weight:700;flex-shrink:0}
-.bar-online{background:transparent;color:var(--grn)}
-.bar-offline{background:transparent;color:var(--red)}
-.bar-pending{background:transparent;color:var(--yel)}
-.topnav{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:62px;border-bottom:2px solid var(--brd);background:var(--bg);flex-shrink:0}
+
+/* status bar */
+.status-bar{display:flex;align-items:center;padding:4px 16px;font-size:13px;font-weight:700;flex-shrink:0}
+.bar-online{color:var(--grn)}.bar-offline{color:var(--red)}.bar-pending{color:var(--yel)}
+
+/* topnav */
+.topnav{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:60px;border-bottom:2px solid var(--brd);background:var(--bg);flex-shrink:0}
 .topnav-center{display:flex;flex-direction:column;align-items:center}
-.topnav h2{font-size:1.1em;font-weight:900;line-height:1.2}
-.ver-tag{font-size:11px;font-weight:600;color:var(--txt3);margin-top:1px}
+.topnav h2{font-size:1.1em;font-weight:900}
+.ver-tag{font-size:11px;color:var(--txt3);margin-top:1px}
 .back-btn{width:44px;height:44px;border:none;border-radius:10px;background:var(--bg3);color:var(--txt);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* float back */
 .float-back{position:fixed;top:14px;right:14px;width:48px;height:48px;border-radius:14px;border:none;background:rgba(30,45,66,.92);color:var(--txt);font-size:24px;cursor:pointer;z-index:150;display:none;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.5)}
 .float-back.show{display:flex}
+
+/* botnav */
 .botnav{position:sticky;bottom:0;display:flex;background:var(--bg);border-top:2px solid var(--brd);height:68px;flex-shrink:0}
 .bnt{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border:none;background:transparent;color:var(--txt3);font-size:13px;font-weight:700;cursor:pointer;gap:4px}
-.bnt .ic{font-size:28px}
+.bnt .ic{font-size:26px}
 .bnt.active{color:var(--pri)}
-.fi{width:100%;padding:16px 18px;border-radius:14px;border:2px solid var(--brd);background:var(--bg3);color:var(--txt);font-size:20px;outline:none;font-family:inherit;transition:border-color .2s}
+
+/* inputs */
+.fi{width:100%;padding:14px 16px;border-radius:12px;border:2px solid var(--brd);background:var(--bg3);color:var(--txt);font-size:19px;outline:none;font-family:inherit;transition:border-color .2s}
 .fi:focus{border-color:var(--pri)}
 .fi::placeholder{color:var(--txt3)}
 .fg{margin-bottom:12px}
-.fg label{display:block;font-size:17px;font-weight:700;color:var(--txt2);margin-bottom:6px}
-.btn{width:100%;padding:18px;border:none;border-radius:14px;font-size:20px;font-weight:800;cursor:pointer;color:#fff;transition:opacity .2s}
+.fg label{display:block;font-size:16px;font-weight:700;color:var(--txt2);margin-bottom:5px}
+
+/* buttons */
+.btn{width:100%;padding:16px;border:none;border-radius:12px;font-size:19px;font-weight:800;cursor:pointer;color:#fff;transition:opacity .2s}
 .btn:active{opacity:.8}
 .btn-pri{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}
 .btn-grn{background:linear-gradient(135deg,#065f46,#10b981)}
 .btn-red{background:linear-gradient(135deg,#b91c1c,#ef4444)}
 .btn-gray{background:var(--bg3);color:var(--txt2)}
-.summary-bar{display:flex;align-items:center;justify-content:space-between;margin:10px 16px;padding:14px 20px;background:linear-gradient(135deg,#1e3a8a,#2563eb);border-radius:14px;box-shadow:0 4px 16px rgba(29,78,216,.25)}
-.summary-total{font-size:32px;font-weight:900;color:#fff}
-.summary-lbl{font-size:13px;color:rgba(255,255,255,.72);font-weight:600;margin-bottom:2px}
-.summary-right{text-align:center}
-.summary-count{font-size:26px;font-weight:900;color:#fff}
-.summary-count-lbl{font-size:12px;color:rgba(255,255,255,.72)}
+
+/* summary bar */
+.summary-bar{display:flex;align-items:center;justify-content:space-between;margin:10px 16px;padding:14px 20px;background:linear-gradient(135deg,#1e3a8a,#2563eb);border-radius:14px}
+.summary-total{font-size:30px;font-weight:900;color:#fff}
+.summary-lbl{font-size:12px;color:rgba(255,255,255,.7);margin-bottom:2px}
+.summary-count{font-size:24px;font-weight:900;color:#fff}
+.summary-count-lbl{font-size:11px;color:rgba(255,255,255,.7)}
+
+/* filter & sort */
 .filter-bar{display:flex;gap:8px;padding:6px 16px 4px}
-.filter-btn{flex:1;padding:10px 6px;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:all .2s}
+.filter-btn{flex:1;padding:9px 4px;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer}
 .filter-btn.active{background:var(--pri);color:#fff}
 .filter-btn:not(.active){background:var(--bg3);color:var(--txt2)}
 .sort-bar{display:flex;gap:6px;padding:4px 16px 6px;overflow-x:auto;scrollbar-width:none}
 .sort-bar::-webkit-scrollbar{display:none}
-.sort-btn{flex-shrink:0;padding:5px 12px;border-radius:16px;border:1.5px solid var(--brd);background:transparent;color:var(--txt3);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s}
+.sort-btn{flex-shrink:0;padding:5px 11px;border-radius:16px;border:1.5px solid var(--brd);background:transparent;color:var(--txt3);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
 .sort-btn.active{background:var(--bg3);color:var(--txt);border-color:var(--txt3)}
-.debt-item{display:flex;align-items:center;padding:14px 16px;border-bottom:2px solid var(--brd);min-height:72px;border-right:4px solid transparent}
+
+/* debt item */
+.debt-item{display:flex;align-items:center;padding:13px 16px;border-bottom:2px solid var(--brd);min-height:70px;border-right:4px solid transparent}
 .debt-item:active{background:rgba(255,255,255,.04)}
 .debt-item.old{border-right-color:var(--red)}
 .debt-item.week{border-right-color:var(--yel)}
-.debt-amount-wrap{flex-shrink:0;margin-left:14px;cursor:pointer}
-.debt-amount{font-size:24px;font-weight:900;color:var(--red)}
-.debt-days{font-size:13px;color:var(--txt3);margin-top:2px;text-align:right}
+.debt-item.pending{border-right-color:#a78bfa}
+.debt-amount-wrap{flex-shrink:0;margin-left:12px;cursor:pointer}
+.debt-amount{font-size:22px;font-weight:900;color:var(--red)}
+.debt-days{font-size:12px;color:var(--txt3);margin-top:2px}
 .debt-info{flex:1;min-width:0;cursor:pointer}
-.debt-name{font-size:19px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.debt-meta{font-size:14px;color:var(--txt3);margin-top:3px}
-.debt-avatar{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;margin-right:12px;flex-shrink:0;color:#fff;cursor:pointer}
+.debt-name{font-size:18px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.debt-meta{font-size:13px;color:var(--txt3);margin-top:3px}
+.debt-avatar{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;margin-right:10px;flex-shrink:0;color:#fff;cursor:pointer}
+
+/* ===== الحاسبة الجديدة ===== */
 .calc-sheet{position:fixed;bottom:0;left:0;right:0;z-index:180;background:var(--bg);border-radius:20px 20px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.5);transform:translateY(100%);transition:transform .3s cubic-bezier(.22,.68,0,1.2)}
 .calc-sheet.open{transform:translateY(0)}
 .calc-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:170;display:none}
 .calc-overlay.show{display:block}
 .calc-handle{width:40px;height:4px;background:var(--brd);border-radius:2px;margin:10px auto 0}
-.calc-display{padding:10px 18px 8px;background:var(--bg2);border-bottom:1px solid var(--brd)}
-.calc-expr{font-size:14px;color:var(--txt3);font-weight:600;direction:ltr;text-align:left;min-height:20px}
-.calc-num{font-size:42px;font-weight:900;color:var(--yel);direction:ltr;text-align:left;line-height:1.1}
+
+/* شاشة العرض الجديدة */
+.calc-display{background:var(--bg2);border-bottom:1px solid var(--brd);padding:12px 16px 10px;min-height:110px;display:flex;flex-direction:column;justify-content:flex-end}
+.calc-expr-area{direction:rtl;text-align:right;font-size:28px;font-weight:800;color:var(--txt);line-height:1.3;min-height:40px;word-break:break-all;overflow:hidden}
+.calc-result-area{direction:rtl;text-align:right;font-size:18px;font-weight:600;color:var(--txt3);margin-top:4px;min-height:24px}
+
+/* مفاتيح الحاسبة */
 .calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--brd)}
-.ck{padding:18px 8px;border:none;background:var(--bg2);color:var(--txt);font-size:22px;font-weight:800;cursor:pointer;text-align:center;transition:background .1s}
+.ck{padding:20px 8px;border:none;background:var(--bg2);color:var(--txt);font-size:24px;font-weight:800;cursor:pointer;text-align:center;transition:background .1s;direction:ltr}
 .ck:active{background:var(--bg3)}
-.ck.op{color:var(--pri);font-size:24px}
-.ck.eq{background:linear-gradient(135deg,#1d4ed8,#3b82f6);color:#fff}
-.ck.del{color:var(--yel)}
+.ck.op{color:var(--pri)}
+.ck.eq{background:linear-gradient(135deg,#065f46,#10b981);color:#fff;font-size:18px;font-weight:900}
+.ck.eq:active{opacity:.85}
+.ck.del{color:var(--yel);font-size:20px}
 .ck.clr{color:var(--red)}
-.inv-issue-btn{width:100%;padding:16px;border:none;background:linear-gradient(135deg,#065f46,#10b981);color:#fff;font-size:19px;font-weight:900;cursor:pointer}
-.inv-issue-btn:active{opacity:.85}
+.ck.pct{color:#a78bfa}
+
+/* ===== فاتورة — bottom sheet كريمي ===== */
+.inv-sheet{position:fixed;bottom:0;left:0;right:0;z-index:190;background:var(--inv-bg);border-radius:20px 20px 0 0;box-shadow:0 -6px 32px rgba(0,0,0,.4);transform:translateY(100%);transition:transform .3s cubic-bezier(.22,.68,0,1.2);max-height:92vh;display:flex;flex-direction:column;color:var(--inv-txt)}
+.inv-sheet.open{transform:translateY(0)}
+.inv-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:185;display:none}
+.inv-overlay.show{display:block}
+.inv-handle{width:40px;height:4px;background:rgba(0,0,0,.15);border-radius:2px;margin:10px auto 0}
+
+/* رأس الفاتورة */
+.inv-header{padding:10px 20px 12px;border-bottom:1.5px dashed rgba(0,0,0,.15);flex-shrink:0}
+.inv-shop-name{font-size:20px;font-weight:900;text-align:center;color:#2d1a00}
+.inv-meta{display:flex;justify-content:space-between;margin-top:6px;font-size:13px;color:#8b6914;font-weight:600}
+
+/* حقل الزبون */
+.inv-cust-row{padding:10px 16px;border-bottom:1px solid rgba(0,0,0,.1);flex-shrink:0;position:relative}
+.inv-cust-label{font-size:13px;color:#8b6914;font-weight:700;margin-bottom:4px}
+.inv-cust-input{width:100%;background:transparent;border:none;border-bottom:1.5px solid rgba(0,0,0,.2);font-size:19px;font-weight:800;color:#2d1a00;outline:none;padding:4px 0;font-family:inherit}
+.inv-cust-input::placeholder{color:rgba(0,0,0,.3)}
+.cust-dropdown-inv{position:absolute;right:16px;left:16px;top:100%;background:#fff;border:1.5px solid rgba(0,0,0,.15);border-radius:0 0 12px 12px;z-index:10;max-height:180px;overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.cust-dd-item{padding:12px 16px;font-size:17px;font-weight:700;color:#2d1a00;border-bottom:1px solid rgba(0,0,0,.08);cursor:pointer}
+.cust-dd-item:active{background:rgba(251,191,36,.2)}
+.cust-dd-new{color:#1d4ed8;font-weight:800}
+
+/* أسطر الفاتورة */
+.inv-lines{flex:1;overflow-y:auto;padding:8px 16px}
+.inv-line{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px dashed rgba(0,0,0,.1)}
+.inv-line-num{width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#8b6914;flex-shrink:0}
+.inv-line-amt{width:90px;background:transparent;border:none;border-bottom:1.5px solid rgba(0,0,0,.2);font-size:20px;font-weight:900;color:#c0392b;text-align:right;direction:rtl;outline:none;padding:2px 4px;font-family:inherit}
+.inv-line-cat{flex:1;background:transparent;border:none;border-bottom:1.5px solid rgba(0,0,0,.15);font-size:16px;font-weight:700;color:#2d1a00;outline:none;padding:2px 4px;cursor:pointer;font-family:inherit}
+.inv-line-del{width:28px;height:28px;border:none;background:none;color:rgba(0,0,0,.3);font-size:20px;cursor:pointer;flex-shrink:0}
+
+/* أزرار الفاتورة */
+.inv-footer{padding:10px 16px;border-top:1.5px dashed rgba(0,0,0,.15);flex-shrink:0}
+.inv-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.inv-total-lbl{font-size:16px;font-weight:700;color:#8b6914}
+.inv-total-val{font-size:28px;font-weight:900;color:#2d1a00}
+.inv-tax-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px;color:#8b6914;display:none}
+.inv-actions{display:flex;gap:8px}
+.inv-btn{flex:1;padding:14px;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer}
+.inv-btn-save{background:linear-gradient(135deg,#065f46,#10b981);color:#fff}
+.inv-btn-tax{background:rgba(251,191,36,.2);border:1.5px solid rgba(251,191,36,.5);color:#8b6914}
+.inv-btn-tax.on{background:rgba(251,191,36,.4);border-color:#d97706}
+.inv-btn-wa{background:rgba(37,211,102,.15);border:1.5px solid rgba(37,211,102,.3);color:#16a34a}
+.inv-add-line{width:100%;padding:10px;border:none;background:rgba(0,0,0,.05);border-radius:8px;font-size:15px;font-weight:700;color:#8b6914;cursor:pointer;margin-top:4px}
+
+/* قائمة الأصناف */
+.cat-sheet{position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--bg);border-radius:20px 20px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.5);transform:translateY(100%);transition:transform .25s;max-height:60vh}
+.cat-sheet.open{transform:translateY(0)}
+.cat-grid{display:flex;flex-wrap:wrap;gap:10px;padding:16px}
+.cat-chip{padding:12px 18px;border:1.5px solid var(--brd);border-radius:20px;background:var(--bg3);color:var(--txt2);font-size:16px;font-weight:700;cursor:pointer}
+.cat-chip:active{background:var(--pri);color:#fff;border-color:var(--pri)}
+
+/* bs زبون */
 .bs-wrap{position:fixed;bottom:0;left:0;right:0;z-index:190;background:var(--bg);border-radius:20px 20px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.5);transform:translateY(100%);transition:transform .3s cubic-bezier(.22,.68,0,1.2);max-height:85vh;display:flex;flex-direction:column}
 .bs-wrap.open{transform:translateY(0)}
 .bs-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:185;display:none}
 .bs-overlay.show{display:block}
-.bs-head{padding:16px 20px 10px;border-bottom:1px solid var(--brd);flex-shrink:0}
-.bs-title{font-size:20px;font-weight:900;margin-bottom:4px}
-.bs-amount{font-size:28px;font-weight:900;color:var(--grn)}
-.bs-body{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:10px}
-.bs-cust-item{padding:14px 16px;border:1.5px solid var(--brd);border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:var(--bg2)}
+.bs-head{padding:14px 20px 10px;border-bottom:1px solid var(--brd);flex-shrink:0}
+.bs-title{font-size:19px;font-weight:900;margin-bottom:3px}
+.bs-amount{font-size:26px;font-weight:900;color:var(--grn)}
+.bs-body{flex:1;overflow-y:auto;padding:10px 16px;display:flex;flex-direction:column;gap:8px}
+.bs-cust-item{padding:13px 16px;border:1.5px solid var(--brd);border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:var(--bg2)}
 .bs-cust-item:active{border-color:var(--pri)}
-.bs-cust-name{font-size:18px;font-weight:800}
-.bs-cust-bal{font-size:16px;font-weight:700;color:var(--red)}
-.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px;direction:ltr}
-.npk{padding:20px 10px;border:none;border-radius:14px;background:var(--bg3);color:var(--txt);font-size:28px;font-weight:800;cursor:pointer;transition:background .15s}
-.npk:active{background:var(--pri)}
-.amount-display{text-align:center;font-size:52px;font-weight:900;padding:20px 16px;color:var(--yel);letter-spacing:2px;background:var(--bg2);border-bottom:2px solid var(--brd);min-height:96px}
-.amount-lbl{font-size:16px;color:var(--txt3);font-weight:600;margin-bottom:6px}
-.tx-item{padding:16px;border-bottom:1.5px solid var(--brd);display:flex;justify-content:space-between;align-items:center}
+.bs-cust-name{font-size:17px;font-weight:800}
+.bs-cust-bal{font-size:15px;font-weight:700;color:var(--red)}
+
+/* tx list */
+.tx-item{padding:14px 16px;border-bottom:1.5px solid var(--brd);display:flex;justify-content:space-between;align-items:center}
 .tx-left{flex:1}
-.tx-desc{font-size:18px;font-weight:700}
-.tx-date{font-size:14px;color:var(--txt3);margin-top:3px}
-.tx-amt{font-size:22px;font-weight:900}
-.tx-debt{color:var(--red)}
-.tx-pay{color:var(--grn)}
-.login-wrap{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;height:100%;padding:12px 16px;overflow-y:auto;-webkit-overflow-scrolling:touch;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(59,130,246,.18),transparent)}
+.tx-desc{font-size:17px;font-weight:700}
+.tx-date{font-size:13px;color:var(--txt3);margin-top:3px}
+.tx-amt{font-size:20px;font-weight:900}
+.tx-debt{color:var(--red)}.tx-pay{color:var(--grn)}.tx-pending{color:#a78bfa}
+
+/* login */
+.login-wrap{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;height:100%;padding:12px 16px;overflow-y:auto;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(59,130,246,.18),transparent)}
 .login-card{width:100%;max-width:360px;background:var(--bg2);border:2px solid var(--brd);border-radius:20px;padding:18px 18px 20px}
-.err{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:12px;font-size:16px;color:#fca5a5;margin-bottom:14px;display:none}
+.err{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:12px;font-size:15px;color:#fca5a5;margin-bottom:14px;display:none}
+
+/* book */
 .book-wrap{display:flex;justify-content:center;margin-bottom:16px;margin-top:8px;perspective:600px}
-.book-shadow-wrap{position:relative;filter:drop-shadow(-4px 12px 20px rgba(0,0,0,.6))}
+.book-shadow-wrap{filter:drop-shadow(-4px 12px 20px rgba(0,0,0,.6))}
 .arabic-book{width:100px;height:128px;position:relative;transform-style:preserve-3d;transform:rotateX(12deg) rotateY(25deg)}
-.b-front{position:absolute;width:100px;height:128px;background:linear-gradient(135deg,#a06030 0%,#7c4a1e 45%,#4a2810 100%);border-radius:3px 6px 6px 3px;transform:translateZ(11px);overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.b-front{position:absolute;width:100px;height:128px;background:linear-gradient(135deg,#a06030,#7c4a1e,#4a2810);border-radius:3px 6px 6px 3px;transform:translateZ(11px);display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden}
 .b-front::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(transparent,transparent 11px,rgba(0,0,0,.08) 11px,rgba(0,0,0,.08) 12px)}
-.b-front::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.07) 0%,transparent 50%,rgba(0,0,0,.08) 100%)}
+.b-front::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.07),transparent 50%,rgba(0,0,0,.08))}
 .book-corner{position:absolute;top:0;left:0;width:22px;height:22px;background:linear-gradient(135deg,#f0f0f0,#909090,#d0d0d0);clip-path:polygon(0 0,100% 0,0 100%);z-index:3}
 .b-spine{position:absolute;width:22px;height:128px;background:linear-gradient(to right,#1e0c04,#4a2810,#2a1408);right:-11px;transform-origin:left center;transform:rotateY(90deg) translateZ(11px)}
 .b-top{position:absolute;width:90px;height:22px;left:5px;background:repeating-linear-gradient(90deg,#f8f0e0 0,#f8f0e0 1px,#d8c8a8 1px,#d8c8a8 2px);top:-11px;transform-origin:bottom center;transform:rotateX(90deg) translateZ(11px)}
@@ -126,54 +200,65 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
 .book-title-cover .line1{font-size:22px;font-weight:900;color:rgba(255,245,210,.95);text-shadow:0 2px 6px rgba(0,0,0,.7)}
 .book-title-cover .line2{font-size:11px;font-weight:700;color:rgba(255,230,170,.65);margin-top:4px}
 .book-ver{font-size:10px;color:rgba(255,215,130,.4);margin-top:6px;position:relative;z-index:2}
-.cust-header{padding:24px 16px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border-bottom:2px solid var(--brd)}
-.cust-name-big{font-size:26px;font-weight:900}
-.cust-phone-lbl{font-size:16px;color:var(--txt3);margin-top:4px}
-.cust-balance-box{display:flex;justify-content:space-between;align-items:center;margin-top:16px;background:rgba(248,113,113,.1);border:1.5px solid rgba(248,113,113,.25);border-radius:14px;padding:14px 18px}
-.cust-balance-lbl{font-size:16px;color:var(--txt2);font-weight:700}
-.cust-balance-val{font-size:32px;font-weight:900;color:var(--red)}
-.cust-actions{display:flex;gap:10px;padding:16px}
-.cust-btn{flex:1;padding:16px;border:none;border-radius:12px;font-size:17px;font-weight:800;cursor:pointer;color:#fff}
+
+/* cust detail */
+.cust-header{padding:20px 16px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border-bottom:2px solid var(--brd)}
+.cust-name-big{font-size:24px;font-weight:900}
+.cust-phone-lbl{font-size:15px;color:var(--txt3);margin-top:4px}
+.cust-balance-box{display:flex;justify-content:space-between;align-items:center;margin-top:14px;background:rgba(248,113,113,.1);border:1.5px solid rgba(248,113,113,.25);border-radius:12px;padding:12px 16px}
+.cust-balance-lbl{font-size:15px;color:var(--txt2);font-weight:700}
+.cust-balance-val{font-size:28px;font-weight:900;color:var(--red)}
+.cust-actions{display:flex;gap:8px;padding:14px 16px}
+.cust-btn{flex:1;padding:14px;border:none;border-radius:11px;font-size:16px;font-weight:800;cursor:pointer;color:#fff}
+
+/* misc */
 .sec-hdr{padding:10px 16px 4px;font-size:13px;font-weight:700;color:var(--txt3)}
 .empty{text-align:center;padding:50px 24px;color:var(--txt3)}
 .empty .icon{font-size:4em;margin-bottom:16px}
-.empty p{font-size:18px;font-weight:600;line-height:1.6}
+.empty p{font-size:17px;font-weight:600;line-height:1.6}
 .fab{position:fixed;bottom:80px;left:16px;width:64px;height:64px;border-radius:18px;border:none;font-size:32px;cursor:pointer;background:linear-gradient(135deg,#065f46,#10b981);color:#fff;box-shadow:0 4px 20px rgba(16,185,129,.4);display:flex;align-items:center;justify-content:center;z-index:50}
-.desc-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
-.desc-chip{padding:8px 14px;border:1.5px solid var(--brd);border-radius:20px;background:var(--bg3);color:var(--txt2);font-size:15px;font-weight:700;cursor:pointer}
-.desc-chip:active{background:var(--pri);color:#fff;border-color:var(--pri)}
+
+/* modal */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:flex-end}
 .modal-bg.open{display:flex}
-.modal-sheet{width:100%;background:var(--bg);border-radius:20px 20px 0 0;padding:24px;max-height:70vh;overflow-y:auto}
-.modal-title{font-size:20px;font-weight:900;margin-bottom:20px}
-.match-card{margin:12px 16px;background:var(--bg2);border:2px solid var(--brd);border-radius:16px;overflow:hidden}
-.match-head{padding:14px 16px;background:rgba(251,191,36,.1);border-bottom:1.5px solid rgba(251,191,36,.2);font-size:16px;font-weight:800;color:var(--yel)}
-.match-body{padding:14px 16px}
-.match-row{display:flex;justify-content:space-between;font-size:16px;margin-bottom:8px}
-.match-lbl{color:var(--txt3)}
-.match-val{font-weight:800}
-.match-btns{display:flex;gap:10px;padding:10px 16px}
-.mbtn{flex:1;padding:14px;border:none;border-radius:10px;font-size:17px;font-weight:800;cursor:pointer;color:#fff}
-.mbtn-ok{background:var(--grn)}
-.mbtn-no{background:var(--bg3);color:var(--txt3)}
+.modal-sheet{width:100%;background:var(--bg);border-radius:20px 20px 0 0;padding:22px;max-height:72vh;overflow-y:auto}
+.modal-title{font-size:19px;font-weight:900;margin-bottom:18px}
+
+/* numpad */
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px;direction:ltr}
+.npk{padding:18px 8px;border:none;border-radius:12px;background:var(--bg3);color:var(--txt);font-size:26px;font-weight:800;cursor:pointer}
+.npk:active{background:var(--pri)}
+.amount-display{text-align:center;font-size:48px;font-weight:900;padding:18px 16px;color:var(--yel);background:var(--bg2);border-bottom:2px solid var(--brd);min-height:90px}
+.amount-lbl{font-size:15px;color:var(--txt3);font-weight:600;margin-bottom:4px}
+
+/* match */
+.match-card{margin:10px 16px;background:var(--bg2);border:2px solid var(--brd);border-radius:14px;overflow:hidden}
+.match-head{padding:12px 16px;background:rgba(251,191,36,.1);border-bottom:1.5px solid rgba(251,191,36,.2);font-size:15px;font-weight:800;color:var(--yel)}
+.match-body{padding:12px 16px}
+.match-row{display:flex;justify-content:space-between;font-size:15px;margin-bottom:6px}
+.match-lbl{color:var(--txt3)}.match-val{font-weight:800}
+.match-btns{display:flex;gap:8px;padding:8px 16px}
+.mbtn{flex:1;padding:12px;border:none;border-radius:9px;font-size:16px;font-weight:800;cursor:pointer;color:#fff}
+.mbtn-ok{background:var(--grn)}.mbtn-no{background:var(--bg3);color:var(--txt3)}
+
+/* spinner */
 #spinner{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 #spinner.show{display:flex}
 .spin{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--pri);border-radius:50%;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 .spin-txt{font-size:18px;font-weight:700;color:#fff}
-new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,.25);border-radius:14px;padding:16px;margin-bottom:16px;display:none}
 </style>
+
 </head>
 <body>
 
-<!-- زر الرجوع العائم -->
-<button class="float-back" id="float-back-btn" onclick="goBack()">←</button>
+<button class="float-back" id="float-back-btn" onclick="goBack()">&#8592;</button>
 
 <!-- الإعداد -->
 <div class="screen" id="s-setup">
 <div style="flex:1;overflow-y:auto;padding:28px 18px 20px">
   <div style="text-align:center;font-size:28px;font-weight:900;color:var(--yel);margin-bottom:16px;cursor:pointer" onclick="devLogin()">دفتر الدين</div>
-  <div style="font-size:20px;font-weight:800;margin-bottom:20px">إنشاء حساب جديد <span style="font-size:11px;color:var(--txt3)">v1.2</span></div>
+  <div style="font-size:20px;font-weight:800;margin-bottom:20px">إنشاء حساب جديد <span style="font-size:11px;color:var(--txt3)">v1.3</span></div>
   <div class="err" id="setup-err"></div>
   <div class="fg"><label>اسم التاجر *</label><input type="text" id="setup-owner" class="fi" placeholder="مثال: أبو محمد"></div>
   <div class="fg"><label>اسم المحل <span style="font-size:13px;color:var(--txt3)">— اختياري</span></label><input type="text" id="setup-shop" class="fi" placeholder="اتركه فارغاً"></div>
@@ -184,7 +269,7 @@ new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,
 </div>
 
 <!-- الدخول -->
-<div class="screen active" id="s-login">
+<div class="screen" id="s-login">
 <div class="login-wrap">
   <div class="login-card">
     <div class="book-wrap" onclick="devLogin()" style="cursor:pointer">
@@ -195,126 +280,93 @@ new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,
             <div class="book-title-cover">
               <div class="line1">دفتر</div>
               <div class="line1">الدين</div>
-              <div class="line2" id="login-shop-on-book">مطور</div>
+              <div class="line2" id="login-shop-on-book">نسخة خفيفة</div>
             </div>
-            <div class="book-ver">v1.2</div>
+            <div class="book-ver">v1.3</div>
           </div>
           <div class="b-spine"></div><div class="b-top"></div>
           <div class="b-pages"></div><div class="b-back"></div>
         </div>
       </div>
     </div>
-    <div style="text-align:center;margin-bottom:20px">
-      <div style="font-size:19px;font-weight:900" id="login-shop">مطور</div>
-      <div style="font-size:15px;color:var(--txt3);margin-top:4px" id="login-phone">0599123456</div>
-      <div style="font-size:11px;color:var(--txt3);margin-top:6px">v1.2</div>
+    <div style="text-align:center;margin-bottom:18px">
+      <div style="font-size:19px;font-weight:900" id="login-shop">دفتر الدين</div>
+      <div style="font-size:14px;color:var(--txt3);margin-top:4px" id="login-phone"></div>
+      <div style="font-size:11px;color:var(--txt3);margin-top:4px">v1.3</div>
     </div>
     <div class="err" id="login-err"></div>
     <div class="fg">
       <label>الرقم السري</label>
-      <input type="password" id="login-pin" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:32px;font-weight:900" onkeydown="if(event.key===&#39;Enter&#39;)doLogin()">
+      <input type="password" id="login-pin" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:32px;font-weight:900" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
     <button class="btn btn-pri" id="login-btn" onclick="doLogin()">دخول</button>
-    <button onclick="openForgotPin()" style="width:100%;margin-top:12px;background:none;border:none;color:var(--pri);font-size:16px;font-weight:700;cursor:pointer;padding:8px">نسيت الرقم السري؟</button>
-    <button id="btn-new-account" onclick="showScreen(&#39;s-setup&#39;)" style="width:100%;margin-top:4px;background:none;border:none;color:var(--txt3);font-size:15px;cursor:pointer;padding:8px;display:none">إنشاء حساب جديد</button>
+    <button onclick="openForgotPin()" style="width:100%;margin-top:10px;background:none;border:none;color:var(--pri);font-size:15px;font-weight:700;cursor:pointer;padding:8px">نسيت الرقم السري؟</button>
+    <button id="btn-new-account" onclick="showScreen('s-setup')" style="width:100%;margin-top:4px;background:none;border:none;color:var(--txt3);font-size:14px;cursor:pointer;padding:8px;display:none">إنشاء حساب جديد</button>
   </div>
 </div>
 </div>
 
 <!-- الرئيسية -->
 <div class="screen" id="s-home">
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:62px;border-bottom:2px solid var(--brd);background:var(--bg);flex-shrink:0">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:60px;border-bottom:2px solid var(--brd);background:var(--bg);flex-shrink:0">
     <div onclick="openSettings()" style="cursor:pointer">
-      <div style="font-size:1.45em;font-weight:900" id="home-shop-name">مطور</div>
-      <div style="font-size:11px;color:var(--txt3);margin-top:1px">الرئيسية — v1.2</div>
+      <div style="font-size:1.4em;font-weight:900" id="home-shop-name">دفتر الدين</div>
+      <div style="font-size:11px;color:var(--txt3);margin-top:1px">الرئيسية — v1.3</div>
     </div>
-    <button onclick="openSettings()" style="width:46px;height:46px;border:none;border-radius:12px;background:var(--bg3);color:var(--txt);font-size:28px;cursor:pointer" id="home-shop-logo">🏪</button>
+    <button onclick="openSettings()" style="width:44px;height:44px;border:none;border-radius:12px;background:var(--bg3);font-size:26px;cursor:pointer" id="home-shop-logo">&#x1F3EA;</button>
   </div>
   <div class="status-bar bar-offline" id="status-bar"><span id="status-txt">جاري التحقق...</span></div>
   <div class="content">
     <div class="summary-bar">
       <div>
         <div class="summary-lbl">إجمالي الديون</div>
-        <div class="summary-total" id="home-total">0 ₪</div>
+        <div class="summary-total" id="home-total">0 &#x20AA;</div>
       </div>
-      <div class="summary-right">
+      <div style="text-align:center">
         <div class="summary-count" id="home-count">0</div>
         <div class="summary-count-lbl">زبون</div>
       </div>
     </div>
     <div class="filter-bar">
-      <button class="filter-btn active" id="filter-today" onclick="setHomeFilter(&#39;today&#39;)">اليوم</button>
-      <button class="filter-btn" id="filter-old" onclick="setHomeFilter(&#39;old&#39;)">ديون قديمة</button>
-      <button class="filter-btn" id="filter-all" onclick="setHomeFilter(&#39;all&#39;)">الكل</button>
+      <button class="filter-btn active" id="filter-today" onclick="setHomeFilter('today')">اليوم</button>
+      <button class="filter-btn" id="filter-pending" onclick="setHomeFilter('pending')">في الانتظار</button>
+      <button class="filter-btn" id="filter-all" onclick="setHomeFilter('all')">الكل</button>
     </div>
     <div class="sort-bar">
-      <button class="sort-btn active" id="sort-old-first" onclick="setHomeSort(&#39;old-first&#39;)">↑ الأقدم</button>
-      <button class="sort-btn" id="sort-new-first" onclick="setHomeSort(&#39;new-first&#39;)">↓ الأحدث</button>
-      <button class="sort-btn" id="sort-high-first" onclick="setHomeSort(&#39;high-first&#39;)">↑ الأكبر</button>
-      <button class="sort-btn" id="sort-low-first" onclick="setHomeSort(&#39;low-first&#39;)">↓ الأصغر</button>
+      <button class="sort-btn active" id="sort-old-first" onclick="setHomeSort('old-first')">&#x2191; الأقدم</button>
+      <button class="sort-btn" id="sort-new-first" onclick="setHomeSort('new-first')">&#x2193; الأحدث</button>
+      <button class="sort-btn" id="sort-high-first" onclick="setHomeSort('high-first')">&#x2191; الأكبر</button>
+      <button class="sort-btn" id="sort-low-first" onclick="setHomeSort('low-first')">&#x2193; الأصغر</button>
     </div>
     <div id="home-list"></div>
   </div>
-  <button class="fab" onclick="openCalc()">🧮</button>
+  <button class="fab" onclick="openCalc()">&#x1F9EE;</button>
   <div class="botnav">
-    <button class="bnt active" onclick="showTab(&#39;home&#39;)"><span class="ic">🏠</span>الرئيسية</button>
-    <button class="bnt" onclick="showTab(&#39;customers&#39;)"><span class="ic">👥</span>الزبائن</button>
-    <button class="bnt" onclick="showTab(&#39;bank&#39;)"><span class="ic">🏦</span>مطابقة</button>
+    <button class="bnt active" onclick="showTab('home')"><span class="ic">&#x1F3E0;</span>الرئيسية</button>
+    <button class="bnt" onclick="showTab('customers')"><span class="ic">&#x1F465;</span>الزبائن</button>
+    <button class="bnt" onclick="showTab('bank')"><span class="ic">&#x1F3E6;</span>مطابقة</button>
   </div>
 </div>
 
 <!-- الزبائن -->
 <div class="screen" id="s-customers">
   <div class="topnav">
-    <button class="back-btn" onclick="showTab(&#39;home&#39;)">←</button>
-    <div class="topnav-center"><h2>الزبائن</h2><div class="ver-tag">v1.2</div></div>
-    <button onclick="openCalc()" style="padding:8px 16px;border:none;border-radius:10px;background:var(--pri);color:#fff;font-size:16px;font-weight:700;cursor:pointer">+ فاتورة</button>
+    <button class="back-btn" onclick="showTab('home')">&#8592;</button>
+    <div class="topnav-center"><h2>الزبائن</h2><div class="ver-tag">v1.3</div></div>
+    <button onclick="openCalc()" style="padding:8px 14px;border:none;border-radius:10px;background:var(--pri);color:#fff;font-size:15px;font-weight:700;cursor:pointer">+ فاتورة</button>
   </div>
-  <div style="padding:12px 16px;flex-shrink:0">
-    <input type="text" id="cust-search" class="fi" placeholder="بحث بالاسم أو الجوال..." oninput="filterCustomers(this.value)" style="font-size:18px">
+  <div style="padding:10px 16px;flex-shrink:0">
+    <input type="text" id="cust-search" class="fi" placeholder="بحث بالاسم أو الجوال..." oninput="filterCustomers(this.value)" style="font-size:17px">
   </div>
   <div class="content" style="padding-bottom:20px"><div id="customers-list"></div></div>
-</div>
-
-<!-- إضافة فاتورة -->
-<div class="screen" id="s-add">
-  <div class="topnav">
-    <div style="width:44px"></div>
-    <div class="topnav-center"><h2>فاتورة جديدة</h2><div class="ver-tag" id="add-inv-num">—</div></div>
-    <div style="width:44px"></div>
-  </div>
-  <div class="content">
-    <div style="padding:16px">
-      <div style="background:var(--bg2);border:1.5px solid var(--brd);border-radius:14px;padding:16px;margin-bottom:16px">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div>
-            <div style="font-size:13px;color:var(--txt3);font-weight:700">الزبون</div>
-            <div style="font-size:20px;font-weight:900;margin-top:3px" id="add-cust-display">—</div>
-          </div>
-          <div style="text-align:left">
-            <div style="font-size:13px;color:var(--txt3);font-weight:700">المبلغ</div>
-            <div style="font-size:28px;font-weight:900;color:var(--grn);margin-top:3px" id="add-amount-display">0 ₪</div>
-          </div>
-        </div>
-      </div>
-      <div class="fg">
-        <label>البيان <span style="font-size:13px;color:var(--txt3)">— اختياري</span></label>
-        <input type="text" id="add-desc" class="fi" placeholder="اكتب أو اختر من الأكثر شيوعاً..." oninput="onDescInput(this.value)" onfocus="showDescSuggestions()" autocomplete="off">
-        <div class="desc-chips" id="desc-chips-container" style="display:none"></div>
-      </div>
-      <div class="err" id="add-err"></div>
-      <button class="btn btn-grn" onclick="saveDebt()" style="margin-top:8px">حفظ الفاتورة</button>
-      <button onclick="goBack()" style="width:100%;margin-top:10px;padding:14px;background:none;border:none;color:var(--txt3);font-size:16px;font-weight:700;cursor:pointer">إلغاء</button>
-    </div>
-  </div>
 </div>
 
 <!-- تفاصيل الزبون -->
 <div class="screen" id="s-cust">
   <div class="topnav">
-    <button class="back-btn" onclick="goBack()">←</button>
-    <div class="topnav-center"><h2 id="cust-title">الزبون</h2><div class="ver-tag">v1.2</div></div>
-    <button onclick="sendReminder()" style="padding:8px 14px;border:none;border-radius:10px;background:rgba(37,211,102,.15);color:#25d366;font-size:15px;font-weight:700;cursor:pointer;border:1px solid rgba(37,211,102,.3)">واتساب</button>
+    <button class="back-btn" onclick="goBack()">&#8592;</button>
+    <div class="topnav-center"><h2 id="cust-title">الزبون</h2><div class="ver-tag">v1.3</div></div>
+    <button onclick="sendReminder()" style="padding:7px 12px;border:none;border-radius:10px;background:rgba(37,211,102,.15);color:#25d366;font-size:14px;font-weight:700;cursor:pointer;border:1px solid rgba(37,211,102,.3)">واتساب</button>
   </div>
   <div class="content">
     <div class="cust-header">
@@ -322,13 +374,13 @@ new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,
       <div class="cust-phone-lbl" id="cust-phone-lbl"></div>
       <div class="cust-balance-box">
         <div class="cust-balance-lbl">الرصيد المستحق</div>
-        <div class="cust-balance-val" id="cust-balance">0 ₪</div>
+        <div class="cust-balance-val" id="cust-balance">0 &#x20AA;</div>
       </div>
     </div>
     <div class="cust-actions">
       <button class="cust-btn" onclick="payFull()" style="background:linear-gradient(135deg,#065f46,#10b981)">دفع كامل</button>
       <button class="cust-btn" onclick="openPartialPay()" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">دفع جزئي</button>
-      <button class="cust-btn" onclick="addDebtForCust()" style="background:var(--bg3);color:var(--txt2);font-size:15px">+ فاتورة</button>
+      <button class="cust-btn" onclick="addDebtForCust()" style="background:var(--bg3);color:var(--txt2);font-size:14px">+ فاتورة</button>
     </div>
     <div class="sec-hdr">سجل المعاملات</div>
     <div id="cust-tx-list"></div>
@@ -338,14 +390,14 @@ new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,
 <!-- مطابقة البنك -->
 <div class="screen" id="s-bank">
   <div class="topnav">
-    <button class="back-btn" onclick="showTab(&#39;home&#39;)">←</button>
-    <div class="topnav-center"><h2>مطابقة البنك</h2><div class="ver-tag">v1.2</div></div>
+    <button class="back-btn" onclick="showTab('home')">&#8592;</button>
+    <div class="topnav-center"><h2>مطابقة البنك</h2><div class="ver-tag">v1.3</div></div>
     <div style="width:44px"></div>
   </div>
   <div class="content"><div style="padding:16px">
     <div class="fg">
       <label>نص كشف الحساب</label>
-      <textarea id="bank-text" class="fi" placeholder="الصق هنا نص الحركات الواردة..." style="height:140px;resize:none;font-size:16px;line-height:1.7" oninput="autoMatchBank()"></textarea>
+      <textarea id="bank-text" class="fi" placeholder="الصق هنا..." style="height:130px;resize:none;font-size:15px;line-height:1.7" oninput="autoMatchBank()"></textarea>
     </div>
     <div id="bank-results"></div>
   </div></div>
@@ -354,37 +406,49 @@ new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,
 <!-- الإعدادات -->
 <div class="screen" id="s-settings">
   <div class="topnav">
-    <button class="back-btn" onclick="goBack()">←</button>
-    <div class="topnav-center"><h2>الإعدادات</h2><div class="ver-tag">v1.2</div></div>
+    <button class="back-btn" onclick="goBack()">&#8592;</button>
+    <div class="topnav-center"><h2>الإعدادات</h2><div class="ver-tag">v1.3</div></div>
     <div style="width:44px"></div>
   </div>
   <div class="content" style="padding:16px;padding-bottom:40px">
-    <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;padding:20px;margin-bottom:16px">
-      <div style="font-size:13px;font-weight:700;color:var(--txt3);margin-bottom:14px">معلومات الحساب</div>
-      <div style="display:flex;align-items:center;gap:14px">
-        <div style="width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:26px" id="settings-logo">🏪</div>
+    <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;padding:18px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;color:var(--txt3);margin-bottom:12px">معلومات الحساب</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:24px" id="settings-logo">&#x1F3EA;</div>
         <div>
-          <div style="font-size:20px;font-weight:900" id="settings-shop"></div>
-          <div style="font-size:15px;color:var(--txt3);margin-top:3px" id="settings-phone"></div>
+          <div style="font-size:19px;font-weight:900" id="settings-shop"></div>
+          <div style="font-size:14px;color:var(--txt3);margin-top:2px" id="settings-phone"></div>
         </div>
       </div>
     </div>
-    <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;overflow:hidden;margin-bottom:16px">
-      <div style="font-size:13px;font-weight:700;color:var(--txt3);padding:14px 16px 0">الأمان</div>
-      <button onclick="openChangePin()" style="width:100%;padding:18px 16px;border:none;border-top:1.5px solid var(--brd);margin-top:10px;background:transparent;color:var(--txt);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:12px"><span style="font-size:24px">🔒</span><span>تغيير الرقم السري</span></div>
-        <span style="color:var(--txt3);font-size:22px">›</span>
+    <!-- إعداد الضريبة -->
+    <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;padding:18px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;color:var(--txt3);margin-bottom:12px">الضريبة</div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <label style="font-size:17px;font-weight:700">نسبة الضريبة</label>
+        <div style="display:flex;align-items:center;gap:8px">
+          <input type="number" id="tax-rate-input" class="fi" value="17.5" min="0" max="50" step="0.5" style="width:90px;text-align:center;direction:ltr;font-size:18px;padding:10px">
+          <span style="font-size:18px;font-weight:700">%</span>
+        </div>
+      </div>
+      <button onclick="saveTaxRate()" class="btn btn-pri" style="margin-top:12px;font-size:16px;padding:12px">حفظ النسبة</button>
+    </div>
+    <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;overflow:hidden;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;color:var(--txt3);padding:14px 16px 0">الأمان</div>
+      <button onclick="openChangePin()" style="width:100%;padding:16px;border:none;border-top:1.5px solid var(--brd);margin-top:10px;background:transparent;color:var(--txt);font-size:17px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">&#x1F512;</span><span>تغيير الرقم السري</span></div>
+        <span style="color:var(--txt3);font-size:20px">&#8250;</span>
       </button>
     </div>
-    <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;overflow:hidden;margin-bottom:16px">
-      <div style="font-size:13px;font-weight:700;color:var(--txt3);padding:14px 16px 0">البيانات</div>
-      <button onclick="doSync()" style="width:100%;padding:18px 16px;border:none;border-top:1.5px solid var(--brd);margin-top:10px;background:transparent;color:var(--txt);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:12px"><span style="font-size:24px">🔄</span><span>مزامنة البيانات الآن</span></div>
-        <span style="color:var(--txt3);font-size:22px">›</span>
+    <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;overflow:hidden;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;color:var(--txt3);padding:14px 16px 0">البيانات</div>
+      <button onclick="doSync()" style="width:100%;padding:16px;border:none;border-top:1.5px solid var(--brd);margin-top:10px;background:transparent;color:var(--txt);font-size:17px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">&#x1F504;</span><span>مزامنة البيانات الآن</span></div>
+        <span style="color:var(--txt3);font-size:20px">&#8250;</span>
       </button>
     </div>
-    <button onclick="doLogout()" class="btn btn-red" style="margin-top:8px;font-size:18px">تسجيل الخروج</button>
-    <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--txt3)">دفتر الدين — v1.2</div>
+    <button onclick="doLogout()" class="btn btn-red" style="margin-top:8px;font-size:17px">تسجيل الخروج</button>
+    <div style="text-align:center;margin-top:18px;font-size:12px;color:var(--txt3)">دفتر الدين — v1.3</div>
   </div>
 </div>
 
@@ -393,26 +457,20 @@ new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,
 <div class="modal-sheet">
   <div class="modal-title">نسيت الرقم السري</div>
   <div id="forgot-step-1">
-    <div class="fg"><label>رقم الجوال المسجل</label><input type="tel" id="forgot-phone" class="fi" placeholder="05XXXXXXXX" style="direction:ltr;font-size:22px;letter-spacing:1px"></div>
+    <div class="fg"><label>رقم الجوال المسجل</label><input type="tel" id="forgot-phone" class="fi" placeholder="05XXXXXXXX" style="direction:ltr;font-size:20px;letter-spacing:1px"></div>
     <div class="err" id="forgot-err"></div>
-    <div style="display:flex;gap:10px">
-      <button class="btn btn-pri" style="font-size:18px" onclick="sendForgotOTP()">إرسال الرمز</button>
-      <button class="btn btn-gray" style="font-size:18px" onclick="closeForgotPin()">إلغاء</button>
-    </div>
+    <div style="display:flex;gap:8px"><button class="btn btn-pri" style="font-size:17px" onclick="sendForgotOTP()">إرسال الرمز</button><button class="btn btn-gray" style="font-size:17px" onclick="closeForgotPin()">إلغاء</button></div>
   </div>
   <div id="forgot-step-2" style="display:none">
-    <div class="fg"><label>رمز التحقق</label><input type="text" id="forgot-otp" class="fi" placeholder="000000" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900;direction:ltr"></div>
-    <div class="fg"><label>الرقم السري الجديد (6 أرقام)</label><input type="password" id="forgot-new-pin" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900"></div>
+    <div class="fg"><label>رمز التحقق</label><input type="text" id="forgot-otp" class="fi" placeholder="000000" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900;direction:ltr"></div>
+    <div class="fg"><label>الرقم السري الجديد</label><input type="password" id="forgot-new-pin" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900"></div>
     <div class="err" id="forgot-err2"></div>
-    <div style="display:flex;gap:10px">
-      <button class="btn btn-grn" style="font-size:18px" onclick="confirmForgotPin()">تغيير الرقم</button>
-      <button class="btn btn-gray" style="font-size:18px" onclick="closeForgotPin()">إلغاء</button>
-    </div>
+    <div style="display:flex;gap:8px"><button class="btn btn-grn" style="font-size:17px" onclick="confirmForgotPin()">تغيير الرقم</button><button class="btn btn-gray" style="font-size:17px" onclick="closeForgotPin()">إلغاء</button></div>
   </div>
   <div id="forgot-step-3" style="display:none;text-align:center;padding:16px 0">
-    <div style="font-size:4em;margin-bottom:12px">✅</div>
-    <div style="font-size:20px;font-weight:900;color:var(--grn)">تم تغيير الرقم بنجاح</div>
-    <button class="btn btn-pri" style="margin-top:20px;font-size:18px" onclick="closeForgotPin()">دخول</button>
+    <div style="font-size:4em;margin-bottom:12px">&#x2705;</div>
+    <div style="font-size:19px;font-weight:900;color:var(--grn)">تم تغيير الرقم بنجاح</div>
+    <button class="btn btn-pri" style="margin-top:18px;font-size:17px" onclick="closeForgotPin()">دخول</button>
   </div>
 </div>
 </div>
@@ -422,19 +480,16 @@ new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,
 <div class="modal-sheet">
   <div class="modal-title">تغيير الرقم السري</div>
   <div id="pin-step-1">
-    <div class="fg"><label>الرقم الحالي</label><input type="password" id="pin-old" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900"></div>
-    <div class="fg"><label>الرقم الجديد</label><input type="password" id="pin-new1" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900"></div>
-    <div class="fg"><label>تأكيد الرقم الجديد</label><input type="password" id="pin-new2" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900"></div>
+    <div class="fg"><label>الرقم الحالي</label><input type="password" id="pin-old" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900"></div>
+    <div class="fg"><label>الرقم الجديد</label><input type="password" id="pin-new1" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900"></div>
+    <div class="fg"><label>تأكيد الرقم الجديد</label><input type="password" id="pin-new2" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900"></div>
     <div class="err" id="pin-err"></div>
-    <div style="display:flex;gap:10px;margin-top:4px">
-      <button class="btn btn-grn" style="font-size:18px" onclick="saveNewPin()">حفظ</button>
-      <button class="btn btn-gray" style="font-size:18px" onclick="closeChangePin()">إلغاء</button>
-    </div>
+    <div style="display:flex;gap:8px;margin-top:4px"><button class="btn btn-grn" style="font-size:17px" onclick="saveNewPin()">حفظ</button><button class="btn btn-gray" style="font-size:17px" onclick="closeChangePin()">إلغاء</button></div>
   </div>
   <div id="pin-step-2" style="display:none;text-align:center;padding:16px 0">
-    <div style="font-size:4em;margin-bottom:12px">✅</div>
-    <div style="font-size:20px;font-weight:900;color:var(--grn)">تم تغيير الرقم بنجاح</div>
-    <button class="btn btn-pri" style="margin-top:20px;font-size:18px" onclick="closeChangePin()">تم</button>
+    <div style="font-size:4em;margin-bottom:12px">&#x2705;</div>
+    <div style="font-size:19px;font-weight:900;color:var(--grn)">تم تغيير الرقم بنجاح</div>
+    <button class="btn btn-pri" style="margin-top:18px;font-size:17px" onclick="closeChangePin()">تم</button>
   </div>
 </div>
 </div>
@@ -443,75 +498,105 @@ new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,
 <div class="modal-bg" id="m-partial">
 <div class="modal-sheet">
   <div class="modal-title">دفع جزئي</div>
-  <div class="amount-display" style="border-radius:14px;border:2px solid var(--brd);margin-bottom:12px">
+  <div class="amount-display" style="border-radius:12px;border:2px solid var(--brd);margin-bottom:10px">
     <div class="amount-lbl">المبلغ المدفوع</div>
     <div id="partial-display">0</div>
   </div>
   <div class="numpad">
-    <button class="npk" onclick="partialKey(&#39;1&#39;)">1</button><button class="npk" onclick="partialKey(&#39;2&#39;)">2</button><button class="npk" onclick="partialKey(&#39;3&#39;)">3</button>
-    <button class="npk" onclick="partialKey(&#39;4&#39;)">4</button><button class="npk" onclick="partialKey(&#39;5&#39;)">5</button><button class="npk" onclick="partialKey(&#39;6&#39;)">6</button>
-    <button class="npk" onclick="partialKey(&#39;7&#39;)">7</button><button class="npk" onclick="partialKey(&#39;8&#39;)">8</button><button class="npk" onclick="partialKey(&#39;9&#39;)">9</button>
-    <button class="npk" onclick="partialKey(&#39;.&#39;)">.</button><button class="npk" onclick="partialKey(&#39;0&#39;)">0</button><button class="npk" onclick="partialDel()">⌫</button>
+    <button class="npk" onclick="partialKey('1')">1</button><button class="npk" onclick="partialKey('2')">2</button><button class="npk" onclick="partialKey('3')">3</button>
+    <button class="npk" onclick="partialKey('4')">4</button><button class="npk" onclick="partialKey('5')">5</button><button class="npk" onclick="partialKey('6')">6</button>
+    <button class="npk" onclick="partialKey('7')">7</button><button class="npk" onclick="partialKey('8')">8</button><button class="npk" onclick="partialKey('9')">9</button>
+    <button class="npk" onclick="partialKey('.')">.</button><button class="npk" onclick="partialKey('0')">0</button><button class="npk" onclick="partialDel()">&#x232B;</button>
   </div>
-  <div style="display:flex;gap:10px;margin-top:12px">
-    <button class="btn btn-grn" style="font-size:18px" onclick="savePartial()">تأكيد الدفع</button>
-    <button class="btn btn-gray" style="font-size:18px" onclick="document.getElementById(&#39;m-partial&#39;).classList.remove(&#39;open&#39;)">إلغاء</button>
+  <div style="display:flex;gap:8px;margin-top:10px">
+    <button class="btn btn-grn" style="font-size:17px" onclick="savePartial()">تأكيد الدفع</button>
+    <button class="btn btn-gray" style="font-size:17px" onclick="document.getElementById('m-partial').classList.remove('open')">إلغاء</button>
   </div>
 </div>
 </div>
 
-<!-- الحاسبة -->
+<!-- الحاسبة الجديدة -->
 <div class="calc-overlay" id="calc-overlay" onclick="closeCalc()"></div>
 <div class="calc-sheet" id="calc-sheet">
   <div class="calc-handle"></div>
   <div class="calc-display">
-    <div class="calc-expr" id="calc-expr">—</div>
-    <div class="calc-num" id="calc-num">0</div>
+    <div class="calc-expr-area" id="calc-expr">0</div>
+    <div class="calc-result-area" id="calc-result"></div>
   </div>
   <div class="calc-grid">
-    <button class="ck clr" onclick="calcKey(&#39;C&#39;)">C</button>
-    <button class="ck op" onclick="calcKey(&#39;(&#39;)">(</button>
-    <button class="ck op" onclick="calcKey(&#39;)&#39;)">)</button>
-    <button class="ck op" onclick="calcKey(&#39;/&#39;)">÷</button>
-    <button class="ck" onclick="calcKey(&#39;7&#39;)">7</button>
-    <button class="ck" onclick="calcKey(&#39;8&#39;)">8</button>
-    <button class="ck" onclick="calcKey(&#39;9&#39;)">9</button>
-    <button class="ck op" onclick="calcKey(&#39;*&#39;)">×</button>
-    <button class="ck" onclick="calcKey(&#39;4&#39;)">4</button>
-    <button class="ck" onclick="calcKey(&#39;5&#39;)">5</button>
-    <button class="ck" onclick="calcKey(&#39;6&#39;)">6</button>
-    <button class="ck op" onclick="calcKey(&#39;-&#39;)">−</button>
-    <button class="ck" onclick="calcKey(&#39;1&#39;)">1</button>
-    <button class="ck" onclick="calcKey(&#39;2&#39;)">2</button>
-    <button class="ck" onclick="calcKey(&#39;3&#39;)">3</button>
-    <button class="ck op" onclick="calcKey(&#39;+&#39;)">+</button>
-    <button class="ck" onclick="calcKey(&#39;.&#39;)">.</button>
-    <button class="ck" onclick="calcKey(&#39;0&#39;)">0</button>
-    <button class="ck del" onclick="calcDel()">⌫</button>
-    <button class="ck eq" onclick="calcEqual()">=</button>
-  </div>
-  <button class="inv-issue-btn" onclick="openCustSheet()">إصدار فاتورة ←</button>
-</div>
-
-<!-- اختيار الزبون -->
-<div class="bs-overlay" id="bs-overlay" onclick="closeCustSheet()"></div>
-<div class="bs-wrap" id="bs-wrap">
-  <div class="bs-head">
-    <div style="width:40px;height:4px;background:var(--brd);border-radius:2px;margin:0 auto 12px"></div>
-    <div class="bs-title">لمين الفاتورة؟</div>
-    <div class="bs-amount" id="bs-amount-lbl">0 ₪</div>
-  </div>
-  <div style="padding:10px 16px 4px;flex-shrink:0">
-    <input type="text" id="bs-search" class="fi" placeholder="ابحث بالاسم أو الجوال..." oninput="filterCustSheet(this.value)" style="font-size:18px">
-  </div>
-  <div class="bs-body" id="bs-cust-list"></div>
-  <div style="padding:12px 16px 20px;flex-shrink:0">
-    <button onclick="selectCustSheet(null,&#39;&#39;,&#39;&#39;)" style="width:100%;padding:16px;border:1.5px dashed var(--brd);border-radius:12px;background:transparent;color:var(--txt3);font-size:17px;font-weight:700;cursor:pointer">إصدار بدون اسم</button>
+    <button class="ck clr" onclick="calcKey('C')">C</button>
+    <button class="ck op" onclick="calcKey('(')">(</button>
+    <button class="ck op pct" onclick="calcPct()">%</button>
+    <button class="ck op" onclick="calcKey('/')">&#247;</button>
+    <button class="ck" onclick="calcKey('7')">7</button>
+    <button class="ck" onclick="calcKey('8')">8</button>
+    <button class="ck" onclick="calcKey('9')">9</button>
+    <button class="ck op" onclick="calcKey('*')">&#215;</button>
+    <button class="ck" onclick="calcKey('4')">4</button>
+    <button class="ck" onclick="calcKey('5')">5</button>
+    <button class="ck" onclick="calcKey('6')">6</button>
+    <button class="ck op" onclick="calcKey('-')">&#8722;</button>
+    <button class="ck" onclick="calcKey('1')">1</button>
+    <button class="ck" onclick="calcKey('2')">2</button>
+    <button class="ck" onclick="calcKey('3')">3</button>
+    <button class="ck op" onclick="calcKey('+')">+</button>
+    <button class="ck" onclick="calcKey('0')">0</button>
+    <button class="ck" onclick="calcKey('00')">00</button>
+    <button class="ck del" onclick="calcDel()">&#x232B;</button>
+    <button class="ck eq" onclick="openInvSheet()">إصدار<br>فاتورة</button>
   </div>
 </div>
 
-<!-- spinner -->
-<div id="spinner"><div class="spin"></div><div class="spin-txt" id="spinner-txt">جاري التحميل...</div></div>
+<!-- الفاتورة -->
+<div class="inv-overlay" id="inv-overlay" onclick="closeInvSheet()"></div>
+<div class="inv-sheet" id="inv-sheet">
+  <div class="inv-handle"></div>
+  <div class="inv-header">
+    <div class="inv-shop-name" id="inv-shop-name">بقالة الأمانة</div>
+    <div class="inv-meta">
+      <span id="inv-num-lbl">#1001</span>
+      <span id="inv-date-lbl"></span>
+    </div>
+  </div>
+  <div class="inv-cust-row">
+    <div class="inv-cust-label">اسم الزبون</div>
+    <input type="text" id="inv-cust-input" class="inv-cust-input"
+      placeholder="___________________________"
+      autocomplete="off"
+      oninput="onInvCustInput(this.value)"
+      onfocus="onInvCustInput(this.value)">
+    <div id="inv-cust-dropdown" class="cust-dropdown-inv" style="display:none"></div>
+  </div>
+  <div class="inv-lines" id="inv-lines"></div>
+  <button class="inv-add-line" onclick="addInvLine()">+ إضافة سطر</button>
+  <div class="inv-footer">
+    <div class="inv-total-row">
+      <span class="inv-total-lbl">الإجمالي</span>
+      <span class="inv-total-val" id="inv-total">0 &#x20AA;</span>
+    </div>
+    <div class="inv-tax-row" id="inv-tax-row">
+      <span>منها ضريبة (<span id="inv-tax-pct">17.5</span>%)</span>
+      <span id="inv-tax-val">0 &#x20AA;</span>
+    </div>
+    <div class="inv-actions">
+      <button class="inv-btn inv-btn-save" onclick="saveInvoice(false)">حفظ</button>
+      <button class="inv-btn inv-btn-tax" id="inv-tax-btn" onclick="toggleTax()">ضريبة</button>
+      <button class="inv-btn inv-btn-wa" onclick="saveInvoice(true)">واتساب</button>
+    </div>
+  </div>
+</div>
+
+<!-- قائمة الأصناف -->
+<div style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:205;display:none" id="cat-overlay" onclick="closeCatSheet()"></div>
+<div class="cat-sheet" id="cat-sheet">
+  <div style="padding:14px 16px 6px;border-bottom:1px solid var(--brd)">
+    <div style="font-size:17px;font-weight:900;margin-bottom:8px">اختر الصنف</div>
+    <input type="text" id="cat-search" class="fi" placeholder="ابحث أو أضف جديد..." oninput="filterCats(this.value)" style="font-size:16px;padding:10px 14px">
+  </div>
+  <div class="cat-grid" id="cat-grid"></div>
+</div>
+
+<div id="spinner"><div class="spin"></div><div class="spin-txt" id="spinner-txt">...</div></div>
 <script>
 const SUPA_URL='https://ziehhwdphavnbmltxnmc.supabase.co';
 const LOGIN_URL=SUPA_URL+'/functions/v1/login-final';
@@ -520,22 +605,23 @@ const CUR='\u20AA';
 let SESSION=null,prevScreen='s-home',currentCustomer=null,partialAmountStr='0';
 let homeFilter='today',homeSort='old-first';
 let calcStr='';
-let pendingAmount=0,pendingCustId=null,pendingCustName='',pendingIsNew=false,pendingPhone='';
+let invLines=[],invTaxOn=false,invCustId=null,invCustName='',activeCatLineIdx=-1;
+let pendingAmount=0;
 
+// ── DB ──────────────────────────────────────────────────────────
 class LocalDB{
   constructor(n){this.name=n;this.db=null}
   async open(){return new Promise((res,rej)=>{
-    const req=indexedDB.open(this.name,1);
+    const req=indexedDB.open(this.name,2);
     req.onupgradeneeded=e=>{
       const d=e.target.result;
-      ['customers','transactions','sync_queue'].forEach(s=>{
-        if(!d.objectStoreNames.contains(s)){
-          const st=d.createObjectStore(s,{keyPath:s==='sync_queue'?'qid':'id'});
-          if(s==='sync_queue') st.createIndex('synced','synced');
-          if(s==='customers') st.createIndex('merchant_id','merchant_id');
-          if(s==='transactions') st.createIndex('customer_id','customer_id');
-        }
-      });
+      if(!d.objectStoreNames.contains('customers')){const s=d.createObjectStore('customers',{keyPath:'id'});s.createIndex('merchant_id','merchant_id')}
+      if(!d.objectStoreNames.contains('invoices')){const s=d.createObjectStore('invoices',{keyPath:'id'});s.createIndex('merchant_id','merchant_id');s.createIndex('customer_id','customer_id')}
+      if(!d.objectStoreNames.contains('inv_lines')){const s=d.createObjectStore('inv_lines',{keyPath:'id'});s.createIndex('invoice_id','invoice_id')}
+      if(!d.objectStoreNames.contains('categories')){const s=d.createObjectStore('categories',{keyPath:'id'});s.createIndex('merchant_id','merchant_id')}
+      if(!d.objectStoreNames.contains('sync_queue')){const s=d.createObjectStore('sync_queue',{keyPath:'qid'});s.createIndex('synced','synced')}
+      // keep old transactions store for migration
+      if(!d.objectStoreNames.contains('transactions')){const s=d.createObjectStore('transactions',{keyPath:'id'});s.createIndex('customer_id','customer_id')}
     };
     req.onsuccess=e=>{this.db=e.target.result;res(this)};
     req.onerror=e=>rej(e);
@@ -545,10 +631,11 @@ class LocalDB{
   get(s,k){return new Promise((r,j)=>{const q=this.tx(s).get(k);q.onsuccess=()=>r(q.result);q.onerror=e=>j(e)})}
   getAll(s){return new Promise((r,j)=>{const q=this.tx(s).getAll();q.onsuccess=()=>r(q.result||[]);q.onerror=e=>j(e)})}
   add(s,d){if(s==='sync_queue')d.qid=Date.now()+Math.random();return new Promise((r,j)=>{const q=this.tx(s,'readwrite').add(d);q.onsuccess=()=>r(q.result);q.onerror=e=>j(e)})}
+  delete(s,k){return new Promise((r,j)=>{const q=this.tx(s,'readwrite').delete(k);q.onsuccess=()=>r();q.onerror=e=>j(e)})}
+  getByIndex(s,idx,val){return new Promise((r,j)=>{const q=this.tx(s).index(idx).getAll(val);q.onsuccess=()=>r(q.result||[]);q.onerror=e=>j(e)})}
   getPendingSync(){return new Promise((r,j)=>{const q=this.tx('sync_queue').index('synced').getAll(0);q.onsuccess=()=>r(q.result||[]);q.onerror=e=>j(e)})}
   markSynced(ids){return new Promise((r,j)=>{
-    const tx=this.db.transaction('sync_queue','readwrite');
-    const s=tx.objectStore('sync_queue');
+    const tx=this.db.transaction('sync_queue','readwrite');const s=tx.objectStore('sync_queue');
     ids.forEach(id=>{const q=s.get(id);q.onsuccess=e=>{if(e.target.result){e.target.result.synced=1;s.put(e.target.result)}}});
     tx.oncomplete=()=>r();tx.onerror=e=>j(e);
   })}
@@ -556,78 +643,76 @@ class LocalDB{
 const db=new LocalDB('GazaDafter');
 
 function getNextInvNum(){let n=parseInt(localStorage.getItem('gz_inv_num')||'1000');n++;localStorage.setItem('gz_inv_num',n.toString());return n}
+function getTaxRate(){return parseFloat(localStorage.getItem('gz_tax_rate')||'17.5')}
+function saveTaxRate(){const v=parseFloat(document.getElementById('tax-rate-input').value);if(!isNaN(v)&&v>=0&&v<=50){localStorage.setItem('gz_tax_rate',v.toString());alert('\u062a\u0645 \u062d\u0641\u0638 \u0627\u0644\u0646\u0633\u0628\u0629: '+v+'%');}}
 
+// ── Navigation ──────────────────────────────────────────────────
 function showScreen(id){
   const p=document.querySelector('.screen.active');
   if(p){prevScreen=p.id;p.classList.remove('active')}
   document.getElementById(id).classList.add('active');
   const fb=document.getElementById('float-back-btn');
-  if(fb) fb.className='float-back'+(['s-cust','s-settings','s-add'].includes(id)?' show':'');
+  if(fb)fb.className='float-back'+(['s-cust','s-settings'].includes(id)?' show':'');
 }
 function goBack(){showScreen(prevScreen)}
 function showTab(tab){
   const map={home:'s-home',customers:'s-customers',bank:'s-bank'};
   document.querySelectorAll('.bnt').forEach(b=>b.classList.remove('active'));
-  if(tab==='home') document.querySelectorAll('.bnt')[0].classList.add('active');
-  if(tab==='customers') document.querySelectorAll('.bnt')[1].classList.add('active');
-  if(tab==='bank') document.querySelectorAll('.bnt')[2].classList.add('active');
+  if(tab==='home')document.querySelectorAll('.bnt')[0].classList.add('active');
+  if(tab==='customers')document.querySelectorAll('.bnt')[1].classList.add('active');
+  if(tab==='bank')document.querySelectorAll('.bnt')[2].classList.add('active');
   showScreen(map[tab]||'s-home');
-  if(tab==='home') loadHome();
-  if(tab==='customers') loadCustomers();
+  if(tab==='home')loadHome();
+  if(tab==='customers')loadCustomers();
 }
 function showSpinner(t){document.getElementById('spinner-txt').textContent=t||'...';document.getElementById('spinner').classList.add('show')}
 function hideSpinner(){document.getElementById('spinner').classList.remove('show')}
 function showErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.style.display='block';setTimeout(()=>e.style.display='none',4000)}
 
+// ── Auth ────────────────────────────────────────────────────────
 async function doSetup(){
   const owner=document.getElementById('setup-owner').value.trim();
   const shop=document.getElementById('setup-shop').value.trim();
   const phone=document.getElementById('setup-phone').value.trim();
   const pin=document.getElementById('setup-pin').value.trim();
-  const displayName=shop||owner;
+  const name=shop||owner;
   if(!owner){showErr('setup-err','\u0627\u062f\u062e\u0644 \u0627\u0633\u0645 \u0627\u0644\u062a\u0627\u062c\u0631');return}
   if(!phone){showErr('setup-err','\u0627\u062f\u062e\u0644 \u0631\u0642\u0645 \u0627\u0644\u062c\u0648\u0627\u0644');return}
-  if(pin.length<6){showErr('setup-err','\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0633\u0631\u064a 6 \u0623\u0631\u0642\u0627\u0645');return}
-  showSpinner('\u062c\u0627\u0631\u064a \u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u062d\u0633\u0627\u0628...');
+  if(pin.length<6){showErr('setup-err','6 \u0623\u0631\u0642\u0627\u0645 \u0644\u0644\u0631\u0642\u0645 \u0627\u0644\u0633\u0631\u064a');return}
+  showSpinner('...');
   try{
-    const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'register',phone,name:displayName})});
-    const d1=await r1.json();
-    if(d1.error){hideSpinner();showErr('setup-err',d1.error);return}
+    const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'register',phone,name})});
+    const d1=await r1.json();if(d1.error){hideSpinner();showErr('setup-err',d1.error);return}
     const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'set_pin',merchant_id:d1.merchant_id,pin})});
-    const d2=await r2.json();
-    if(d2.error){hideSpinner();showErr('setup-err',d2.error);return}
-    localStorage.setItem('gz_phone',phone);localStorage.setItem('gz_shop',displayName);localStorage.setItem('gz_owner',owner);
+    const d2=await r2.json();if(d2.error){hideSpinner();showErr('setup-err',d2.error);return}
+    localStorage.setItem('gz_phone',phone);localStorage.setItem('gz_shop',name);localStorage.setItem('gz_owner',owner);
     hideSpinner();await doLoginWithCredentials(phone,pin);
   }catch(e){hideSpinner();showErr('setup-err','\u0644\u0627 \u064a\u0648\u062c\u062f \u0627\u062a\u0635\u0627\u0644')}
 }
-
 async function doLogin(){
   const pin=document.getElementById('login-pin').value.trim();
   const phone=localStorage.getItem('gz_phone')||'';
   if(!phone){showScreen('s-setup');return}
   if(pin.length<4){showErr('login-err','\u0627\u062f\u062e\u0644 \u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0633\u0631\u064a');return}
-  const btn=document.getElementById('login-btn');
-  btn.textContent='\u062c\u0627\u0631\u064a...';btn.disabled=true;
+  const btn=document.getElementById('login-btn');btn.textContent='...';btn.disabled=true;
   await doLoginWithCredentials(phone,pin);
   btn.textContent='\u062f\u062e\u0648\u0644';btn.disabled=false;
 }
-
 async function doLoginWithCredentials(phone,pin){
   try{
     const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',phone,pin})});
     const d=await res.json();
-    if(!d.ok){showErr('login-err',d.error||'\u0627\u0644\u0631\u0642\u0645 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d');return}
+    if(!d.ok){showErr('login-err',d.error||'\u0631\u0642\u0645 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d');return}
     SESSION={...d,phone};localStorage.setItem('gz_session',JSON.stringify(SESSION));
     document.getElementById('login-pin').value='';
     document.getElementById('home-shop-name').textContent=localStorage.getItem('gz_shop')||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';
-    showTab('home');if(navigator.onLine) pullFromServer();
+    showTab('home');if(navigator.onLine)pullFromServer();
   }catch(e){
     const c=localStorage.getItem('gz_session');
     if(c){SESSION=JSON.parse(c);document.getElementById('home-shop-name').textContent=localStorage.getItem('gz_shop')||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';showTab('home');}
     else showErr('login-err','\u0644\u0627 \u064a\u0648\u062c\u062f \u0627\u062a\u0635\u0627\u0644');
   }
 }
-
 const DEV_PHONE='0599123456',DEV_PIN='000000',DEV_SHOP='\u0645\u0637\u0648\u0631';
 async function devLogin(){
   showSpinner('...');
@@ -639,21 +724,19 @@ async function devLogin(){
   }catch(e){hideSpinner();alert('\u0644\u0627 \u064a\u0648\u062c\u062f \u0627\u062a\u0635\u0627\u0644');}
 }
 
+// ── Sync ────────────────────────────────────────────────────────
 async function pullFromServer(){
-  if(!SESSION||!navigator.onLine) return;
+  if(!SESSION||!navigator.onLine)return;
   try{
     const res=await fetch(SYNC_URL+'?tok='+encodeURIComponent(SESSION.token));
-    const d=await res.json();
-    if(!d.ok) return;
-    if(d.customers?.length) for(const c of d.customers) await db.put('customers',c);
-    if(d.transactions?.length) for(const t of d.transactions) await db.put('transactions',t);
+    const d=await res.json();if(!d.ok)return;
+    if(d.customers?.length)for(const c of d.customers)await db.put('customers',c);
+    if(d.transactions?.length)for(const t of d.transactions)await db.put('transactions',t);
     await loadHome();updateStatusBar();
   }catch(e){}
 }
-
 async function doSync(){
-  if(!SESSION) return;
-  if(!navigator.onLine){updateStatusBar();return}
+  if(!SESSION)return;if(!navigator.onLine){updateStatusBar();return}
   updateStatusBar('syncing');
   try{
     const pending=await db.getPendingSync();
@@ -668,27 +751,22 @@ async function addToQueue(type,data){return db.add('sync_queue',{type,data,creat
 
 async function updateStatusBar(state){
   const bar=document.getElementById('status-bar'),txt=document.getElementById('status-txt');
-  if(!bar) return;
+  if(!bar)return;
   const pending=await db.getPendingSync();
   if(state==='syncing'){bar.className='status-bar bar-pending';txt.textContent='\u062c\u0627\u0631\u064a \u0627\u0644\u0645\u0632\u0627\u0645\u0646\u0629...';return}
-  if(!navigator.onLine){
-    bar.className='status-bar bar-offline';
-    txt.textContent=pending.length>0?'\u063a\u064a\u0631 \u0645\u062a\u0635\u0644 \u2014 '+pending.length+' \u062a\u063a\u064a\u064a\u0631 \u0645\u0639\u0644\u0642':'\u063a\u064a\u0631 \u0645\u062a\u0635\u0644 \u2014 \u0645\u062d\u0641\u0648\u0638 \u0645\u062d\u0644\u064a\u0627\u064b';
-    return;
-  }
-  if(pending.length>0){bar.className='status-bar bar-pending';txt.textContent='\u0645\u062a\u0635\u0644 \u2014 '+pending.length+' \u062a\u063a\u064a\u064a\u0631 \u0644\u0645 \u064a\u064f\u0632\u0627\u0645\u0646';}
+  if(!navigator.onLine){bar.className='status-bar bar-offline';txt.textContent=pending.length?'\u063a\u064a\u0631 \u0645\u062a\u0635\u0644 \u2014 '+pending.length+' \u0645\u0639\u0644\u0642':'\u063a\u064a\u0631 \u0645\u062a\u0635\u0644';return}
+  if(pending.length){bar.className='status-bar bar-pending';txt.textContent='\u0645\u062a\u0635\u0644 \u2014 '+pending.length+' \u0644\u0645 \u064a\u064f\u0632\u0627\u0645\u0646';}
   else{
-    const last=localStorage.getItem('gz_last_sync');
-    let ts='';
-    if(last){const d=Math.floor((Date.now()-parseInt(last))/1000);if(d<60)ts='\u0623\u0642\u0644 \u0645\u0646 \u062f\u0642\u064a\u0642\u0629';else if(d<3600)ts=Math.floor(d/60)+' \u062f\u0642\u064a\u0642\u0629';else if(d<86400)ts=Math.floor(d/3600)+' \u0633\u0627\u0639\u0629';}
-    bar.className='status-bar bar-online';
-    txt.textContent=ts?'\u0645\u062a\u0635\u0644 \u2014 \u0622\u062e\u0631 \u0645\u0632\u0627\u0645\u0646\u0629 \u0645\u0646\u0630 '+ts:'\u0645\u062a\u0635\u0644 \u2014 \u0645\u062d\u062f\u062b \u2713';
+    const last=localStorage.getItem('gz_last_sync');let ts='';
+    if(last){const d=Math.floor((Date.now()-parseInt(last))/1000);if(d<60)ts='\u0623\u0642\u0644 \u062f\u0642\u064a\u0642\u0629';else if(d<3600)ts=Math.floor(d/60)+'\u062f';else ts=Math.floor(d/3600)+'\u0633';}
+    bar.className='status-bar bar-online';txt.textContent=ts?'\u0645\u062a\u0635\u0644 \u2014 \u0622\u062e\u0631 \u0645\u0632\u0627\u0645\u0646\u0629 \u0645\u0646\u0630 '+ts:'\u0645\u062a\u0635\u0644 \u2714';
   }
 }
 
+// ── Filter/Sort ─────────────────────────────────────────────────
 function setHomeFilter(f){
   homeFilter=f;
-  ['today','old','all'].forEach(k=>{const b=document.getElementById('filter-'+k);if(b)b.className='filter-btn'+(k===f?' active':'');});
+  ['today','pending','all'].forEach(k=>{const b=document.getElementById('filter-'+k);if(b)b.className='filter-btn'+(k===f?' active':'');});
   loadHome();
 }
 function setHomeSort(s){
@@ -697,35 +775,62 @@ function setHomeSort(s){
   loadHome();
 }
 
+// ── Home ────────────────────────────────────────────────────────
 async function loadHome(){
-  if(!SESSION) return;
-  const custs=await db.getAll('customers'),txs=await db.getAll('transactions');
+  if(!SESSION)return;
+  const custs=await db.getAll('customers');
+  // دعم invoices الجديدة + transactions القديمة
+  let allInvoices=[];
+  try{allInvoices=await db.getAll('invoices');}catch(e){}
+  let allTx=[];
+  try{allTx=await db.getAll('transactions');}catch(e){}
   const mine=custs.filter(c=>c.merchant_id===SESSION.merchant_id);
-  const txm=txs.filter(t=>t.merchant_id===SESSION.merchant_id);
-  const bal={},oldest={},invNums={};
-  txm.forEach(t=>{
-    if(!bal[t.customer_id]) bal[t.customer_id]=0;
-    const d=new Date(t.created_at);
-    const unpaid=t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639',partial=t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b';
-    if(unpaid||partial){
-      bal[t.customer_id]+=(partial?(t.remaining||t.amount):t.amount);
-      if(!oldest[t.customer_id]||d<oldest[t.customer_id]) oldest[t.customer_id]=d;
-      if(!invNums[t.customer_id]&&t.inv_num) invNums[t.customer_id]=t.inv_num;
+  const mInv=allInvoices.filter(i=>i.merchant_id===SESSION.merchant_id);
+  const mTx=allTx.filter(t=>t.merchant_id===SESSION.merchant_id);
+
+  const bal={},oldest={},invNums={},statuses={};
+
+  // من invoices الجديدة
+  mInv.forEach(inv=>{
+    const cid=inv.customer_id;if(!cid)return;
+    if(!bal[cid])bal[cid]=0;
+    const d=new Date(inv.created_at);
+    const isPending=inv.status==='\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631';
+    const isUnpaid=inv.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639';
+    if(isUnpaid||isPending){
+      bal[cid]+=(inv.total||0);
+      if(!oldest[cid]||d<oldest[cid])oldest[cid]=d;
+      if(!invNums[cid])invNums[cid]=inv.inv_num;
+      if(!statuses[cid])statuses[cid]=isPending?'pending':'unpaid';
     }
   });
+  // من transactions القديمة
+  mTx.forEach(t=>{
+    const cid=t.customer_id;if(!cid)return;
+    if(!bal[cid])bal[cid]=0;
+    const d=new Date(t.created_at);
+    if(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'){
+      bal[cid]+=(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'?(t.remaining||t.amount):t.amount);
+      if(!oldest[cid]||d<oldest[cid])oldest[cid]=d;
+      if(!invNums[cid]&&t.inv_num)invNums[cid]=t.inv_num;
+    }
+  });
+
   const todayStr=new Date().toDateString();
   let debtors=mine.filter(c=>(bal[c.id]||0)>0);
-  if(homeFilter==='today') debtors=debtors.filter(c=>oldest[c.id]&&new Date(oldest[c.id]).toDateString()===todayStr);
-  else if(homeFilter==='old') debtors=debtors.filter(c=>oldest[c.id]&&new Date(oldest[c.id]).toDateString()!==todayStr);
+  if(homeFilter==='today')debtors=debtors.filter(c=>oldest[c.id]&&new Date(oldest[c.id]).toDateString()===todayStr);
+  else if(homeFilter==='pending')debtors=debtors.filter(c=>statuses[c.id]==='pending');
   const now=Date.now();
-  if(homeSort==='old-first') debtors.sort((a,b)=>(oldest[a.id]||0)-(oldest[b.id]||0));
-  else if(homeSort==='new-first') debtors.sort((a,b)=>(oldest[b.id]||0)-(oldest[a.id]||0));
-  else if(homeSort==='high-first') debtors.sort((a,b)=>(bal[b.id]||0)-(bal[a.id]||0));
+  if(homeSort==='old-first')debtors.sort((a,b)=>(oldest[a.id]||0)-(oldest[b.id]||0));
+  else if(homeSort==='new-first')debtors.sort((a,b)=>(oldest[b.id]||0)-(oldest[a.id]||0));
+  else if(homeSort==='high-first')debtors.sort((a,b)=>(bal[b.id]||0)-(bal[a.id]||0));
   else debtors.sort((a,b)=>(bal[a.id]||0)-(bal[b.id]||0));
-  const totalAll=mine.filter(c=>(bal[c.id]||0)>0).reduce((s,c)=>s+(bal[c.id]||0),0);
-  const countAll=mine.filter(c=>(bal[c.id]||0)>0).length;
-  document.getElementById('home-total').textContent=totalAll.toFixed(0)+' '+CUR;
-  document.getElementById('home-count').textContent=countAll;
+
+  const total=mine.filter(c=>(bal[c.id]||0)>0).reduce((s,c)=>s+(bal[c.id]||0),0);
+  const count=mine.filter(c=>(bal[c.id]||0)>0).length;
+  document.getElementById('home-total').textContent=total.toFixed(0)+' '+CUR;
+  document.getElementById('home-count').textContent=count;
+
   const list=document.getElementById('home-list');
   if(!debtors.length){
     list.innerHTML='<div class="empty"><div class="icon">\uD83D\uDE0A</div><p>\u0645\u0627 \u0641\u064a \u062f\u064a\u0648\u0646 \u0645\u0639\u0644\u0642\u0629<br>\u0627\u0636\u063a\u0637 \uD83E\uDDEE \u0644\u0625\u0636\u0627\u0641\u0629 \u0641\u0627\u062a\u0648\u0631\u0629</p></div>';
@@ -734,149 +839,272 @@ async function loadHome(){
   list.innerHTML=debtors.map(c=>{
     const b=bal[c.id]||0,o=oldest[c.id];
     const days=o?Math.floor((now-o)/86400000):0;
-    const cls=days>7?'debt-item old':days>3?'debt-item week':'debt-item';
-    const dl=days===0?'\u0627\u0644\u064a\u0648\u0645':days===1?'\u0623\u0645\u0633':'\u0645\u0646\u0630 '+days+' \u064a\u0648\u0645';
+    const isPend=statuses[c.id]==='pending';
+    const cls='debt-item'+(isPend?' pending':days>7?' old':days>3?' week':'');
+    const dl=isPend?'\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631':days===0?'\u0627\u0644\u064a\u0648\u0645':days===1?'\u0623\u0645\u0633':'\u0645\u0646\u0630 '+days+' \u064a\u0648\u0645';
     const inv=invNums[c.id]||'\u2014';
     return '<div class="'+cls+'"><div class="debt-amount-wrap" onclick="openCustomer(\''+c.id+'\')"><div class="debt-amount">'+b.toFixed(0)+' '+CUR+'</div><div class="debt-days">'+dl+'</div></div><div class="debt-info" onclick="openCustomer(\''+c.id+'\')"><div class="debt-name">'+c.name+'</div><div class="debt-meta">'+(c.phone||'\u0628\u062f\u0648\u0646 \u062c\u0648\u0627\u0644')+'</div></div><div class="debt-avatar" onclick="openCustomer(\''+c.id+'\')">'+inv+'</div></div>';
   }).join('');
   updateStatusBar();
 }
 
+// ── Customers ───────────────────────────────────────────────────
 async function loadCustomers(q){
   q=q||'';
-  const all=await db.getAll('customers'),txAll=await db.getAll('transactions');
+  const all=await db.getAll('customers');
+  let allInvoices=[];try{allInvoices=await db.getAll('invoices');}catch(e){}
+  let allTx=[];try{allTx=await db.getAll('transactions');}catch(e){}
   const mine=all.filter(c=>c.merchant_id===SESSION.merchant_id);
-  const txm=txAll.filter(t=>t.merchant_id===SESSION.merchant_id);
   const bal={};
-  txm.forEach(t=>{if(!bal[t.customer_id])bal[t.customer_id]=0;if(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639')bal[t.customer_id]+=t.amount;else if(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b')bal[t.customer_id]+=(t.remaining||t.amount);});
+  allInvoices.filter(i=>i.merchant_id===SESSION.merchant_id).forEach(i=>{if(!bal[i.customer_id])bal[i.customer_id]=0;if(i.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||i.status==='\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631')bal[i.customer_id]+=(i.total||0);});
+  allTx.filter(t=>t.merchant_id===SESSION.merchant_id).forEach(t=>{if(!bal[t.customer_id])bal[t.customer_id]=0;if(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639')bal[t.customer_id]+=t.amount;else if(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b')bal[t.customer_id]+=(t.remaining||t.amount);});
   const filtered=mine.filter(c=>!q||c.name.includes(q)||(c.phone||'').includes(q)).sort((a,b)=>(bal[b.id]||0)-(bal[a.id]||0));
   const list=document.getElementById('customers-list');
   if(!filtered.length){list.innerHTML='<div class="empty"><div class="icon">\uD83D\uDC65</div><p>\u0645\u0627 \u0641\u064a \u0632\u0628\u0627\u0626\u0646 \u0628\u0639\u062f</p></div>';return}
-  list.innerHTML=filtered.map(c=>{
-    const b=bal[c.id]||0,bc=b>0?'var(--red)':'var(--grn)',bt=b>0?b.toFixed(0)+' '+CUR:'\u0645\u0633\u0648\u0651\u0649 \u2713';
-    return '<div class="debt-item" onclick="openCustomer(\''+c.id+'\')"><div class="debt-amount-wrap"><div class="debt-amount" style="color:'+bc+'">'+bt+'</div></div><div class="debt-info"><div class="debt-name">'+c.name+'</div><div class="debt-meta">'+(c.phone||'\u0628\u062f\u0648\u0646 \u062c\u0648\u0627\u0644')+'</div></div><div class="debt-avatar">'+(c.name||'?').charAt(0)+'</div></div>';
-  }).join('');
+  list.innerHTML=filtered.map(c=>{const b=bal[c.id]||0,bc=b>0?'var(--red)':'var(--grn)',bt=b>0?b.toFixed(0)+' '+CUR:'\u0645\u0633\u0648\u0651\u0649 \u2713';return '<div class="debt-item" onclick="openCustomer(\''+c.id+'\')"><div class="debt-amount-wrap"><div class="debt-amount" style="color:'+bc+'">'+bt+'</div></div><div class="debt-info"><div class="debt-name">'+c.name+'</div><div class="debt-meta">'+(c.phone||'\u0628\u062f\u0648\u0646 \u062c\u0648\u0627\u0644')+'</div></div><div class="debt-avatar">'+(c.name||'?').charAt(0)+'</div></div>';}).join('');
 }
 function filterCustomers(q){loadCustomers(q)}
 
+// ── الحاسبة ─────────────────────────────────────────────────────
 function openCalc(){calcStr='';renderCalc();document.getElementById('calc-sheet').classList.add('open');document.getElementById('calc-overlay').classList.add('show')}
 function closeCalc(){document.getElementById('calc-sheet').classList.remove('open');document.getElementById('calc-overlay').classList.remove('show')}
-function calcKey(k){if(k==='C'){calcStr='';}else{calcStr+=k;}renderCalc()}
+
+function calcKey(k){
+  if(k==='C'){calcStr='';renderCalc();return}
+  calcStr+=k;renderCalc();
+}
 function calcDel(){calcStr=calcStr.slice(0,-1);renderCalc()}
-function calcEqual(){try{const r=Function('"use strict";return ('+calcStr+')')();if(!isNaN(r)&&isFinite(r)){calcStr=parseFloat(r.toFixed(2)).toString();}}catch(e){}renderCalc()}
+function calcPct(){
+  // تحويل آخر رقم إلى نسبة مئوية
+  try{const r=Function('"use strict";return ('+calcStr+')')();calcStr=(r/100).toString();}catch(e){}
+  renderCalc();
+}
+
+function calcEval(str){
+  try{const r=Function('"use strict";return ('+str+')')();if(!isNaN(r)&&isFinite(r))return parseFloat(r.toFixed(2));} catch(e){}return null;
+}
+
 function renderCalc(){
-  const ne=document.getElementById('calc-num'),ee=document.getElementById('calc-expr');
-  if(!ne) return;
-  try{const r=Function('"use strict";return ('+calcStr+')')();ne.textContent=(!isNaN(r)&&isFinite(r)&&calcStr)?parseFloat(r.toFixed(2)).toString():(calcStr||'0');}
-  catch(e){ne.textContent=calcStr||'0';}
-  if(ee) ee.textContent=calcStr||'\u2014';
+  const exprEl=document.getElementById('calc-expr');
+  const resEl=document.getElementById('calc-result');
+  if(!exprEl)return;
+  // عرض التعبير بخط كبير RTL
+  let display=calcStr||'0';
+  // تجميل الأرقام: مسافات حول العمليات
+  display=display.replace(/([+\-*/])/g,' $1 ').replace(/\s+/g,' ').trim();
+  exprEl.textContent=display;
+  // عرض النتيجة صغيرة
+  const result=calcEval(calcStr);
+  if(result!==null&&calcStr&&calcStr!==result.toString()){
+    resEl.textContent='= '+result.toLocaleString('ar');
+  }else{
+    resEl.textContent='';
+  }
 }
 
-async function openCustSheet(){
-  let amount=0;
-  try{amount=parseFloat(Function('"use strict";return ('+calcStr+')')().toFixed(2));}catch(e){}
-  if(!amount||amount<=0){alert('\u0627\u062f\u062e\u0644 \u0645\u0628\u0644\u063a\u0627\u064b \u0635\u062d\u064a\u062d\u0627\u064b \u0623\u0648\u0644\u0627\u064b');return}
-  pendingAmount=amount;
-  document.getElementById('bs-amount-lbl').textContent=amount.toFixed(0)+' '+CUR;
-  await loadCustSheetList('');
-  document.getElementById('bs-search').value='';
+// ── الفاتورة ────────────────────────────────────────────────────
+function openInvSheet(){
+  // احسب المبلغ الإجمالي من الحاسبة
+  const total=calcEval(calcStr)||0;
+  if(total<=0){alert('\u0627\u062f\u062e\u0644 \u0645\u0628\u0644\u063a\u0627\u064b \u0635\u062d\u064a\u062d\u0627\u064b');return}
   closeCalc();
-  document.getElementById('bs-wrap').classList.add('open');
-  document.getElementById('bs-overlay').classList.add('show');
-}
-function closeCustSheet(){document.getElementById('bs-wrap').classList.remove('open');document.getElementById('bs-overlay').classList.remove('show')}
 
-async function loadCustSheetList(q){
-  if(!SESSION) return;
-  const all=await db.getAll('customers'),txAll=await db.getAll('transactions');
-  const mine=all.filter(c=>c.merchant_id===SESSION.merchant_id);
-  const txm=txAll.filter(t=>t.merchant_id===SESSION.merchant_id);
-  const bal={};
-  txm.forEach(t=>{if(!bal[t.customer_id])bal[t.customer_id]=0;if(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639')bal[t.customer_id]+=t.amount;else if(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b')bal[t.customer_id]+=(t.remaining||t.amount);});
-  const filtered=mine.filter(c=>!q||c.name.includes(q)||(c.phone||'').includes(q)).sort((a,b)=>(bal[b.id]||0)-(bal[a.id]||0));
-  const list=document.getElementById('bs-cust-list');
-  let html=filtered.map(c=>{
-    const b=bal[c.id]||0,n=c.name.replace(/'/g,"\\'"),p=c.phone||'';
-    return '<div class="bs-cust-item" onclick="selectCustSheet(\''+c.id+'\',\''+n+'\',\''+p+'\')"><div><div class="bs-cust-name">'+c.name+'</div><div style="font-size:14px;color:var(--txt3)">'+(c.phone||'\u0628\u062f\u0648\u0646 \u062c\u0648\u0627\u0644')+'</div></div>'+(b>0?'<div class="bs-cust-bal">'+b.toFixed(0)+' '+CUR+'</div>':'<div style="color:var(--grn);font-size:14px;font-weight:700">\u0645\u0633\u0648\u0651\u0649</div>')+'</div>';
-  }).join('');
-  if(q) html+='<div class="bs-cust-item" onclick="selectCustSheet(null,\''+q.replace(/'/g,"\\'")+'\',\'\')" style="border-color:rgba(96,165,250,.4);background:rgba(96,165,250,.08)"><div class="bs-cust-name" style="color:var(--pri)">+ \u0625\u0636\u0627\u0641\u0629 &quot;'+q+'&quot; \u0643\u0632\u0628\u0648\u0646 \u062c\u062f\u064a\u062f</div></div>';
-  if(!filtered.length&&!q) html='<div style="text-align:center;padding:20px;color:var(--txt3)">\u0627\u0628\u062d\u062b \u0623\u0648 \u0627\u0636\u063a\u0637 \u0628\u062f\u0648\u0646 \u0627\u0633\u0645</div>';
-  list.innerHTML=html;
-}
-function filterCustSheet(q){loadCustSheetList(q)}
-
-function selectCustSheet(id,name,phone){
-  pendingCustId=id;pendingCustName=name||'';pendingPhone=phone||'';pendingIsNew=!id;
-  closeCustSheet();openAddScreen();
-}
-
-async function openAddScreen(){
+  // إعداد الفاتورة
   const invNum=getNextInvNum();
-  document.getElementById('add-inv-num').textContent='#'+invNum;
-  document.getElementById('add-cust-display').textContent=pendingCustName||'\u0628\u062f\u0648\u0646 \u0627\u0633\u0645';
-  document.getElementById('add-amount-display').textContent=pendingAmount.toFixed(0)+' '+CUR;
-  document.getElementById('add-desc').value='';
-  document.getElementById('add-err').style.display='none';
-  window._pendingInvNum=invNum;
-  await loadDescSuggestions('');
-  showScreen('s-add');
+  window._currentInvNum=invNum;
+  invLines=[{id:Date.now(),amount:total,category:'\u0645\u0628\u064a\u0639\u0627\u062a'}];
+  invTaxOn=false;invCustId=null;invCustName='';
+
+  document.getElementById('inv-shop-name').textContent=localStorage.getItem('gz_shop')||'\u0627\u0644\u0645\u062d\u0644';
+  document.getElementById('inv-num-lbl').textContent='#'+invNum;
+  document.getElementById('inv-date-lbl').textContent=new Date().toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'});
+  document.getElementById('inv-cust-input').value='';
+  document.getElementById('inv-cust-dropdown').style.display='none';
+  document.getElementById('inv-tax-btn').className='inv-btn inv-btn-tax';
+  document.getElementById('inv-tax-row').style.display='none';
+  document.getElementById('inv-tax-pct').textContent=getTaxRate();
+
+  renderInvLines();
+  updateInvTotal();
+
+  document.getElementById('inv-sheet').classList.add('open');
+  document.getElementById('inv-overlay').classList.add('show');
 }
 
-function addDebtForCust(){
-  if(!currentCustomer) return;
-  pendingCustId=currentCustomer.id;pendingCustName=currentCustomer.name;pendingPhone=currentCustomer.phone||'';pendingIsNew=false;pendingAmount=0;
-  calcStr='';renderCalc();openCalc();
+function closeInvSheet(){
+  document.getElementById('inv-sheet').classList.remove('open');
+  document.getElementById('inv-overlay').classList.remove('show');
+  document.getElementById('inv-cust-dropdown').style.display='none';
 }
 
-async function getTopDescs(){
-  if(!SESSION) return[];
-  const txAll=await db.getAll('transactions');
-  const counts={};
-  txAll.filter(t=>t.merchant_id===SESSION.merchant_id&&t.description).forEach(t=>{
-    const d=t.description;
-    if(d&&d!=='\u062f\u064a\u0646'&&d!=='\u0633\u062f\u0627\u062f \u0643\u0627\u0645\u0644'&&d!=='\u062f\u0641\u0639 \u062c\u0632\u0626\u064a') counts[d]=(counts[d]||0)+1;
-  });
-  return Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6).map(e=>e[0]);
+function renderInvLines(){
+  const container=document.getElementById('inv-lines');
+  container.innerHTML=invLines.map((line,i)=>`
+    <div class="inv-line" id="inv-line-${i}">
+      <div class="inv-line-num">${i+1}</div>
+      <input class="inv-line-amt" type="number" value="${line.amount}" min="0"
+        oninput="invLines[${i}].amount=parseFloat(this.value)||0;updateInvTotal()"
+        style="direction:ltr">
+      <input class="inv-line-cat" type="text" value="${line.category}"
+        placeholder="\u0645\u0628\u064a\u0639\u0627\u062a"
+        oninput="invLines[${i}].category=this.value"
+        onclick="openCatSheet(${i})" readonly>
+      <button class="inv-line-del" onclick="removeInvLine(${i})">&#x2715;</button>
+    </div>
+  `).join('');
 }
-async function loadDescSuggestions(q){
-  const c=document.getElementById('desc-chips-container');if(!c) return;
-  const top=await getTopDescs();
-  const filtered=q?top.filter(d=>d.includes(q)):top;
-  if(!filtered.length){c.style.display='none';return}
-  c.style.display='flex';
-  c.innerHTML=filtered.map(d=>'<button class="desc-chip" onclick="setDescChip(\''+d.replace(/'/g,"\\'")+'\'">'+d+'</button>').join('');
-}
-function setDescChip(t){document.getElementById('add-desc').value=t;document.getElementById('desc-chips-container').style.display='none'}
-async function onDescInput(q){await loadDescSuggestions(q)}
-async function showDescSuggestions(){await loadDescSuggestions(document.getElementById('add-desc').value)}
 
-async function saveDebt(){
-  const amount=pendingAmount,desc=document.getElementById('add-desc').value.trim()||'\u062f\u064a\u0646',invNum=window._pendingInvNum||getNextInvNum();
-  if(!amount||amount<=0){showErr('add-err','\u0627\u0644\u0645\u0628\u0644\u063a \u063a\u064a\u0631 \u0635\u062d\u064a\u062d');return}
+function addInvLine(){
+  invLines.push({id:Date.now(),amount:0,category:'\u0645\u0628\u064a\u0639\u0627\u062a'});
+  renderInvLines();updateInvTotal();
+  // scroll to bottom
+  setTimeout(()=>{const el=document.getElementById('inv-lines');if(el)el.scrollTop=el.scrollHeight;},100);
+}
+
+function removeInvLine(i){
+  if(invLines.length<=1)return;
+  invLines.splice(i,1);renderInvLines();updateInvTotal();
+}
+
+function updateInvTotal(){
+  const total=invLines.reduce((s,l)=>s+(l.amount||0),0);
+  document.getElementById('inv-total').textContent=total.toFixed(0)+' '+CUR;
+  if(invTaxOn){
+    const rate=getTaxRate();
+    const taxAmt=total*(rate/(100+rate));
+    document.getElementById('inv-tax-val').textContent=taxAmt.toFixed(2)+' '+CUR;
+  }
+}
+
+function toggleTax(){
+  invTaxOn=!invTaxOn;
+  document.getElementById('inv-tax-btn').className='inv-btn inv-btn-tax'+(invTaxOn?' on':'');
+  document.getElementById('inv-tax-row').style.display=invTaxOn?'flex':'none';
+  updateInvTotal();
+}
+
+// ── اختيار الزبون في الفاتورة ───────────────────────────────────
+async function onInvCustInput(q){
+  const dd=document.getElementById('inv-cust-dropdown');
+  if(!q){dd.style.display='none';invCustId=null;return}
+  const all=await db.getAll('customers');
+  const mine=all.filter(c=>c.merchant_id===SESSION.merchant_id&&(c.name.includes(q)||(c.phone||'').includes(q)));
+  dd.style.display='block';
+  let html=mine.map(c=>`<div class="cust-dd-item" onclick="selectInvCust('${c.id}','${c.name.replace(/'/g,"\\'")}')">
+    ${c.name} <span style="font-size:13px;color:#8b6914">${c.phone||''}</span></div>`).join('');
+  html+=`<div class="cust-dd-item cust-dd-new" onclick="selectInvCust(null,'${q.replace(/'/g,"\\'")}')">+ \u0625\u0636\u0627\u0641\u0629 &quot;${q}&quot;</div>`;
+  dd.innerHTML=html;
+}
+
+function selectInvCust(id,name){
+  invCustId=id;invCustName=name;
+  document.getElementById('inv-cust-input').value=name;
+  document.getElementById('inv-cust-dropdown').style.display='none';
+}
+
+// ── قائمة الأصناف ────────────────────────────────────────────────
+const DEFAULT_CATS=['\u062e\u0636\u0627\u0631','\u0641\u0627\u0643\u0647\u0629','\u0644\u062d\u0645\u0629','\u062f\u062c\u0627\u062c','\u0628\u0642\u0627\u0644\u0629','\u062f\u0648\u0627\u0621','\u0645\u0634\u0631\u0648\u0628\u0627\u062a','\u062e\u0628\u0632','\u062c\u0628\u0646','\u0628\u064a\u0636','\u0632\u064a\u062a','\u0633\u0643\u0631','\u0623\u0631\u0632','\u0645\u0639\u0643\u0631\u0648\u0646\u0629','\u0635\u0627\u0628\u0648\u0646','\u0645\u0646\u0638\u0641\u0627\u062a','\u0645\u0628\u064a\u0639\u0627\u062a'];
+
+async function openCatSheet(lineIdx){
+  activeCatLineIdx=lineIdx;
+  const userCats=await getUserCats();
+  const allCats=[...new Set([...DEFAULT_CATS,...userCats])];
+  renderCatGrid(allCats,'');
+  document.getElementById('cat-search').value='';
+  document.getElementById('cat-sheet').classList.add('open');
+  document.getElementById('cat-overlay').style.display='block';
+}
+function closeCatSheet(){
+  document.getElementById('cat-sheet').classList.remove('open');
+  document.getElementById('cat-overlay').style.display='none';
+}
+async function getUserCats(){
+  if(!SESSION)return[];
+  try{
+    const cats=await db.getAll('categories');
+    return cats.filter(c=>c.merchant_id===SESSION.merchant_id).map(c=>c.name);
+  }catch(e){return[]}
+}
+function renderCatGrid(cats,q){
+  const filtered=q?cats.filter(c=>c.includes(q)):cats;
+  const g=document.getElementById('cat-grid');
+  let html=filtered.map(c=>`<button class="cat-chip" onclick="selectCat('${c.replace(/'/g,"\\'")}')"> ${c}</button>`).join('');
+  if(q&&!cats.includes(q)){html+=`<button class="cat-chip" style="border-color:var(--pri);color:var(--pri)" onclick="selectCat('${q.replace(/'/g,"\\'")}')">+ \u0625\u0636\u0627\u0641\u0629 &quot;${q}&quot;</button>`;}
+  g.innerHTML=html;
+}
+async function filterCats(q){
+  const userCats=await getUserCats();
+  const allCats=[...new Set([...DEFAULT_CATS,...userCats])];
+  renderCatGrid(allCats,q);
+}
+async function selectCat(name){
+  if(activeCatLineIdx>=0&&activeCatLineIdx<invLines.length){
+    invLines[activeCatLineIdx].category=name;
+    renderInvLines();
+    // حفظ الصنف في قاعدة البيانات
+    const existing=await db.getAll('categories');
+    const mine=existing.filter(c=>c.merchant_id===SESSION.merchant_id&&c.name===name);
+    if(!mine.length){await db.put('categories',{id:crypto.randomUUID(),merchant_id:SESSION.merchant_id,name,created_at:new Date().toISOString()});}
+  }
+  closeCatSheet();
+}
+
+// ── حفظ الفاتورة ─────────────────────────────────────────────────
+async function saveInvoice(sendWA){
+  const total=invLines.reduce((s,l)=>s+(l.amount||0),0);
+  if(total<=0){alert('\u0627\u0644\u0645\u062c\u0645\u0648\u0639 0 \u2014 \u0623\u062f\u062e\u0644 \u0645\u0628\u0644\u063a\u0627\u064b');return}
   showSpinner('\u062c\u0627\u0631\u064a \u0627\u0644\u062d\u0641\u0638...');
   const now=new Date().toISOString();
-  let custId=pendingCustId;
+  let custId=invCustId;
   if(!custId){
     custId=crypto.randomUUID();
-    const name=pendingCustName||'\u0632\u0628\u0648\u0646 #'+invNum;
-    await db.put('customers',{id:custId,merchant_id:SESSION.merchant_id,name,phone:pendingPhone,created_at:now});
-    await addToQueue('add_customer',{local_id:custId,name,phone:pendingPhone,created_at:now});
+    const name=invCustName||('\u0632\u0628\u0648\u0646 #'+window._currentInvNum);
+    await db.put('customers',{id:custId,merchant_id:SESSION.merchant_id,name,phone:'',created_at:now});
+    await addToQueue('add_customer',{local_id:custId,name,phone:'',created_at:now});
+    invCustId=custId;
   }
-  const txId=crypto.randomUUID();
-  await db.put('transactions',{id:txId,merchant_id:SESSION.merchant_id,customer_id:custId,amount,description:desc,status:'\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639',inv_num:invNum,created_at:now});
-  await addToQueue('add_tx',{local_id:txId,customer_id:custId,amount,description:desc,status:'\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639',inv_num:invNum,created_at:now});
+  const invId=crypto.randomUUID();
+  const taxRate=invTaxOn?getTaxRate():0;
+  const taxAmt=invTaxOn?total*(taxRate/(100+taxRate)):0;
+  const invData={id:invId,merchant_id:SESSION.merchant_id,customer_id:custId,inv_num:window._currentInvNum,total,tax_enabled:invTaxOn,tax_rate:taxRate,tax_amount:taxAmt,status:'\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639',created_at:now};
+  await db.put('invoices',invData);
+  await addToQueue('add_invoice',{...invData,lines:invLines});
+  // حفظ أسطر الفاتورة
+  for(const line of invLines){
+    const lineId=crypto.randomUUID();
+    await db.put('inv_lines',{id:lineId,invoice_id:invId,merchant_id:SESSION.merchant_id,amount:line.amount,category:line.category,created_at:now});
+  }
   calcStr='';renderCalc();
-  hideSpinner();if(navigator.onLine) doSync();
+  hideSpinner();
+  if(navigator.onLine)doSync();
+  closeInvSheet();
+  if(sendWA)sendInvWA(invData,invLines,invCustName);
   await openCustomer(custId);
 }
 
+function sendInvWA(inv,lines,custName){
+  const phone=(currentCustomer?.phone||'').replace(/^0/,'970').replace(/\D/g,'');
+  if(!phone){alert('\u0645\u0627 \u0641\u064a \u0631\u0642\u0645 \u062c\u0648\u0627\u0644');return}
+  const shop=localStorage.getItem('gz_shop')||'\u0627\u0644\u0645\u062d\u0644';
+  let msg=shop+'\n\u0641\u0627\u062a\u0648\u0631\u0629 #'+inv.inv_num+'\n\u0627\u0644\u062a\u0627\u0631\u064a\u062e: '+new Date(inv.created_at).toLocaleDateString('ar-EG')+'\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n';
+  lines.forEach((l,i)=>{msg+='\u202f'+(i+1)+'. '+l.category+': '+l.amount.toFixed(0)+' '+CUR+'\n';});
+  msg+='\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\u0627\u0644\u0625\u062c\u0645\u0627\u0644\u064a: '+inv.total.toFixed(0)+' '+CUR;
+  if(inv.tax_enabled)msg+='\n\u0645\u0646\u0647\u0627 \u0636\u0631\u064a\u0628\u0629 ('+inv.tax_rate+'%): '+inv.tax_amount.toFixed(2)+' '+CUR;
+  window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+// ── Customer Detail ──────────────────────────────────────────────
 async function openCustomer(id){
-  const all=await db.getAll('customers'),txAll=await db.getAll('transactions');
-  const cust=all.find(c=>c.id===id);if(!cust) return;
+  const all=await db.getAll('customers');
+  const cust=all.find(c=>c.id===id);if(!cust)return;
   currentCustomer=cust;
-  const txList=txAll.filter(t=>t.customer_id===id).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  let allInvoices=[];try{allInvoices=await db.getAll('invoices');}catch(e){}
+  let allTx=[];try{allTx=await db.getAll('transactions');}catch(e){}
+  const custInv=allInvoices.filter(i=>i.customer_id===id).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  const custTx=allTx.filter(t=>t.customer_id===id).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
   let balance=0;
-  txList.forEach(t=>{if(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639')balance+=t.amount;else if(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b')balance+=(t.remaining||t.amount);});
+  custInv.forEach(i=>{if(i.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||i.status==='\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631')balance+=(i.total||0);});
+  custTx.forEach(t=>{if(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639')balance+=t.amount;else if(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b')balance+=(t.remaining||t.amount);});
   document.getElementById('cust-title').textContent=cust.name;
   document.getElementById('cust-name-big').textContent=cust.name;
   document.getElementById('cust-phone-lbl').textContent=cust.phone||'\u0628\u062f\u0648\u0646 \u0631\u0642\u0645 \u062c\u0648\u0627\u0644';
@@ -885,51 +1113,65 @@ async function openCustomer(id){
   balEl.textContent=balance>0?balance.toFixed(0)+' '+CUR:'\u0645\u0633\u0648\u0651\u0649 \u2713';
   document.querySelector('.cust-actions').style.display=balance>0?'flex':'none';
   const el=document.getElementById('cust-tx-list');
-  if(!txList.length){el.innerHTML='<div class="empty"><div class="icon">\uD83D\uDCCB</div><p>\u0644\u0627 \u062a\u0648\u062c\u062f \u0645\u0639\u0627\u0645\u0644\u0627\u062a</p></div>';showScreen('s-cust');return}
-  el.innerHTML=txList.map(t=>{
-    const d=new Date(t.created_at),ds=d.toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'});
-    const isPay=t.type==='payment';
-    const icon=t.status==='\u0645\u062f\u0641\u0648\u0639'?'\u2705':t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'?'\u26A1':'\uD83D\uDD34';
-    const inv=t.inv_num?'<span style="font-size:12px;color:var(--pri);margin-right:6px">#'+t.inv_num+'</span>':'';
-    return '<div class="tx-item"><div class="tx-left"><div class="tx-desc">'+icon+' '+inv+(t.description||'\u062f\u064a\u0646')+'</div><div class="tx-date">'+ds+'</div>'+(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'&&t.remaining?'<div style="font-size:14px;color:var(--yel);margin-top:3px">\u0645\u062a\u0628\u0642\u064a: '+t.remaining.toFixed(0)+' '+CUR+'</div>':'')+'</div><div class="tx-amt '+(isPay?'tx-pay':'tx-debt')+'">'+  (isPay?'-':'+')+' '+t.amount.toFixed(0)+' '+CUR+'</div></div>';
+  const allItems=[...custInv.map(i=>({...i,_type:'inv'})),...custTx.map(t=>({...t,_type:'tx'}))].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  if(!allItems.length){el.innerHTML='<div class="empty"><div class="icon">\uD83D\uDCCB</div><p>\u0644\u0627 \u062a\u0648\u062c\u062f \u0645\u0639\u0627\u0645\u0644\u0627\u062a</p></div>';showScreen('s-cust');return}
+  el.innerHTML=allItems.map(item=>{
+    const d=new Date(item.created_at),ds=d.toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'});
+    if(item._type==='inv'){
+      const isPaid=item.status==='\u0645\u062f\u0641\u0648\u0639';
+      const isPend=item.status==='\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631';
+      const icon=isPaid?'\u2705':isPend?'\u23F3':'\uD83D\uDD34';
+      const cls=isPaid?'tx-pay':isPend?'tx-pending':'tx-debt';
+      return '<div class="tx-item"><div class="tx-left"><div class="tx-desc">'+icon+' <span style="font-size:12px;color:var(--pri)">#'+item.inv_num+'</span> \u0641\u0627\u062a\u0648\u0631\u0629</div><div class="tx-date">'+ds+(item.tax_enabled?' \u00b7 \u0636\u0631\u064a\u0628\u0629 '+item.tax_rate+'%':'')+'</div></div><div class="tx-amt '+cls+'">'+item.total.toFixed(0)+' '+CUR+'</div></div>';
+    }else{
+      const isPay=item.type==='payment';
+      const icon=item.status==='\u0645\u062f\u0641\u0648\u0639'?'\u2705':'\uD83D\uDD34';
+      return '<div class="tx-item"><div class="tx-left"><div class="tx-desc">'+icon+' '+(item.description||'\u062f\u064a\u0646')+'</div><div class="tx-date">'+ds+'</div></div><div class="tx-amt '+(isPay?'tx-pay':'tx-debt')+'">'+(isPay?'-':'+')+' '+item.amount.toFixed(0)+' '+CUR+'</div></div>';
+    }
   }).join('');
   showScreen('s-cust');
 }
 
+function addDebtForCust(){
+  if(!currentCustomer)return;
+  invCustId=currentCustomer.id;invCustName=currentCustomer.name;
+  calcStr='';renderCalc();openCalc();
+}
+
+// ── Pay ─────────────────────────────────────────────────────────
 async function payFull(){
-  if(!currentCustomer) return;
-  const txAll=await db.getAll('transactions');
-  const pending=txAll.filter(t=>t.customer_id===currentCustomer.id&&(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'));
-  if(!pending.length){alert('\u0644\u0627 \u062a\u0648\u062c\u062f \u062f\u064a\u0648\u0646 \u0645\u0639\u0644\u0642\u0629');return}
-  const total=pending.reduce((s,t)=>s+(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'?(t.remaining||t.amount):t.amount),0);
-  if(!confirm('\u062a\u0623\u0643\u064a\u062f \u0627\u0633\u062a\u0644\u0627\u0645 '+total.toFixed(0)+' '+CUR+' \u0645\u0646 '+currentCustomer.name+'?')) return;
-  showSpinner('\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u0633\u062c\u064a\u0644...');
+  if(!currentCustomer)return;
+  let allInvoices=[];try{allInvoices=await db.getAll('invoices');}catch(e){}
+  let allTx=[];try{allTx=await db.getAll('transactions');}catch(e){}
+  const pendInv=allInvoices.filter(i=>i.customer_id===currentCustomer.id&&(i.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||i.status==='\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631'));
+  const pendTx=allTx.filter(t=>t.customer_id===currentCustomer.id&&(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'));
+  const total=pendInv.reduce((s,i)=>s+(i.total||0),0)+pendTx.reduce((s,t)=>s+(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'?(t.remaining||t.amount):t.amount),0);
+  if(!total){alert('\u0644\u0627 \u062a\u0648\u062c\u062f \u062f\u064a\u0648\u0646');return}
+  if(!confirm('\u062a\u0623\u0643\u064a\u062f \u0627\u0633\u062a\u0644\u0627\u0645 '+total.toFixed(0)+' '+CUR+' \u0645\u0646 '+currentCustomer.name+'?'))return;
+  showSpinner('\u062c\u0627\u0631\u064a...');
   const now=new Date().toISOString();
-  for(const t of pending){await db.put('transactions',{...t,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});await addToQueue('update_tx',{id:t.id,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});}
-  const pid=crypto.randomUUID();
-  await db.put('transactions',{id:pid,merchant_id:SESSION.merchant_id,customer_id:currentCustomer.id,amount:total,description:'\u0633\u062f\u0627\u062f \u0643\u0627\u0645\u0644',status:'\u0645\u062f\u0641\u0648\u0639',type:'payment',created_at:now});
-  await addToQueue('add_tx',{local_id:pid,customer_id:currentCustomer.id,amount:total,description:'\u0633\u062f\u0627\u062f \u0643\u0627\u0645\u0644',status:'\u0645\u062f\u0641\u0648\u0639',type:'payment',created_at:now});
+  for(const inv of pendInv){await db.put('invoices',{...inv,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});await addToQueue('update_invoice',{id:inv.id,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});}
+  for(const t of pendTx){await db.put('transactions',{...t,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});await addToQueue('update_tx',{id:t.id,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});}
   hideSpinner();if(navigator.onLine)doSync();sendThanks(total);await openCustomer(currentCustomer.id);
 }
 
 function openPartialPay(){partialAmountStr='0';document.getElementById('partial-display').textContent='0';document.getElementById('m-partial').classList.add('open')}
 function partialKey(k){if(k==='.'&&partialAmountStr.includes('.'))return;if(partialAmountStr==='0'&&k!=='.')partialAmountStr=k;else partialAmountStr+=k;if(partialAmountStr.length>8)partialAmountStr=partialAmountStr.slice(0,-1);document.getElementById('partial-display').textContent=partialAmountStr}
 function partialDel(){partialAmountStr=partialAmountStr.length>1?partialAmountStr.slice(0,-1):'0';document.getElementById('partial-display').textContent=partialAmountStr}
-
 async function savePartial(){
-  const paid=parseFloat(partialAmountStr);
-  if(!paid||paid<=0){alert('\u0627\u062f\u062e\u0644 \u0645\u0628\u0644\u063a\u0627\u064b \u0635\u062d\u064a\u062d\u0627\u064b');return}
-  if(!currentCustomer) return;
+  const paid=parseFloat(partialAmountStr);if(!paid||paid<=0){alert('\u0627\u062f\u062e\u0644 \u0645\u0628\u0644\u063a\u0627\u064b');return}
+  if(!currentCustomer)return;
   document.getElementById('m-partial').classList.remove('open');
-  showSpinner('\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u0633\u062c\u064a\u0644...');
-  const txAll=await db.getAll('transactions');
-  const pending=txAll.filter(t=>t.customer_id===currentCustomer.id&&(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b')).sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
-  let rem=paid;const now=new Date().toISOString();
-  for(const t of pending){
-    if(rem<=0) break;
-    const owed=t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'?(t.remaining||t.amount):t.amount;
-    if(rem>=owed){await db.put('transactions',{...t,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now,remaining:0});await addToQueue('update_tx',{id:t.id,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});rem-=owed;}
-    else{await db.put('transactions',{...t,status:'\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b',remaining:owed-rem,paid_at:now});await addToQueue('update_tx',{id:t.id,status:'\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b',remaining:owed-rem});rem=0;}
+  showSpinner('...');
+  const now=new Date().toISOString();
+  let allInvoices=[];try{allInvoices=await db.getAll('invoices');}catch(e){}
+  const pendInv=allInvoices.filter(i=>i.customer_id===currentCustomer.id&&(i.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||i.status==='\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631')).sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
+  let rem=paid;
+  for(const inv of pendInv){
+    if(rem<=0)break;
+    const owed=inv.total||0;
+    if(rem>=owed){await db.put('invoices',{...inv,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});await addToQueue('update_invoice',{id:inv.id,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});rem-=owed;}
+    else{await db.put('invoices',{...inv,status:'\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631',remaining:owed-rem,paid_at:now});rem=0;}
   }
   const pid=crypto.randomUUID();
   await db.put('transactions',{id:pid,merchant_id:SESSION.merchant_id,customer_id:currentCustomer.id,amount:paid,description:'\u062f\u0641\u0639 \u062c\u0632\u0626\u064a',status:'\u0645\u062f\u0641\u0648\u0639',type:'payment',created_at:now});
@@ -937,124 +1179,74 @@ async function savePartial(){
   hideSpinner();if(navigator.onLine)doSync();sendThanks(paid);await openCustomer(currentCustomer.id);
 }
 
+// ── WhatsApp ────────────────────────────────────────────────────
 function sendReminder(){
   if(!currentCustomer?.phone){alert('\u0645\u0627 \u0641\u064a \u0631\u0642\u0645 \u062c\u0648\u0627\u0644');return}
   const phone=currentCustomer.phone.replace(/^0/,'970').replace(/\D/g,'');
   const shop=localStorage.getItem('gz_shop')||'\u0627\u0644\u0645\u062d\u0644';
   const bal=document.getElementById('cust-balance').textContent;
-  window.open('https://wa.me/'+phone+'?text='+encodeURIComponent('\u0627\u0644\u0633\u0644\u0627\u0645 \u0639\u0644\u064a\u0643\u0645 '+currentCustomer.name+',\n\u062a\u0630\u0643\u064a\u0631 \u0648\u062f\u064a \u0645\u0646 '+shop+'.\n\u0631\u0635\u064a\u062f\u0643 \u0627\u0644\u0645\u0633\u062a\u062d\u0642: '+bal+'\n\u0628\u0627\u0631\u0643 \u0627\u0644\u0644\u0647 \u0641\u064a\u0643 \uD83D\uDE4F'),'_blank');
+  window.open('https://wa.me/'+phone+'?text='+encodeURIComponent('\u0627\u0644\u0633\u0644\u0627\u0645 \u0639\u0644\u064a\u0643\u0645 '+currentCustomer.name+',\n\u062a\u0630\u0643\u064a\u0631 \u0648\u062f\u064a \u0645\u0646 '+shop+'.\n\u0631\u0635\u064a\u062f\u0643: '+bal),'_blank');
 }
 function sendThanks(amount){
-  if(!currentCustomer?.phone) return;
+  if(!currentCustomer?.phone)return;
   const phone=currentCustomer.phone.replace(/^0/,'970').replace(/\D/g,'');
   const shop=localStorage.getItem('gz_shop')||'\u0627\u0644\u0645\u062d\u0644';
-  if(confirm('\u0625\u0631\u0633\u0627\u0644 \u0634\u0643\u0631 \u0644\u0644\u0632\u0628\u0648\u0646 \u0639\u0644\u0649 \u0648\u0627\u062a\u0633\u0627\u0628\u061f'))
-    window.open('https://wa.me/'+phone+'?text='+encodeURIComponent('\u0634\u0643\u0631\u0627\u064b '+currentCustomer.name+',\n\u062a\u0645 \u0627\u0633\u062a\u0644\u0627\u0645 '+amount.toFixed(0)+' '+CUR+' \u2713\n\u0634\u0643\u0631\u0627\u064b \u0644\u062a\u0639\u0627\u0645\u0644\u0643\u0645 \u0645\u0639 '+shop+' \uD83D\uDE4F'),'_blank');
+  if(confirm('\u0625\u0631\u0633\u0627\u0644 \u0634\u0643\u0631 \u0639\u0644\u0649 \u0648\u0627\u062a\u0633\u0627\u0628\u061f'))
+    window.open('https://wa.me/'+phone+'?text='+encodeURIComponent('\u0634\u0643\u0631\u0627\u064b '+currentCustomer.name+',\n\u062a\u0645 \u0627\u0633\u062a\u0644\u0627\u0645 '+amount.toFixed(0)+' '+CUR+' \u2713\n'+shop),'_blank');
 }
 
+// ── Bank ────────────────────────────────────────────────────────
 function autoMatchBank(){const t=document.getElementById('bank-text').value;if(!t||t.length<20){document.getElementById('bank-results').innerHTML='';return}parseAndMatch(t)}
 async function parseAndMatch(text){
   const amounts=[];const rx=/(\d+(?:\.\d+)?)\s*(?:\u0634\u064a\u0643\u0644|\u20AA|ILS|NIS)/gi;let m;
   while((m=rx.exec(text))!==null){const a=parseFloat(m[1]);if(a>0&&a<100000)amounts.push(a);}
   if(!amounts.length){document.getElementById('bank-results').innerHTML='<div style="padding:20px;text-align:center;color:var(--txt3)">\u0644\u0645 \u0623\u062c\u062f \u0645\u0628\u0627\u0644\u063a</div>';return}
-  const txAll=await db.getAll('transactions'),custAll=await db.getAll('customers');
-  const pending=txAll.filter(t=>t.merchant_id===SESSION.merchant_id&&(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'));
-  let html='<div class="sec-hdr">\u0646\u062a\u0627\u0626\u062c \u2014 '+amounts.length+' \u062d\u0631\u0643\u0629</div>';
+  let allInvoices=[];try{allInvoices=await db.getAll('invoices');}catch(e){}
+  const custAll=await db.getAll('customers');
+  const pending=allInvoices.filter(i=>i.merchant_id===SESSION.merchant_id&&i.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639');
+  let html='<div style="padding:8px 16px 4px;font-size:13px;color:var(--txt3)">\u0646\u062a\u0627\u0626\u062c: '+amounts.length+' \u062d\u0631\u0643\u0629</div>';
   amounts.forEach((amt,i)=>{
-    const match=pending.find(t=>Math.abs((t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'?(t.remaining||t.amount):t.amount)-amt)<0.5);
+    const match=pending.find(inv=>Math.abs((inv.total||0)-amt)<0.5);
     const cust=match?custAll.find(c=>c.id===match.customer_id):null;
-    html+='<div class="match-card"><div class="match-head">\u062d\u0631\u0643\u0629 '+(i+1)+': '+amt.toFixed(0)+' '+CUR+'</div><div class="match-body">'+(match&&cust?'<div class="match-row"><span class="match-lbl">\u064a\u0637\u0627\u0628\u0642:</span><span class="match-val">'+cust.name+'</span></div>':'<div style="font-size:16px;color:var(--txt3)">\u0644\u0645 \u0623\u062c\u062f \u0632\u0628\u0648\u0646 \u0645\u0637\u0627\u0628\u0642</div>')+'</div>'+(match&&cust?'<div class="match-btns"><button class="mbtn mbtn-ok" onclick="confirmMatch(\''+match.id+'\',\''+cust.id+'\','+amt+')">\u062a\u0623\u0643\u064a\u062f</button><button class="mbtn mbtn-no">\u062a\u062c\u0627\u0647\u0644</button></div>':'')+'</div>';
+    html+='<div class="match-card"><div class="match-head">\u062d\u0631\u0643\u0629 '+(i+1)+': '+amt.toFixed(0)+' '+CUR+'</div><div class="match-body">'+(match&&cust?'<div class="match-row"><span class="match-lbl">\u064a\u0637\u0627\u0628\u0642:</span><span class="match-val">'+cust.name+'</span></div>':'<div style="color:var(--txt3)">\u0644\u0645 \u0623\u062c\u062f \u0645\u0637\u0627\u0628\u0642</div>')+'</div>'+(match&&cust?'<div class="match-btns"><button class="mbtn mbtn-ok" onclick="confirmMatch(\''+match.id+'\')">\u062a\u0623\u0643\u064a\u062f</button><button class="mbtn mbtn-no">\u062a\u062c\u0627\u0647\u0644</button></div>':'')+'</div>';
   });
   document.getElementById('bank-results').innerHTML=html;
 }
-async function confirmMatch(txId,custId,amount){
-  showSpinner('\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u0633\u062c\u064a\u0644...');
-  const now=new Date().toISOString(),tx=await db.get('transactions',txId);
-  if(tx){await db.put('transactions',{...tx,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});await addToQueue('update_tx',{id:txId,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});}
+async function confirmMatch(invId){
+  showSpinner('...');const now=new Date().toISOString();
+  let inv=null;try{inv=await db.get('invoices',invId);}catch(e){}
+  if(inv){await db.put('invoices',{...inv,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});await addToQueue('update_invoice',{id:invId,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});}
   hideSpinner();if(navigator.onLine)doSync();
   document.getElementById('bank-text').value='';
   document.getElementById('bank-results').innerHTML='<div style="padding:24px;text-align:center"><div style="font-size:3em">\u2705</div><div style="font-size:18px;font-weight:800;color:var(--grn);margin-top:12px">\u062a\u0645 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u0641\u0639\u0629</div></div>';
   setTimeout(()=>showTab('home'),1500);
 }
 
+// ── Settings ────────────────────────────────────────────────────
 function openSettings(){
-  document.getElementById('settings-shop').textContent=localStorage.getItem('gz_shop')||'';
-  const owner=localStorage.getItem('gz_owner')||'',phone=localStorage.getItem('gz_phone')||'';
+  const shop=localStorage.getItem('gz_shop')||'',owner=localStorage.getItem('gz_owner')||'',phone=localStorage.getItem('gz_phone')||'';
+  document.getElementById('settings-shop').textContent=shop;
   document.getElementById('settings-phone').textContent=owner?owner+' \u2014 '+phone:phone;
+  document.getElementById('tax-rate-input').value=getTaxRate();
   showScreen('s-settings');
 }
-
 function doLogout(){
-  if(!confirm('\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062e\u0631\u0648\u062c\u061f\n\n\u0627\u0644\u062a\u0637\u0628\u064a\u0642 \u064a\u062d\u0641\u0638 \u0628\u064a\u0627\u0646\u0627\u062a\u0643 \u062a\u0644\u0642\u0627\u0626\u064a\u0627\u064b \u0639\u0644\u0649 \u0627\u0644\u0633\u062d\u0627\u0628\u0629 \u0639\u0646\u062f \u0643\u0644 \u0627\u062a\u0635\u0627\u0644 \u0628\u0627\u0644\u0646\u062a.\n\u0641\u064a \u062d\u0627\u0644 \u0641\u0642\u062f\u0627\u0646 \u0627\u0644\u062c\u0647\u0627\u0632 \u0623\u0648 \u062a\u0639\u0637\u0644\u0647\u060c \u0633\u062a\u064f\u0633\u062a\u0639\u0627\u062f \u0628\u064a\u0627\u0646\u0627\u062a\u0643 \u0628\u0633\u0647\u0648\u0644\u0629.')) return;
+  if(!confirm('\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062e\u0631\u0648\u062c\u061f\n\n\u0628\u064a\u0627\u0646\u0627\u062a\u0643 \u0645\u062d\u0641\u0648\u0638\u0629 \u0639\u0644\u0649 \u0627\u0644\u0633\u062d\u0627\u0628\u0629 \u0648\u0633\u062a\u064f\u0633\u062a\u0639\u0627\u062f \u0639\u0646\u062f \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644.'))return;
   localStorage.removeItem('gz_session');SESSION=null;showScreen('s-login');
 }
 
+// ── Forgot/Change PIN ────────────────────────────────────────────
 let forgotMerchantId=null;
-function openForgotPin(){
-  ['forgot-step-1','forgot-step-2','forgot-step-3'].forEach((id,i)=>document.getElementById(id).style.display=i===0?'block':'none');
-  document.getElementById('forgot-err').style.display='none';
-  document.getElementById('forgot-otp').value='';document.getElementById('forgot-new-pin').value='';
-  document.getElementById('forgot-phone').value=localStorage.getItem('gz_phone')||'';
-  document.getElementById('m-forgot-pin').classList.add('open');
-}
+function openForgotPin(){['forgot-step-1','forgot-step-2','forgot-step-3'].forEach((id,i)=>document.getElementById(id).style.display=i===0?'block':'none');document.getElementById('forgot-err').style.display='none';document.getElementById('forgot-otp').value='';document.getElementById('forgot-new-pin').value='';document.getElementById('forgot-phone').value=localStorage.getItem('gz_phone')||'';document.getElementById('m-forgot-pin').classList.add('open')}
 function closeForgotPin(){document.getElementById('m-forgot-pin').classList.remove('open')}
-async function sendForgotOTP(){
-  const phone=document.getElementById('forgot-phone').value.trim(),errEl=document.getElementById('forgot-err');
-  if(!phone){errEl.textContent='\u0627\u062f\u062e\u0644 \u0631\u0642\u0645 \u0627\u0644\u062c\u0648\u0627\u0644';errEl.style.display='block';return}
-  if(!navigator.onLine){errEl.textContent='\u064a\u062d\u062a\u0627\u062c \u0627\u062a\u0635\u0627\u0644\u0627\u064b';errEl.style.display='block';return}
-  errEl.style.display='none';showSpinner('...');
-  try{
-    const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'gen_otp',phone})});
-    const d=await res.json();hideSpinner();
-    if(d.error){errEl.textContent=d.error;errEl.style.display='block';return}
-    forgotMerchantId=d.merchant_id;
-    document.getElementById('forgot-step-1').style.display='none';document.getElementById('forgot-step-2').style.display='block';
-  }catch(e){hideSpinner();errEl.textContent='\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u0627\u062a\u0635\u0627\u0644';errEl.style.display='block'}
-}
-async function confirmForgotPin(){
-  const otp=document.getElementById('forgot-otp').value.trim(),newPin=document.getElementById('forgot-new-pin').value.trim(),errEl=document.getElementById('forgot-err2');
-  if(otp.length<4){errEl.textContent='\u0627\u062f\u062e\u0644 \u0631\u0645\u0632 \u0627\u0644\u062a\u062d\u0642\u0642';errEl.style.display='block';return}
-  if(newPin.length<6){errEl.textContent='\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062c\u062f\u064a\u062f 6 \u0623\u0631\u0642\u0627\u0645';errEl.style.display='block';return}
-  errEl.style.display='none';showSpinner('...');
-  try{
-    const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'verify_otp',merchant_id:forgotMerchantId,otp})});
-    const d1=await r1.json();
-    if(d1.error||!d1.ok){hideSpinner();errEl.textContent='\u0631\u0645\u0632 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d';errEl.style.display='block';return}
-    const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'set_pin',merchant_id:forgotMerchantId,pin:newPin})});
-    const d2=await r2.json();hideSpinner();
-    if(d2.error){errEl.textContent=d2.error;errEl.style.display='block';return}
-    document.getElementById('forgot-step-2').style.display='none';document.getElementById('forgot-step-3').style.display='block';
-  }catch(e){hideSpinner();errEl.textContent='\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u0627\u062a\u0635\u0627\u0644';errEl.style.display='block'}
-}
-
-function openChangePin(){
-  ['pin-old','pin-new1','pin-new2'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('pin-err').style.display='none';
-  document.getElementById('pin-step-1').style.display='block';document.getElementById('pin-step-2').style.display='none';
-  document.getElementById('m-change-pin').classList.add('open');
-}
+async function sendForgotOTP(){const phone=document.getElementById('forgot-phone').value.trim(),errEl=document.getElementById('forgot-err');if(!phone){errEl.textContent='\u0627\u062f\u062e\u0644 \u0631\u0642\u0645 \u0627\u0644\u062c\u0648\u0627\u0644';errEl.style.display='block';return}if(!navigator.onLine){errEl.textContent='\u064a\u062d\u062a\u0627\u062c \u0627\u062a\u0635\u0627\u0644\u0627\u064b';errEl.style.display='block';return}errEl.style.display='none';showSpinner('...');try{const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'gen_otp',phone})});const d=await res.json();hideSpinner();if(d.error){errEl.textContent=d.error;errEl.style.display='block';return}forgotMerchantId=d.merchant_id;document.getElementById('forgot-step-1').style.display='none';document.getElementById('forgot-step-2').style.display='block';}catch(e){hideSpinner();errEl.textContent='\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u0627\u062a\u0635\u0627\u0644';errEl.style.display='block'}}
+async function confirmForgotPin(){const otp=document.getElementById('forgot-otp').value.trim(),newPin=document.getElementById('forgot-new-pin').value.trim(),errEl=document.getElementById('forgot-err2');if(otp.length<4){errEl.textContent='\u0627\u062f\u062e\u0644 \u0631\u0645\u0632 \u0627\u0644\u062a\u062d\u0642\u0642';errEl.style.display='block';return}if(newPin.length<6){errEl.textContent='6 \u0623\u0631\u0642\u0627\u0645';errEl.style.display='block';return}errEl.style.display='none';showSpinner('...');try{const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'verify_otp',merchant_id:forgotMerchantId,otp})});const d1=await r1.json();if(d1.error||!d1.ok){hideSpinner();errEl.textContent='\u0631\u0645\u0632 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d';errEl.style.display='block';return}const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'set_pin',merchant_id:forgotMerchantId,pin:newPin})});const d2=await r2.json();hideSpinner();if(d2.error){errEl.textContent=d2.error;errEl.style.display='block';return}document.getElementById('forgot-step-2').style.display='none';document.getElementById('forgot-step-3').style.display='block';}catch(e){hideSpinner();errEl.textContent='\u062a\u0639\u0630\u0651\u0631';errEl.style.display='block'}}
+function openChangePin(){['pin-old','pin-new1','pin-new2'].forEach(id=>document.getElementById(id).value='');document.getElementById('pin-err').style.display='none';document.getElementById('pin-step-1').style.display='block';document.getElementById('pin-step-2').style.display='none';document.getElementById('m-change-pin').classList.add('open')}
 function closeChangePin(){document.getElementById('m-change-pin').classList.remove('open')}
-async function saveNewPin(){
-  const old=document.getElementById('pin-old').value.trim(),n1=document.getElementById('pin-new1').value.trim(),n2=document.getElementById('pin-new2').value.trim();
-  if(old.length<4){showPinErr('\u0627\u062f\u062e\u0644 \u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062d\u0627\u0644\u064a');return}
-  if(n1.length<6){showPinErr('\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062c\u062f\u064a\u062f 6 \u0623\u0631\u0642\u0627\u0645');return}
-  if(n1!==n2){showPinErr('\u0627\u0644\u0631\u0642\u0645\u0627\u0646 \u063a\u064a\u0631 \u0645\u062a\u0637\u0627\u0628\u0642\u064a\u0646');return}
-  if(n1===old){showPinErr('\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062c\u062f\u064a\u062f \u0646\u0641\u0633 \u0627\u0644\u0642\u062f\u064a\u0645');return}
-  if(!navigator.onLine){showPinErr('\u064a\u062d\u062a\u0627\u062c \u0627\u062a\u0635\u0627\u0644\u0627\u064b');return}
-  showSpinner('...');
-  try{
-    const phone=localStorage.getItem('gz_phone')||SESSION?.phone;
-    const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',phone,pin:old})});
-    const d1=await r1.json();
-    if(!d1.ok){hideSpinner();showPinErr('\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062d\u0627\u0644\u064a \u063a\u064a\u0631 \u0635\u062d\u064a\u062d');return}
-    const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'set_pin',merchant_id:SESSION.merchant_id,pin:n1})});
-    const d2=await r2.json();hideSpinner();
-    if(d2.error){showPinErr(d2.error);return}
-    document.getElementById('pin-step-1').style.display='none';document.getElementById('pin-step-2').style.display='block';
-  }catch(e){hideSpinner();showPinErr('\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u0627\u062a\u0635\u0627\u0644')}
-}
+async function saveNewPin(){const old=document.getElementById('pin-old').value.trim(),n1=document.getElementById('pin-new1').value.trim(),n2=document.getElementById('pin-new2').value.trim();if(old.length<4){showPinErr('\u0627\u062f\u062e\u0644 \u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062d\u0627\u0644\u064a');return}if(n1.length<6){showPinErr('6 \u0623\u0631\u0642\u0627\u0645');return}if(n1!==n2){showPinErr('\u063a\u064a\u0631 \u0645\u062a\u0637\u0627\u0628\u0642\u064a\u0646');return}if(n1===old){showPinErr('\u0646\u0641\u0633 \u0627\u0644\u0631\u0642\u0645');return}if(!navigator.onLine){showPinErr('\u064a\u062d\u062a\u0627\u062c \u0627\u062a\u0635\u0627\u0644\u0627\u064b');return}showSpinner('...');try{const phone=localStorage.getItem('gz_phone')||SESSION?.phone;const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',phone,pin:old})});const d1=await r1.json();if(!d1.ok){hideSpinner();showPinErr('\u0627\u0644\u0631\u0642\u0645 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d');return}const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'set_pin',merchant_id:SESSION.merchant_id,pin:n1})});const d2=await r2.json();hideSpinner();if(d2.error){showPinErr(d2.error);return}document.getElementById('pin-step-1').style.display='none';document.getElementById('pin-step-2').style.display='block';}catch(e){hideSpinner();showPinErr('\u062a\u0639\u0630\u0651\u0631')}}
 function showPinErr(msg){const e=document.getElementById('pin-err');e.textContent=msg;e.style.display='block'}
 
+// ── Init ─────────────────────────────────────────────────────────
 async function init(){
   await db.open();
   const savedSession=localStorage.getItem('gz_session'),savedPhone=localStorage.getItem('gz_phone'),savedShop=localStorage.getItem('gz_shop');
@@ -1063,17 +1255,15 @@ async function init(){
     document.getElementById('login-shop').textContent=savedShop||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';
     document.getElementById('login-shop-on-book').textContent=savedShop||'\u0646\u0633\u062e\u0629 \u062e\u0641\u064a\u0641\u0629';
     document.getElementById('login-phone').textContent=savedPhone||'';
-    if(savedSession) SESSION=JSON.parse(savedSession);
+    if(savedSession)SESSION=JSON.parse(savedSession);
     document.getElementById('home-shop-name').textContent=savedShop||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';
     showScreen('s-login');
   }else showScreen('s-setup');
   window.addEventListener('online',()=>{updateStatusBar();doSync()});
   window.addEventListener('offline',()=>updateStatusBar());
 }
-
-if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{});
 init();
 </script>
-
-
-</body></html>
+</body>
+</html>
