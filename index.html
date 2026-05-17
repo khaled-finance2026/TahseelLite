@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0086)file:///D:/C_Drive/%D8%A7%D9%84%D8%AA%D9%86%D8%B2%D9%8A%D9%84%D8%A7%D8%AA/index_2.html -->
+<!-- saved from url=(0086)file:///D:/C_Drive/%D8%A7%D9%84%D8%AA%D9%86%D8%B2%D9%8A%D9%84%D8%A7%D8%AA/index_4.html -->
 <html dir="rtl" lang="ar"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
@@ -184,7 +184,7 @@ new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,
 </div>
 
 <!-- الدخول -->
-<div class="screen" id="s-login">
+<div class="screen active" id="s-login">
 <div class="login-wrap">
   <div class="login-card">
     <div class="book-wrap" onclick="devLogin()" style="cursor:pointer">
@@ -195,7 +195,7 @@ new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,
             <div class="book-title-cover">
               <div class="line1">دفتر</div>
               <div class="line1">الدين</div>
-              <div class="line2" id="login-shop-on-book">نسخة خفيفة</div>
+              <div class="line2" id="login-shop-on-book">مطور</div>
             </div>
             <div class="book-ver">v1.2</div>
           </div>
@@ -205,8 +205,8 @@ new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,
       </div>
     </div>
     <div style="text-align:center;margin-bottom:20px">
-      <div style="font-size:19px;font-weight:900" id="login-shop">دفتر الدين</div>
-      <div style="font-size:15px;color:var(--txt3);margin-top:4px" id="login-phone"></div>
+      <div style="font-size:19px;font-weight:900" id="login-shop">مطور</div>
+      <div style="font-size:15px;color:var(--txt3);margin-top:4px" id="login-phone">0599123456</div>
       <div style="font-size:11px;color:var(--txt3);margin-top:6px">v1.2</div>
     </div>
     <div class="err" id="login-err"></div>
@@ -225,7 +225,7 @@ new-cust-box{background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,
 <div class="screen" id="s-home">
   <div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:62px;border-bottom:2px solid var(--brd);background:var(--bg);flex-shrink:0">
     <div onclick="openSettings()" style="cursor:pointer">
-      <div style="font-size:1.45em;font-weight:900" id="home-shop-name">دفتر الدين</div>
+      <div style="font-size:1.45em;font-weight:900" id="home-shop-name">مطور</div>
       <div style="font-size:11px;color:var(--txt3);margin-top:1px">الرئيسية — v1.2</div>
     </div>
     <button onclick="openSettings()" style="width:46px;height:46px;border:none;border-radius:12px;background:var(--bg3);color:var(--txt);font-size:28px;cursor:pointer" id="home-shop-logo">🏪</button>
@@ -799,7 +799,7 @@ async function loadCustSheetList(q){
     const b=bal[c.id]||0,n=c.name.replace(/'/g,"\\'"),p=c.phone||'';
     return '<div class="bs-cust-item" onclick="selectCustSheet(\''+c.id+'\',\''+n+'\',\''+p+'\')"><div><div class="bs-cust-name">'+c.name+'</div><div style="font-size:14px;color:var(--txt3)">'+(c.phone||'\u0628\u062f\u0648\u0646 \u062c\u0648\u0627\u0644')+'</div></div>'+(b>0?'<div class="bs-cust-bal">'+b.toFixed(0)+' '+CUR+'</div>':'<div style="color:var(--grn);font-size:14px;font-weight:700">\u0645\u0633\u0648\u0651\u0649</div>')+'</div>';
   }).join('');
-  if(q) html+='<div class="bs-cust-item" onclick="selectCustSheet(null,\''+q.replace(/'/g,"\\'")+'','')" style="border-color:rgba(96,165,250,.4);background:rgba(96,165,250,.08)"><div class="bs-cust-name" style="color:var(--pri)">+ \u0625\u0636\u0627\u0641\u0629 &quot;'+q+'&quot; \u0643\u0632\u0628\u0648\u0646 \u062c\u062f\u064a\u062f</div></div>';
+  if(q) html+='<div class="bs-cust-item" onclick="selectCustSheet(null,\''+q.replace(/'/g,"\\'")+'\',\'\')" style="border-color:rgba(96,165,250,.4);background:rgba(96,165,250,.08)"><div class="bs-cust-name" style="color:var(--pri)">+ \u0625\u0636\u0627\u0641\u0629 &quot;'+q+'&quot; \u0643\u0632\u0628\u0648\u0646 \u062c\u062f\u064a\u062f</div></div>';
   if(!filtered.length&&!q) html='<div style="text-align:center;padding:20px;color:var(--txt3)">\u0627\u0628\u062d\u062b \u0623\u0648 \u0627\u0636\u063a\u0637 \u0628\u062f\u0648\u0646 \u0627\u0633\u0645</div>';
   list.innerHTML=html;
 }
