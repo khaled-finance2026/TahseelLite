@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0086)file:///D:/C_Drive/%D8%A7%D9%84%D8%AA%D9%86%D8%B2%D9%8A%D9%84%D8%A7%D8%AA/index_2.html -->
+<!-- saved from url=(0086)file:///D:/C_Drive/%D8%A7%D9%84%D8%AA%D9%86%D8%B2%D9%8A%D9%84%D8%A7%D8%AA/index_4.html -->
 <html dir="rtl" lang="ar"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
@@ -272,7 +272,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
 </div>
 
 <!-- الدخول -->
-<div class="screen" id="s-login">
+<div class="screen active" id="s-login">
 <div class="login-wrap">
   <div class="login-card">
     <div class="book-wrap" onclick="devLogin()" style="cursor:pointer">
@@ -283,7 +283,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
             <div class="book-title-cover">
               <div class="line1">دفتر</div>
               <div class="line1">الدين</div>
-              <div class="line2" id="login-shop-on-book">نسخة خفيفة</div>
+              <div class="line2" id="login-shop-on-book">مطور</div>
             </div>
             <div class="book-ver">v1.3</div>
           </div>
@@ -293,8 +293,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
       </div>
     </div>
     <div style="text-align:center;margin-bottom:18px">
-      <div style="font-size:19px;font-weight:900" id="login-shop">دفتر الدين</div>
-      <div style="font-size:14px;color:var(--txt3);margin-top:4px" id="login-phone"></div>
+      <div style="font-size:19px;font-weight:900" id="login-shop">مطور</div>
+      <div style="font-size:14px;color:var(--txt3);margin-top:4px" id="login-phone">0599123456</div>
       <div style="font-size:11px;color:var(--txt3);margin-top:4px">v1.3</div>
     </div>
     <div class="err" id="login-err"></div>
@@ -314,7 +314,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
   <div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:70px;border-bottom:2px solid var(--brd);background:var(--bg);flex-shrink:0">
     <button onclick="openSettings()" style="width:46px;height:46px;border:none;border-radius:12px;background:var(--bg3);font-size:26px;cursor:pointer" id="home-shop-logo">🏪</button>
     <div style="text-align:center;flex:1;cursor:pointer" onclick="openSettings()">
-      <div style="font-size:22px;font-weight:900;color:var(--yel);letter-spacing:.5px" id="home-shop-name">دفتر الدين</div>
+      <div style="font-size:22px;font-weight:900;color:var(--yel);letter-spacing:.5px" id="home-shop-name">مطور</div>
       <div style="font-size:12px;color:var(--txt3);margin-top:2px;font-weight:600">الصفحة الرئيسية</div>
     </div>
     <div style="width:46px"></div>
@@ -1132,7 +1132,7 @@ async function filterCats(q){
   const allCats=[...new Set([...DEFAULT_CATS,...userCats])];
   renderCatGrid(allCats,q);
 }
-async async function selectCat(name){
+async function selectCat(name){
   if(activeCatLineIdx>=0&&activeCatLineIdx<invLines.length){
     invLines[activeCatLineIdx].category=name;
     renderInvLines();
