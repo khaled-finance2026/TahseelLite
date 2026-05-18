@@ -7,6 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>دفتر الدين — v1.5</title>
 <link rel="manifest" href="/manifest.json">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 :root{--bg:#0a0f1a;--bg2:#131c2e;--bg3:#1e2d42;--txt:#ffffff;--txt2:#cbd5e1;--txt3:#64748b;--pri:#60a5fa;--grn:#34d399;--red:#f87171;--yel:#fbbf24;--brd:rgba(255,255,255,.13);--inv-bg:#fffef0;--inv-txt:#1a1200;}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -58,8 +59,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
 .ck{padding:18px 8px;border:none;border-radius:14px;background:#1a2a3e;color:var(--txt);font-size:24px;font-weight:800;cursor:pointer;text-align:center;transition:all .15s;box-shadow:0 2px 6px rgba(0,0,0,.3)}
 .ck:active{transform:scale(.93);opacity:.8}.ck.op{background:rgba(96,165,250,.15);color:var(--pri);border:1.5px solid rgba(96,165,250,.25)}.ck.eq{background:linear-gradient(135deg,#065f46,#10b981);color:#fff;font-size:14px;font-weight:900;border:none;line-height:1.3}.ck.del{background:rgba(251,191,36,.12);color:var(--yel);border:1.5px solid rgba(251,191,36,.2)}.ck.clr{background:rgba(248,113,113,.12);color:var(--red);border:1.5px solid rgba(248,113,113,.2)}.ck.pct{background:rgba(167,139,250,.12);color:#a78bfa;border:1.5px solid rgba(167,139,250,.2)}
 /* فاتورة */
-.inv-sheet{position:fixed;top:50%;left:50%;z-index:190;background:var(--inv-bg);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);transform:translate(-50%,-50%) scale(.9);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.22,.68,0,1.2);width:min(96vw,460px);max-height:92vh;display:flex;flex-direction:column;color:var(--inv-txt);overflow:hidden}
-.inv-sheet.open{transform:translate(-50%,-50%) scale(1);opacity:1;pointer-events:all}
+.inv-sheet{position:fixed;bottom:0;left:0;right:0;z-index:190;background:var(--inv-bg);border-radius:20px 20px 0 0;box-shadow:0 -4px 32px rgba(0,0,0,.45);transform:translateY(100%);transition:transform .35s cubic-bezier(.22,.68,0,1.2);max-height:92vh;display:flex;flex-direction:column;color:var(--inv-txt);overflow:hidden}
+.inv-sheet.open{transform:translateY(0)}
 .inv-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:185;display:none}.inv-overlay.show{display:block}
 .hold-bar{display:none;gap:6px;padding:6px 16px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid rgba(0,0,0,.12);flex-shrink:0;background:rgba(0,0,0,.04)}.hold-bar.visible{display:flex}.hold-bar::-webkit-scrollbar{display:none}
 .hold-chip{flex-shrink:0;padding:5px 12px;border-radius:14px;background:rgba(0,0,0,.08);border:1.5px solid rgba(0,0,0,.12);font-size:12px;font-weight:700;color:#8b6914;cursor:pointer;white-space:nowrap}.hold-chip.active{background:#e8d88a;border-color:#b8941a;color:#3d2a00}
@@ -151,20 +152,18 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
 <!-- الدخول -->
 <div class="screen active" id="s-login">
 <div class="login-wrap"><div class="login-card">
-<div class="book-wrap" onclick="devLogin()" style="cursor:pointer"><div class="book-shadow-wrap"><div class="arabic-book">
+<div class="book-wrap" onclick="devLogin()" style="cursor:pointer;margin-top:20px;margin-bottom:12px"><div class="book-shadow-wrap"><div class="arabic-book">
 <div class="b-front">
   <div class="book-corner"></div>
-  <div style="position:absolute;top:5px;right:5px;z-index:4;opacity:0.9">
-    <svg width="20" height="20" viewBox="0 0 80 80"><g transform="translate(38,46)" fill="#fbbf24"><ellipse cx="0" cy="0" rx="13" ry="7" transform="rotate(-18)"/><polygon points="7,-5 9,-5 15,-13 12,-14"/><ellipse cx="15" cy="-13" rx="6" ry="5" transform="rotate(12,15,-13)"/><path d="M 12,-18 C 8,-26 9,-32 5,-30" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/><path d="M 15,-18 C 12,-25 12,-30 8,-28" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/><path d="M 7,8 L 4,18" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/><path d="M 1,9 L -1,18" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/><path d="M -10,7 L -12,16" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/></g></svg>
-  </div>
-  <div style="position:absolute;bottom:6px;right:5px;z-index:4;opacity:0.75">
-    <svg width="11" height="11" viewBox="0 0 24 24"><circle cx="12" cy="4" r="3" fill="#fbbf24"/><circle cx="20" cy="12" r="3" fill="#fbbf24"/><circle cx="12" cy="20" r="3" fill="#fbbf24"/><circle cx="4" cy="12" r="3" fill="#fbbf24"/><circle cx="12" cy="12" r="4" fill="#fbbf24"/></svg>
+  <!-- شعار غزال — تحت المثلث الفضي مباشرة -->
+  <div style="position:absolute;top:24px;left:3px;z-index:4;opacity:0.85">
+    <svg width="18" height="18" viewBox="0 0 80 80"><g transform="translate(38,46)" fill="#fbbf24"><ellipse cx="0" cy="0" rx="13" ry="7" transform="rotate(-18)"/><polygon points="7,-5 9,-5 15,-13 12,-14"/><ellipse cx="15" cy="-13" rx="6" ry="5" transform="rotate(12,15,-13)"/><path d="M 12,-18 C 8,-26 9,-32 5,-30" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/><path d="M 15,-18 C 12,-25 12,-30 8,-28" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/><path d="M 7,8 L 4,18" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/><path d="M 1,9 L -1,18" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/><path d="M -10,7 L -12,16" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/></g></svg>
   </div>
   <div class="book-title-cover"><div class="line1">دفتر</div><div class="line1">الدين</div></div>
 </div>
 <div class="b-spine"></div><div class="b-top"></div><div class="b-pages"></div><div class="b-back"></div>
 </div></div></div>
-<div style="text-align:center;margin-bottom:18px">
+<div style="text-align:center;margin-bottom:22px">
   <div style="font-size:20px;font-weight:900" id="login-shop">دفتر الدين</div>
   <div style="font-size:14px;color:var(--txt3);margin-top:4px" id="login-phone"></div>
   <div style="font-size:12px;color:var(--txt3);margin-top:6px;background:var(--bg3);border-radius:8px;padding:3px 10px;display:inline-block">v1.5</div>
@@ -172,7 +171,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
 <div class="err" id="login-err"></div>
 <div class="fg"><div style="position:relative">
   <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%) rotate(180deg);font-size:22px;pointer-events:none;z-index:1;line-height:1">🔑</span>
-  <input type="password" id="login-pin" class="fi" placeholder="••••••" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900;padding-right:52px" onkeydown="if(event.key==='Enter')doLogin()">
+  <input type="password" id="login-pin" class="fi" placeholder="••••••" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900;padding:8px 52px 20px 16px" onkeydown="if(event.key==='Enter')doLogin()">
 </div></div>
 <button class="btn btn-pri" id="login-btn" onclick="doLogin()">دخول</button>
 <button onclick="openForgotPin()" style="width:100%;margin-top:10px;background:none;border:none;color:var(--pri);font-size:15px;font-weight:700;cursor:pointer;padding:8px">نسيت الرقم السري؟</button>
@@ -218,7 +217,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
 
 <!-- تفاصيل الفاتورة -->
 <div class="screen" id="s-invoice">
-<div class="topnav"><button class="back-btn" onclick="goBack()">←</button><div class="topnav-center"><h2 id="inv-det-num">فاتورة</h2><div class="ver-tag" id="inv-det-status"></div></div><button onclick="goToInvCust()" style="padding:7px 14px;border:none;border-radius:10px;background:var(--bg3);color:var(--pri);font-size:14px;font-weight:700;cursor:pointer">الزبون ›</button></div>
+<div class="topnav"><button class="back-btn" onclick="showTab('home')">🏠</button><div class="topnav-center"><h2 id="inv-det-num">فاتورة</h2><div class="ver-tag" id="inv-det-status"></div></div><button onclick="goToInvCust()" style="padding:7px 14px;border:none;border-radius:10px;background:var(--bg3);color:var(--pri);font-size:14px;font-weight:700;cursor:pointer">الزبون ›</button></div>
 <div class="content" style="padding-bottom:90px">
 <div style="padding:16px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border-bottom:2px solid var(--brd)">
   <div style="font-size:22px;font-weight:900" id="inv-det-cust-name"></div>
@@ -249,11 +248,55 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
 
 <!-- مطابقة البنك -->
 <div class="screen" id="s-bank">
-<div class="topnav"><button class="back-btn" onclick="showTab('home')">←</button><div class="topnav-center"><h2>مطابقة البنك</h2></div><div style="width:44px"></div></div>
-<div class="content"><div style="padding:16px">
-<div class="fg"><label>نص الحركة أو الرسالة</label><textarea id="bank-text" class="fi" placeholder="الصق هنا..." style="height:130px;resize:none;font-size:15px;line-height:1.7" oninput="autoMatchBank()"></textarea></div>
-<div id="bank-results"></div>
-</div></div></div>
+<div class="topnav"><button class="back-btn" onclick="showTab('home')">←</button><div class="topnav-center"><h2>مطابقة المدفوعات</h2></div><div style="width:44px"></div></div>
+<!-- تبويبان -->
+<div style="display:flex;border-bottom:2px solid var(--brd);flex-shrink:0;background:var(--bg)">
+  <button id="btab-excel"  onclick="setBankTab('excel')"
+    style="flex:1;padding:12px;border:none;background:transparent;font-size:15px;font-weight:700;cursor:pointer;color:var(--pri);border-bottom:3px solid var(--pri)">📊 ملف Excel</button>
+  <button id="btab-manual" onclick="setBankTab('manual')"
+    style="flex:1;padding:12px;border:none;background:transparent;font-size:15px;font-weight:700;cursor:pointer;color:var(--txt3);border-bottom:3px solid transparent">✏️ إدخال يدوي</button>
+</div>
+<!-- تبويب Excel -->
+<div id="bank-excel-panel" class="content">
+<div style="padding:14px 16px">
+  <!-- آخر مقارنة -->
+  <div id="bank-last-date-info" style="background:var(--bg2);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:14px;color:var(--txt2);display:flex;justify-content:space-between;align-items:center">
+    <span>آخر مقارنة: <span id="bank-last-date-val" style="color:var(--pri);font-weight:700">لم تتم بعد</span></span>
+    <button onclick="resetBankDate()" style="border:none;background:none;color:var(--txt3);font-size:12px;cursor:pointer">إعادة تعيين</button>
+  </div>
+  <!-- رفع الملف -->
+  <label style="display:flex;flex-direction:column;align-items:center;justify-content:center;
+    border:2px dashed var(--brd);border-radius:14px;padding:24px;cursor:pointer;
+    background:var(--bg2);margin-bottom:14px;gap:8px">
+    <span style="font-size:32px">📂</span>
+    <span style="font-size:16px;font-weight:700;color:var(--txt2)">اختر ملف Excel من البنك</span>
+    <span style="font-size:13px;color:var(--txt3)">.xlsx / .xls / .csv</span>
+    <input type="file" id="bank-file-input" accept=".xlsx,.xls,.csv" style="display:none" onchange="onBankFileLoad(this)">
+  </label>
+  <div id="bank-results"></div>
+</div></div>
+<!-- تبويب يدوي -->
+<div id="bank-manual-panel" class="content" style="display:none">
+<div style="padding:14px 16px">
+  <div style="font-size:14px;color:var(--txt3);margin-bottom:12px">
+    أدخل المبالغ الواردة التي تظهر في الـ Wallet واحداً تلو الآخر
+  </div>
+  <div style="background:var(--bg2);border-radius:14px;padding:16px;margin-bottom:14px">
+    <div class="amount-lbl">المبلغ الوارد</div>
+    <div id="manual-amt-display" style="font-size:42px;font-weight:900;color:var(--yel);text-align:center;min-height:52px;direction:ltr">0</div>
+    <div class="numpad">
+      <button class="npk" onclick="manualKey('1')">1</button><button class="npk" onclick="manualKey('2')">2</button><button class="npk" onclick="manualKey('3')">3</button>
+      <button class="npk" onclick="manualKey('4')">4</button><button class="npk" onclick="manualKey('5')">5</button><button class="npk" onclick="manualKey('6')">6</button>
+      <button class="npk" onclick="manualKey('7')">7</button><button class="npk" onclick="manualKey('8')">8</button><button class="npk" onclick="manualKey('9')">9</button>
+      <button class="npk" onclick="manualKey('.')">.</button><button class="npk" onclick="manualKey('0')">0</button><button class="npk" onclick="manualDelKey()">⌫</button>
+    </div>
+    <button onclick="addManualAmount()" class="btn btn-pri" style="margin-top:10px;font-size:16px">+ إضافة للقائمة</button>
+  </div>
+  <div id="manual-amounts-list" style="margin-bottom:12px"></div>
+  <button onclick="matchManualAmounts()" class="btn btn-grn" id="btn-match-manual" style="font-size:16px;display:none">مطابقة الآن</button>
+  <div id="bank-manual-results"></div>
+</div></div>
+</div>
 
 <!-- الإعدادات -->
 <div class="screen" id="s-settings">
@@ -315,6 +358,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
 <!-- الفاتورة -->
 <div class="inv-overlay" id="inv-overlay" onclick="closeInvSheet()"></div>
 <div class="inv-sheet" id="inv-sheet">
+<div style="width:40px;height:4px;background:rgba(0,0,0,.15);border-radius:2px;margin:10px auto 4px;flex-shrink:0"></div>
 <div class="hold-bar" id="hold-bar"></div>
 <div class="inv-header">
   <div class="inv-type-lbl" id="inv-type-lbl">فاتورة</div>
@@ -360,6 +404,41 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
 <div style="padding:14px 16px 6px;border-bottom:1px solid var(--brd)"><div style="font-size:17px;font-weight:900;margin-bottom:8px">اختر الصنف</div><input type="text" id="cat-search" class="fi" placeholder="ابحث أو أضف جديد..." oninput="filterCats(this.value)" style="font-size:16px;padding:10px 14px"></div>
 <div class="cat-grid" id="cat-grid"></div>
 </div>
+
+<div class="modal-bg" id="m-phone-input"><div class="modal-sheet" style="padding:24px 20px">
+  <div id="phone-input-msg" style="font-size:17px;font-weight:700;margin-bottom:14px;color:var(--txt)">الرجاء إدخال رقم الجوال</div>
+  <input type="tel" id="phone-input-field" class="fi" placeholder="05XXXXXXXX"
+    style="direction:ltr;font-size:22px;letter-spacing:2px;margin-bottom:14px" inputmode="numeric">
+  <div style="display:flex;gap:10px">
+    <button id="phone-input-ok"     class="btn btn-grn"  style="font-size:17px">تأكيد</button>
+    <button id="phone-input-cancel" class="btn btn-gray" style="font-size:17px">تراجع</button>
+  </div>
+</div></div>
+
+<div class="modal-bg" id="m-reminder"><div class="modal-sheet" style="padding:20px">
+  <div style="font-size:13px;font-weight:700;color:var(--yel);margin-bottom:8px">⏰ تذكير بالدفع</div>
+  <div id="reminder-msg" style="font-size:17px;font-weight:700;line-height:1.7;margin-bottom:16px;color:var(--txt)"></div>
+  <div style="display:flex;align-items:center;gap:10px;background:var(--bg3);border-radius:12px;padding:12px 14px;margin-bottom:16px">
+    <span style="font-size:14px;color:var(--txt2)">التذكير القادم بعد</span>
+    <input type="number" id="reminder-interval" value="24" min="1" max="720"
+      style="width:64px;background:var(--bg2);border:1.5px solid var(--brd);border-radius:8px;
+      color:var(--yel);font-size:18px;font-weight:900;text-align:center;padding:6px;
+      outline:none;font-family:inherit;direction:ltr">
+    <span style="font-size:14px;color:var(--txt2)">ساعة</span>
+  </div>
+  <div style="display:flex;gap:10px">
+    <button id="reminder-send" class="btn btn-grn"  style="font-size:17px">أرسل تذكير</button>
+    <button id="reminder-skip" class="btn btn-gray" style="font-size:17px">لاحقاً</button>
+  </div>
+</div></div>
+
+<div class="modal-bg" id="m-confirm"><div class="modal-sheet" style="padding:24px 20px">
+  <div id="confirm-msg" style="font-size:18px;font-weight:700;line-height:1.7;margin-bottom:22px;color:var(--txt)"></div>
+  <div style="display:flex;gap:10px">
+    <button id="confirm-ok"  class="btn btn-grn" style="font-size:18px"></button>
+    <button id="confirm-no" class="btn btn-gray" style="font-size:18px"></button>
+  </div>
+</div></div>
 
 <div id="spinner"><div class="spin"></div><div class="spin-txt" id="spinner-txt">...</div></div>
 <script>
@@ -421,7 +500,122 @@ function showTab(tab){
 }
 function showSpinner(t){document.getElementById('spinner-txt').textContent=t||'...';document.getElementById('spinner').classList.add('show')}
 function hideSpinner(){document.getElementById('spinner').classList.remove('show')}
-function showErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.classList.add('show');setTimeout(()=>{e.classList.remove('show');e.textContent=''},4000)}
+function showConfirm(msg,okText,noText){
+  return new Promise(resolve=>{
+    document.getElementById('confirm-msg').innerHTML=msg;
+    document.getElementById('confirm-ok').textContent=okText||'تأكيد';
+    document.getElementById('confirm-no').textContent=noText||'تراجع';
+    document.getElementById('m-confirm').classList.add('open');
+    document.getElementById('confirm-ok').onclick=()=>{document.getElementById('m-confirm').classList.remove('open');resolve(true);};
+    document.getElementById('confirm-no').onclick=()=>{document.getElementById('m-confirm').classList.remove('open');resolve(false);};
+  });
+}
+
+function showPhoneInput(msg){
+  return new Promise(resolve=>{
+    document.getElementById('phone-input-msg').textContent=msg||'الرجاء إدخال رقم الجوال';
+    document.getElementById('phone-input-field').value='';
+    document.getElementById('m-phone-input').classList.add('open');
+    setTimeout(()=>document.getElementById('phone-input-field').focus(),200);
+    document.getElementById('phone-input-ok').onclick=()=>{
+      const p=document.getElementById('phone-input-field').value.trim();
+      if(!p)return;
+      document.getElementById('m-phone-input').classList.remove('open');
+      resolve(p);
+    };
+    document.getElementById('phone-input-cancel').onclick=()=>{
+      document.getElementById('m-phone-input').classList.remove('open');
+      resolve(null);
+    };
+  });
+}
+
+// ── نظام التذكير الذكي ────────────────────────────────────────────
+function getReminders(){return JSON.parse(localStorage.getItem('gz_reminders')||'[]')}
+function saveReminders(arr){localStorage.setItem('gz_reminders',JSON.stringify(arr))}
+
+function addPendingReminder(invId,custId,custName,invNum,total,phone){
+  const list=getReminders().filter(r=>r.invId!==invId);
+  list.push({invId,custId,custName,invNum,total,phone,
+    createdAt:Date.now(),
+    nextAt:Date.now()+15*60*1000,
+    intervalHours:24,
+    lastSentAt:null
+  });
+  saveReminders(list);
+  setTimeout(checkReminders,15*60*1000);
+}
+
+function updateReminderAfterSend(invId,hours){
+  const h=hours||24;
+  const list=getReminders();
+  list.forEach(r=>{if(r.invId===invId){r.lastSentAt=Date.now();r.nextAt=Date.now()+h*3600000;r.intervalHours=h;}});
+  saveReminders(list);
+  setTimeout(checkReminders,h*3600000);
+}
+
+function removeReminder(invId){
+  saveReminders(getReminders().filter(r=>r.invId!==invId));
+}
+
+async function checkReminders(){
+  const list=getReminders();if(!list.length)return;
+  const now=Date.now();
+  let minNext=Infinity;
+  for(const r of list){
+    if(r.nextAt<=now){
+      let inv=null;try{inv=await db.get('invoices',r.invId);}catch(e){}
+      if(!inv||inv.status==='مدفوع'){removeReminder(r.invId);continue;}
+      await showReminderModal(r);
+      return; // عرض تذكير واحد في كل مرة
+    }else{
+      minNext=Math.min(minNext,r.nextAt);
+    }
+  }
+  if(minNext<Infinity)setTimeout(checkReminders,Math.max(0,minNext-Date.now()));
+}
+
+function showReminderModal(r){
+  return new Promise(resolve=>{
+    document.getElementById('reminder-msg').innerHTML=
+      'فاتورة <b>#'+r.invNum+'</b><br>'+
+      'السيد / <b>'+r.custName+'</b><br>'+
+      '<span style="font-size:24px;font-weight:900;color:var(--red)">'+r.total.toFixed(0)+' ₪</span>';
+    document.getElementById('reminder-interval').value=r.intervalHours||24;
+    document.getElementById('m-reminder').classList.add('open');
+
+    document.getElementById('reminder-send').onclick=async()=>{
+      const hours=parseInt(document.getElementById('reminder-interval').value)||24;
+      let phone=r.phone;
+      if(!phone){
+        phone=await showPhoneInput('الرجاء إدخال رقم جوال '+r.custName);
+        if(!phone){document.getElementById('m-reminder').classList.remove('open');resolve();return;}
+        r.phone=phone;
+      }
+      const waPhone=phone.replace(/^0/,'970').replace(/\D/g,'');
+      const shop=localStorage.getItem('gz_shop')||'المحل';
+      const msg='السلام عليكم '+r.custName+',\nتذكير بفاتورة #'+r.invNum+' من '+shop+'\nالمبلغ: '+r.total.toFixed(0)+' ₪\nنرجو التكرم بالسداد. بارك الله فيك 🙏';
+      window.open('https://wa.me/'+waPhone+'?text='+encodeURIComponent(msg),'_blank');
+      updateReminderAfterSend(r.invId,hours);
+      document.getElementById('m-reminder').classList.remove('open');
+      resolve();
+    };
+
+    document.getElementById('reminder-skip').onclick=()=>{
+      const hours=parseInt(document.getElementById('reminder-interval').value)||24;
+      updateReminderAfterSend(r.invId,hours);
+      document.getElementById('m-reminder').classList.remove('open');
+      resolve();
+    };
+  });
+}
+
+function scheduleNextReminder(){
+  const list=getReminders();if(!list.length)return;
+  const now=Date.now();
+  const minNext=list.reduce((m,r)=>Math.min(m,r.nextAt),Infinity);
+  if(minNext<Infinity){const wait=Math.max(0,minNext-now);setTimeout(checkReminders,wait);}
+}
 
 async function hashPin(pin,merchantId){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pin+'|'+merchantId));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('')}
 
@@ -524,7 +718,7 @@ async function updateStatusBar(state){
   if(state==='syncing'){bar.className='status-bar bar-pending';txt.textContent='جاري الحفظ في السحابة...';setTimeout(()=>{if(!_syncInProgress)updateStatusBar();},8000);return;}
   const pending=await db.getPendingSync();
   if(!navigator.onLine){bar.className='status-bar bar-offline';txt.textContent=pending.length?'غير متصل — '+pending.length+' في انتظار الحفظ':'غير متصل — محفوظ على الجهاز';return;}
-  if(pending.length){bar.className='status-bar bar-pending';txt.textContent='متصل — '+pending.length+' غير محفوظ في السحابة';}
+  if(pending.length){bar.className='status-bar bar-pending';txt.textContent='متصل — '+pending.length+' غير محفوظ في السحابة';if(!_syncInProgress)setTimeout(doSync,2000);}
   else{const last=localStorage.getItem('gz_last_sync');let ts='';if(last){const d=new Date(parseInt(last));ts=d.toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'});}bar.className='status-bar bar-online';txt.textContent=ts?'محفوظ في السحابة — '+ts:'محفوظ في السحابة ✓';}
 }
 
@@ -535,9 +729,12 @@ async function loadHome(){
   if(!SESSION)return;
   const custs=await db.getAll('customers');
   let allInvoices=[];try{allInvoices=await db.getAll('invoices');}catch(e){}
+  let allTx=[];try{allTx=await db.getAll('transactions');}catch(e){}
   const mine=custs.filter(c=>c.merchant_id===SESSION.merchant_id);
   const mInv=allInvoices.filter(i=>i.merchant_id===SESSION.merchant_id);
+  const mTx=allTx.filter(t=>t.merchant_id===SESSION.merchant_id);
   const bal={},oldest={},invNums={},invIds={};
+  // invoices الجديدة
   mInv.forEach(inv=>{
     const cid=inv.customer_id;if(!cid)return;
     if(!bal[cid])bal[cid]=0;
@@ -545,6 +742,19 @@ async function loadHome(){
       bal[cid]+=(inv.total||0);
       const d=new Date(inv.created_at);
       if(!oldest[cid]||d<oldest[cid]){oldest[cid]=d;invNums[cid]=inv.inv_num;invIds[cid]=inv.id;}
+    }
+  });
+  // transactions القديمة — للتوافق مع النسخ السابقة
+  mTx.forEach(t=>{
+    const cid=t.customer_id;if(!cid)return;
+    if(!bal[cid])bal[cid]=0;
+    const d=new Date(t.created_at);
+    if(t.status==='غير مدفوع'){
+      bal[cid]+=(t.amount||0);
+      if(!oldest[cid]||d<oldest[cid]){oldest[cid]=d;if(!invNums[cid])invNums[cid]=t.inv_num||'—';}
+    }else if(t.status==='مدفوع جزئياً'){
+      bal[cid]+=(t.remaining||t.amount||0);
+      if(!oldest[cid]||d<oldest[cid]){oldest[cid]=d;if(!invNums[cid])invNums[cid]=t.inv_num||'—';}
     }
   });
   const now=Date.now(),todayStr=new Date().toDateString();
@@ -668,7 +878,7 @@ function renderInvLines(){
     const dispTotal=lineTotal>0?lineTotal.toFixed(0):'';
     return '<div class="inv-line">'
       +'<div class="inv-line-num">'+(hasData?lineNum:'')+'</div>'
-      +'<input class="inv-line-cat" type="text" value="'+( line.category||'')+'" placeholder="الصنف" onclick="openCatSheet('+i+')" readonly oninput="invLines['+i+'].category=this.value;invLines['+i+'].empty=false">'
+      +'<div class="inv-line-cat" onclick="openCatSheet('+i+')" style="cursor:pointer;min-height:28px;display:flex;align-items:center;color:'+(line.category?'#2d1a00':'rgba(0,0,0,.3)')+'">'+(line.category||'الصنف 25be')+'</div>'
       +'<input class="inv-line-qty" type="number" value="'+(line.qty||1)+'" min="1" step="1" oninput="invLines['+i+'].qty=parseFloat(this.value)||1;calcLineAmt('+i+');updateInvTotal()">'
       +'<input class="inv-line-price" type="number" value="'+(line.price||'')+'" min="0" placeholder="0" oninput="invLines['+i+'].price=parseFloat(this.value)||0;invLines['+i+'].empty=!this.value;calcLineAmt('+i+');checkAutoAddLine('+i+');updateInvTotal()">'
       +'<div class="inv-line-total">'+dispTotal+'</div>'
@@ -769,6 +979,8 @@ async function saveInvoice(sendWA){
     await db.put('inv_lines',{id:crypto.randomUUID(),invoice_id:invId,merchant_id:SESSION.merchant_id,qty:line.qty||1,price:line.price||0,amount:(line.qty||1)*(line.price||0),category:line.category,created_at:now});
   heldInvoices.splice(activeInvIdx,1);activeInvIdx=Math.max(0,activeInvIdx-1);
   calcStr='';renderCalc();hideSpinner();if(navigator.onLine)doSync();closeInvSheet();
+  // تذكير تلقائي بعد 15 دقيقة إذا لم يُدفع
+  addPendingReminder(invId,custId,invCustName||('زبون #'+window._currentInvNum),window._currentInvNum,grandTotal,invCustPhone||'');
   if(sendWA)sendInvWA(invData,activeLines,invCustName,invCustPhone);
   await openCustomer(custId);
 }
@@ -812,7 +1024,7 @@ async function openInvoice(invId){
 }
 function goToInvCust(){if(_currentInvCustId)openCustomer(_currentInvCustId)}
 async function payInvoiceDirect(invId){
-  if(!confirm('تأكيد تسجيل الدفع؟'))return;showSpinner('...');const now=new Date().toISOString();
+  if(!await showConfirm('تأكيد تسجيل الدفع؟','تسجيل الدفع','تراجع'))return;showSpinner('...');const now=new Date().toISOString();
   try{const inv=await db.get('invoices',invId);if(inv){await db.put('invoices',{...inv,status:'مدفوع',paid_at:now});await addToQueue('update_invoice',{id:invId,status:'مدفوع',paid_at:now});}}catch(e){}
   hideSpinner();if(navigator.onLine)doSync();await openInvoice(invId);await loadHome();
 }
@@ -828,21 +1040,41 @@ async function openCustomer(id){
   const all=await db.getAll('customers');const cust=all.find(c=>c.id===id);if(!cust)return;
   currentCustomer=cust;
   let allInv=[];try{allInv=await db.getAll('invoices');}catch(e){}
+  let allTx=[];try{allTx=await db.getAll('transactions');}catch(e){}
   const custInv=allInv.filter(i=>i.customer_id===id).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-  let balance=0;custInv.forEach(i=>{if(i.status==='غير مدفوع')balance+=(i.total||0);});
+  const custTx=allTx.filter(t=>t.customer_id===id).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  let balance=0;
+  custInv.forEach(i=>{if(i.status==='غير مدفوع')balance+=(i.total||0);});
+  custTx.forEach(t=>{if(t.status==='غير مدفوع')balance+=(t.amount||0);else if(t.status==='مدفوع جزئياً')balance+=(t.remaining||t.amount||0);});
   document.getElementById('cust-title').textContent=cust.name;document.getElementById('cust-name-big').textContent=cust.name;document.getElementById('cust-phone-lbl').textContent=cust.phone||'بدون رقم جوال';
   const balEl=document.getElementById('cust-balance');balEl.style.color=balance>0?'var(--red)':'var(--grn)';balEl.textContent=balance>0?balance.toFixed(0)+' '+CUR:'مسوَّى ✓';
+  // دمج السجلين مرتبين بالتاريخ
+  const allItems=[
+    ...custInv.map(i=>({...i,_src:'inv'})),
+    ...custTx.filter(t=>t.type!=='payment').map(t=>({...t,_src:'tx'}))
+  ].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
   const el=document.getElementById('cust-tx-list');
-  if(!custInv.length){el.innerHTML='<div class="empty"><div class="icon">📋</div><p>لا توجد معاملات</p></div>';showScreen('s-cust');return}
-  el.innerHTML=custInv.map(inv=>{const d=new Date(inv.created_at),ds=d.toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'});const isPaid=inv.status==='مدفوع',icon=isPaid?'✅':'🔴',cls=isPaid?'tx-pay':'tx-debt';
-    return '<div class="tx-item" onclick="openInvoice(\''+inv.id+'\')" style="cursor:pointer"><div class="tx-left"><div class="tx-desc">'+icon+' فاتورة #'+inv.inv_num+(inv.tax_enabled?' · ضريبية':'')+'</div><div class="tx-date">'+ds+'</div></div><div class="tx-amt '+cls+'">'+inv.total.toFixed(0)+' '+CUR+'</div></div>';
+  if(!allItems.length){el.innerHTML='<div class="empty"><div class="icon">📋</div><p>لا توجد معاملات</p></div>';showScreen('s-cust');return}
+  el.innerHTML=allItems.map(item=>{
+    const d=new Date(item.created_at),ds=d.toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'});
+    if(item._src==='inv'){
+      const isPaid=item.status==='مدفوع',icon=isPaid?'✅':'🔴',cls=isPaid?'tx-pay':'tx-debt';
+      return '<div class="tx-item" onclick="openInvoice(\''+item.id+'\')" style="cursor:pointer"><div class="tx-left"><div class="tx-desc">'+icon+' فاتورة #'+item.inv_num+(item.tax_enabled?' · ضريبية':'')+'</div><div class="tx-date">'+ds+'</div></div><div class="tx-amt '+cls+'">'+item.total.toFixed(0)+' '+CUR+'</div></div>';
+    }else{
+      const isPaid=item.status==='مدفوع',icon=isPaid?'✅':'🔴',cls=isPaid?'tx-pay':'tx-debt';
+      const amt=item.status==='مدفوع جزئياً'?(item.remaining||item.amount):item.amount;
+      return '<div class="tx-item"><div class="tx-left"><div class="tx-desc">'+icon+' '+(item.description||'دين')+(item.inv_num?' #'+item.inv_num:'')+'</div><div class="tx-date">'+ds+'</div></div><div class="tx-amt '+cls+'">'+(amt||0).toFixed(0)+' '+CUR+'</div></div>';
+    }
   }).join('');
   showScreen('s-cust');
 }
 function addDebtForCust(){if(!currentCustomer)return;invCustId=currentCustomer.id;invCustName=currentCustomer.name;invCustPhone=currentCustomer.phone||'';calcStr='';renderCalc();openCalc()}
 
 async function sendAccountStatement(){
-  if(!currentCustomer)return;let phone=currentCustomer.phone;if(!phone){phone=prompt('أدخل رقم جوال الزبون:');if(!phone)return;}
+  if(!currentCustomer)return;
+  const ok=await showConfirm('سيتم إرسال كشف الحساب<br>للسيد / <b>'+currentCustomer.name+'</b><br><span style="font-size:14px;color:var(--txt3)">عبر واتساب</span>','أرسل','تراجع');
+  if(!ok)return;
+  let phone=currentCustomer.phone;if(!phone){phone=prompt('أدخل رقم جوال الزبون:');if(!phone)return;}
   const waPhone=phone.replace(/^0/,'970').replace(/\D/g,'');let allInv=[];try{allInv=await db.getAll('invoices');}catch(e){}
   const custInv=allInv.filter(i=>i.customer_id===currentCustomer.id).sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
   const shop=localStorage.getItem('gz_shop')||'المحل';let msg='كشف حساب — '+shop+'\nالزبون: '+currentCustomer.name+'\nبتاريخ: '+new Date().toLocaleDateString('ar-EG')+'\n───────────\n';
@@ -856,16 +1088,32 @@ async function sendPaymentInfo(){
   const bal=document.getElementById('cust-balance').textContent;
   window.open('https://wa.me/'+waPhone+'?text='+encodeURIComponent('مرحباً '+currentCustomer.name+',\nرصيدك المستحق لـ '+shop+': '+bal+'\n───────────\nلإتمام الدفع:\n📱 '+shopPhone+'\nشكراً 🙏'),'_blank');
 }
-function sendReminder(){if(!currentCustomer?.phone){alert('ما في رقم جوال');return}const phone=currentCustomer.phone.replace(/^0/,'970').replace(/\D/g,'');const shop=localStorage.getItem('gz_shop')||'المحل';const bal=document.getElementById('cust-balance').textContent;window.open('https://wa.me/'+phone+'?text='+encodeURIComponent('السلام عليكم '+currentCustomer.name+',\nتذكير ودّي من '+shop+'.\nرصيدك: '+bal+'\nبارك الله فيك'),'_blank');}
-function sendThanks(amount){if(!currentCustomer?.phone)return;const phone=currentCustomer.phone.replace(/^0/,'970').replace(/\D/g,'');const shop=localStorage.getItem('gz_shop')||'المحل';if(confirm('إرسال شكر للزبون؟'))window.open('https://wa.me/'+phone+'?text='+encodeURIComponent('شكراً '+currentCustomer.name+',\nتم استلام '+amount.toFixed(0)+' '+CUR+' ✓\n'+shop),'_blank');}
+async function sendReminder(){
+  let phone=currentCustomer?.phone;
+  if(!phone){
+    phone=await showPhoneInput('الرجاء إدخال رقم جوال '+currentCustomer.name);
+    if(!phone)return;
+    // حفظ الجوال على الزبون
+    currentCustomer.phone=phone;
+    await db.put('customers',{...currentCustomer});
+  }
+  const waPhone=phone.replace(/^0/,'970').replace(/\D/g,'');
+  const shop=localStorage.getItem('gz_shop')||'المحل';
+  const bal=document.getElementById('cust-balance').textContent;
+  window.open('https://wa.me/'+waPhone+'?text='+encodeURIComponent('السلام عليكم '+currentCustomer.name+',\nتذكير ودّي من '+shop+'.\nرصيدك: '+bal+'\nبارك الله فيك'),'_blank');
+  // تحديث توقيت التذكير الآلي — التذكير القادم بعد 24 ساعة من الآن
+  const list=getReminders().filter(r=>r.custId===currentCustomer.id);
+  list.forEach(r=>updateReminderAfterSend(r.invId,r.intervalHours||24));
+}
+function sendThanks(amount){if(!currentCustomer?.phone)return;const phone=currentCustomer.phone.replace(/^0/,'970').replace(/\D/g,'');const shop=localStorage.getItem('gz_shop')||'المحل';showConfirm('إرسال رسالة شكر للسيد / '+currentCustomer.name+'<br><span style="font-size:14px;color:var(--txt3)">على واتساب</span>','أرسل','تراجع').then(ok=>{if(!ok)return;window.open('https://wa.me/'+phone+'?text='+encodeURIComponent('شكراً '+currentCustomer.name+',\nتم استلام '+amount.toFixed(0)+' '+CUR+' ✓\n'+shop),'_blank');});}
 
 async function payFull(){
   if(!currentCustomer)return;let allInv=[];try{allInv=await db.getAll('invoices');}catch(e){}
   const pending=allInv.filter(i=>i.customer_id===currentCustomer.id&&i.status==='غير مدفوع');
   if(!pending.length){alert('لا توجد ديون');return}const total=pending.reduce((s,i)=>s+(i.total||0),0);
-  if(!confirm('تأكيد استلام '+total.toFixed(0)+' '+CUR+' من '+currentCustomer.name+'؟'))return;
+  if(!await showConfirm('تأكيد استلام<br><b style="font-size:22px;color:var(--grn)">'+total.toFixed(0)+' '+CUR+'</b><br>من السيد / '+currentCustomer.name,'تأكيد الاستلام','تراجع'))return;
   showSpinner('...');const now=new Date().toISOString();
-  for(const inv of pending){await db.put('invoices',{...inv,status:'مدفوع',paid_at:now});await addToQueue('update_invoice',{id:inv.id,status:'مدفوع',paid_at:now});}
+  for(const inv of pending){await db.put('invoices',{...inv,status:'مدفوع',paid_at:now});await addToQueue('update_invoice',{id:inv.id,status:'مدفوع',paid_at:now});removeReminder(inv.id);}
   hideSpinner();if(navigator.onLine)doSync();sendThanks(total);await openCustomer(currentCustomer.id);
 }
 function openPartialPay(){partialAmountStr='0';document.getElementById('partial-display').textContent='0';document.getElementById('m-partial').classList.add('open')}
@@ -881,29 +1129,147 @@ async function savePartial(){
   hideSpinner();if(navigator.onLine)doSync();sendThanks(paid);await openCustomer(currentCustomer.id);
 }
 
-function autoMatchBank(){const t=document.getElementById('bank-text').value;if(!t||t.length<10){document.getElementById('bank-results').innerHTML='';return}parseAndMatch(t);}
-async function parseAndMatch(text){
-  const amounts=[];const rx=/(\d+(?:\.\d+)?)\s*(?:شيكل|₪|ILS|NIS)/gi;let m;
-  while((m=rx.exec(text))!==null){const a=parseFloat(m[1]);if(a>0&&a<100000)amounts.push(a);}
-  if(!amounts.length){document.getElementById('bank-results').innerHTML='<div style="padding:20px;text-align:center;color:var(--txt3)">لم أجد مبالغ</div>';return}
-  let allInv=[];try{allInv=await db.getAll('invoices');}catch(e){}
-  const custAll=await db.getAll('customers');const pending=allInv.filter(i=>i.merchant_id===SESSION.merchant_id&&i.status==='غير مدفوع');
-  let html='<div class="sec-hdr">نتائج: '+amounts.length+' حركة</div>';
-  amounts.forEach((amt,i)=>{const match=pending.find(inv=>Math.abs((inv.total||0)-amt)<0.5);const cust=match?custAll.find(c=>c.id===match.customer_id):null;
-    html+='<div class="match-card"><div class="match-head">حركة '+(i+1)+': '+amt.toFixed(0)+' '+CUR+'</div><div class="match-body">'+(match&&cust?'<div class="match-row"><span class="match-lbl">يطابق:</span><span class="match-val">'+cust.name+'</span></div>':'<div style="color:var(--txt3)">لم أجد مطابق</div>')+'</div>'+(match&&cust?'<div class="match-btns"><button class="mbtn mbtn-ok" onclick="confirmMatch(\''+match.id+'\')">تأكيد</button><button class="mbtn mbtn-no" onclick="this.closest(\'.match-card\').remove()">تجاهل</button></div>':'')+'</div>';
+// ── مطابقة المدفوعات ──────────────────────────────────────────────
+let _manualAmounts=[],_manualAmtStr='0';
+
+function setBankTab(tab){
+  document.getElementById('bank-excel-panel').style.display=tab==='excel'?'':'none';
+  document.getElementById('bank-manual-panel').style.display=tab==='manual'?'':'none';
+  ['excel','manual'].forEach(t=>{
+    const b=document.getElementById('btab-'+t);
+    b.style.color=t===tab?'var(--pri)':'var(--txt3)';
+    b.style.borderBottom=t===tab?'3px solid var(--pri)':'3px solid transparent';
   });
-  document.getElementById('bank-results').innerHTML=html;
 }
-async function confirmMatch(invId){
+function getBankLastDate(){return localStorage.getItem('gz_last_reconcile')||null}
+function setBankLastDate(d){localStorage.setItem('gz_last_reconcile',d);updateBankDateDisplay();}
+function resetBankDate(){localStorage.removeItem('gz_last_reconcile');updateBankDateDisplay();}
+function updateBankDateDisplay(){
+  const d=getBankLastDate(),el=document.getElementById('bank-last-date-val');
+  if(el)el.textContent=d?new Date(d).toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'}):'لم تتم بعد';
+}
+function onBankFileLoad(input){
+  const file=input.files[0];if(!file)return;
+  showSpinner('جاري قراءة الملف...');
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const wb=XLSX.read(e.target.result,{type:'array',cellDates:true});
+      const ws=wb.Sheets[wb.SheetNames[0]];
+      const data=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
+      hideSpinner();parseBankExcel(data);
+    }catch(err){hideSpinner();alert('تعذّر قراءة الملف: '+err.message);}
+  };
+  reader.readAsArrayBuffer(file);
+}
+function parseBankExcel(rows){
+  let rcvCol=-1,dateCol=-1,descCol=-1,hdrRow=-1;
+  for(let i=0;i<Math.min(rows.length,12);i++){
+    const row=rows[i];
+    for(let j=0;j<row.length;j++){
+      const c=String(row[j]||'').trim();
+      if(c.includes('مستلمة')||c.includes('واردة')||c.toLowerCase().includes('credit'))rcvCol=j;
+      if((c.includes('تاريخ')||c.toLowerCase().includes('date'))&&dateCol<0)dateCol=j;
+      if(c.includes('ايضاح')||c.includes('بيان')||c.includes('وصف')||c.toLowerCase().includes('desc'))descCol=j;
+    }
+    if(rcvCol>=0){hdrRow=i;break;}
+  }
+  if(rcvCol<0){alert('لم أجد عمود "مبالغ مستلمة" في الملف');return;}
+  const lastDate=getBankLastDate()?new Date(getBankLastDate()):null;
+  const txns=[];
+  for(let i=hdrRow+1;i<rows.length;i++){
+    const row=rows[i];
+    const amt=parseFloat(String(row[rcvCol]||'').replace(/,/g,''));
+    if(!amt||amt<=0)continue;
+    let txDate=null;
+    if(dateCol>=0){
+      const dv=row[dateCol];
+      if(dv instanceof Date)txDate=dv;
+      else if(typeof dv==='number')txDate=new Date(Math.round((dv-25569)*86400000));
+      else if(dv)txDate=new Date(String(dv));
+    }
+    if(lastDate&&txDate&&txDate<=lastDate)continue;
+    const desc=descCol>=0?String(row[descCol]||''):'';
+    txns.push({amt,date:txDate,desc,name:extractNameFromDesc(desc)});
+  }
+  if(!txns.length){
+    document.getElementById('bank-results').innerHTML='<div style="padding:20px;text-align:center;color:var(--txt3)">لا توجد مبالغ واردة جديدة منذ آخر مقارنة</div>';
+    return;
+  }
+  displayBankMatches(txns,'bank-results');
+}
+function extractNameFromDesc(desc){
+  if(!desc)return'';
+  const parts=desc.split('/');
+  for(let i=parts.length-1;i>=0;i--){
+    const p=parts[i].trim();
+    if(p.length>4&&!/^\d+$/.test(p)&&!/^[A-Z]{2,3}$/.test(p))
+      return p.replace(/^[A-Z0-9]{6,}\s*/,'').trim();
+  }
+  const ar=desc.match(/[\u0600-\u06FF\s]{4,}/);
+  return ar?ar[0].trim():'';
+}
+async function displayBankMatches(txns,containerId){
+  let allInv=[];try{allInv=await db.getAll('invoices');}catch(e){}
+  const custs=await db.getAll('customers');
+  const pending=allInv.filter(i=>i.merchant_id===SESSION.merchant_id&&i.status==='غير مدفوع');
+  let html='<div class="sec-hdr">نتائج: '+txns.length+' حركة واردة</div>';
+  txns.forEach(tx=>{
+    let matchInv=pending.find(inv=>Math.abs((inv.total||0)-tx.amt)<0.5);
+    let matchCust=matchInv?custs.find(c=>c.id===matchInv.customer_id):null;
+    if(!matchInv&&tx.name){
+      matchCust=custs.find(c=>c.merchant_id===SESSION.merchant_id&&(c.name.includes(tx.name)||tx.name.includes(c.name)));
+      if(matchCust)matchInv=pending.find(inv=>inv.customer_id===matchCust.id);
+    }
+    const ds=tx.date?tx.date.toLocaleDateString('ar-EG',{day:'numeric',month:'short'}):'';
+    html+='<div class="match-card"><div class="match-head">'+ds+(ds?' — ':'')+tx.amt.toFixed(0)+' '+CUR+(tx.name?' — '+tx.name:'')+'</div>'
+      +'<div class="match-body">'+(matchInv&&matchCust
+        ?'<div class="match-row"><span class="match-lbl">يطابق:</span><span class="match-val">'+matchCust.name+' — فاتورة #'+matchInv.inv_num+'</span></div>'
+        :'<div style="color:var(--txt3);font-size:14px">لم أجد فاتورة مطابقة</div>')+'</div>'
+      +(matchInv?'<div class="match-btns"><button class="mbtn mbtn-ok" onclick="confirmBankMatch(\''
+        +matchInv.id+'\',\''+containerId+'\')">تأكيد الدفع</button>'
+        +'<button class="mbtn mbtn-no" onclick="this.closest(\'.match-card\').remove()">تجاهل</button></div>':'')
+      +'</div>';
+  });
+  document.getElementById(containerId).innerHTML=html;
+}
+async function confirmBankMatch(invId,containerId){
   showSpinner('...');const now=new Date().toISOString();
-  try{const inv=await db.get('invoices',invId);if(inv){await db.put('invoices',{...inv,status:'مدفوع',paid_at:now});await addToQueue('update_invoice',{id:invId,status:'مدفوع',paid_at:now});}}catch(e){}
-  hideSpinner();if(navigator.onLine)doSync();document.getElementById('bank-text').value='';
-  document.getElementById('bank-results').innerHTML='<div style="padding:24px;text-align:center"><div style="font-size:3em">✅</div><div style="font-size:18px;font-weight:800;color:var(--grn);margin-top:12px">تم تسجيل الدفعة</div></div>';
-  setTimeout(()=>showTab('home'),1500);
+  try{const inv=await db.get('invoices',invId);if(inv){await db.put('invoices',{...inv,status:'مدفوع',paid_at:now});await addToQueue('update_invoice',{id:invId,status:'مدفوع',paid_at:now});removeReminder(invId);}}catch(e){}
+  hideSpinner();if(navigator.onLine)doSync();setBankLastDate(new Date().toISOString());
+  document.querySelectorAll('#'+containerId+' .match-card').forEach(c=>{if(c.innerHTML.includes(invId))c.remove();});
+  const f=document.createElement('div');f.style.cssText='padding:10px;text-align:center;color:var(--grn);font-weight:700';f.textContent='✅ تم تسجيل الدفع';
+  document.getElementById(containerId).prepend(f);setTimeout(()=>f.remove(),2000);
+  await loadHome();
+}
+// إدخال يدوي
+function manualKey(k){
+  if(k==='.'&&_manualAmtStr.includes('.'))return;
+  _manualAmtStr=(_manualAmtStr==='0'&&k!=='.')?k:_manualAmtStr+k;
+  if(_manualAmtStr.length>8)_manualAmtStr=_manualAmtStr.slice(0,-1);
+  document.getElementById('manual-amt-display').textContent=_manualAmtStr;
+}
+function manualDelKey(){_manualAmtStr=_manualAmtStr.length>1?_manualAmtStr.slice(0,-1):'0';document.getElementById('manual-amt-display').textContent=_manualAmtStr;}
+function addManualAmount(){
+  const amt=parseFloat(_manualAmtStr);if(!amt||amt<=0)return;
+  _manualAmounts.push(amt);_manualAmtStr='0';document.getElementById('manual-amt-display').textContent='0';renderManualList();
+}
+function removeManualAmount(i){_manualAmounts.splice(i,1);renderManualList();}
+function renderManualList(){
+  const el=document.getElementById('manual-amounts-list'),btn=document.getElementById('btn-match-manual');
+  if(!_manualAmounts.length){el.innerHTML='';btn.style.display='none';return;}
+  btn.style.display='block';
+  el.innerHTML='<div class="sec-hdr">المبالغ المدخلة ('+_manualAmounts.length+')</div>'
+    +_manualAmounts.map((a,i)=>'<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--brd)"><span style="font-size:18px;font-weight:900;color:var(--yel)">'+a.toFixed(0)+' '+CUR+'</span><button onclick="removeManualAmount('+i+')" style="border:none;background:none;color:var(--red);font-size:18px;cursor:pointer">✕</button></div>').join('');
+}
+async function matchManualAmounts(){
+  if(!_manualAmounts.length)return;
+  await displayBankMatches(_manualAmounts.map(amt=>({amt,date:new Date(),desc:'',name:''})),'bank-manual-results');
+  _manualAmounts=[];renderManualList();
 }
 
 function openSettings(){document.getElementById('settings-shop').textContent=localStorage.getItem('gz_shop')||'';const owner=localStorage.getItem('gz_owner')||'',phone=localStorage.getItem('gz_phone')||'';document.getElementById('settings-phone').textContent=owner?owner+' — '+phone:phone;document.getElementById('tax-rate-input').value=getTaxRate();showScreen('s-settings');}
-function doLogout(){if(!confirm('تسجيل الخروج؟\n\nبياناتك محفوظة.'))return;localStorage.removeItem('gz_session');SESSION=null;showScreen('s-login');}
+function doLogout(){showConfirm('تسجيل الخروج؟<br><span style="font-size:15px;color:var(--txt3)">بياناتك محفوظة على الجهاز والسحابة</span>','خروج','تراجع').then(ok=>{if(!ok)return;localStorage.removeItem('gz_session');SESSION=null;showScreen('s-login');});}
 
 let forgotMerchantId=null;
 function openForgotPin(){['forgot-step-1','forgot-step-2','forgot-step-3'].forEach((id,i)=>document.getElementById(id).style.display=i===0?'block':'none');document.getElementById('forgot-err').classList.remove('show');document.getElementById('forgot-phone').value=localStorage.getItem('gz_phone')||'';document.getElementById('m-forgot-pin').classList.add('open');}
@@ -923,6 +1289,9 @@ async function init(){
   else{showScreen('s-setup');}
   window.addEventListener('online',()=>{updateStatusBar();doSync()});
   window.addEventListener('offline',()=>updateStatusBar());
+  window.addEventListener('visibilitychange',()=>{if(!document.hidden)checkReminders();});
+  scheduleNextReminder();
+  updateBankDateDisplay();
 }
 if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{});
 init();
