@@ -1,51 +1,69 @@
 <!DOCTYPE html>
-<!-- saved from url=(0086)file:///D:/C_Drive/%D8%A7%D9%84%D8%AA%D9%86%D8%B2%D9%8A%D9%84%D8%A7%D8%AA/index_4.html -->
+<!-- saved from url=(0086)file:///D:/C_Drive/%D8%A7%D9%84%D8%AA%D9%86%D8%B2%D9%8A%D9%84%D8%A7%D8%AA/index_2.html -->
 <html dir="rtl" lang="ar"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="theme-color" content="#0a0f1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>دفتر الدين — v1.3</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>دفتر الدين — v1.4</title>
 <link rel="manifest" href="file:///D:/manifest.json">
 <style>
-:root{--bg:#0a0f1a;--bg2:#131c2e;--bg3:#1e2d42;--txt:#ffffff;--txt2:#cbd5e1;--txt3:#64748b;--pri:#60a5fa;--grn:#34d399;--red:#f87171;--yel:#fbbf24;--brd:rgba(255,255,255,.13);--inv-bg:#fffef0;--inv-txt:#1a1200;}
+:root{
+  --bg:#0a0f1a;--bg2:#131c2e;--bg3:#1e2d42;
+  --txt:#ffffff;--txt2:#cbd5e1;--txt3:#64748b;
+  --pri:#60a5fa;--grn:#34d399;--red:#f87171;--yel:#fbbf24;
+  --brd:rgba(255,255,255,.13);
+  --inv-bg:#fffef0;--inv-txt:#1a1200;
+}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:18px;-webkit-font-smoothing:antialiased}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  font-size:18px;-webkit-font-smoothing:antialiased}
 .screen{display:none;flex-direction:column;height:100vh;overflow:hidden;position:absolute;inset:0}
 .screen.active{display:flex}
 .content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:84px}
 .content::-webkit-scrollbar{display:none}
 
-/* status bar */
-.status-bar{display:flex;align-items:center;padding:4px 16px;font-size:13px;font-weight:700;flex-shrink:0}
-.bar-online{color:var(--grn)}.bar-offline{color:var(--red)}.bar-pending{color:var(--yel)}
+/* شريط الحالة */
+.status-bar{display:flex;align-items:center;justify-content:space-between;
+  padding:6px 16px;font-size:14px;font-weight:700;flex-shrink:0}
+.bar-online{background:rgba(52,211,153,.1);color:var(--grn)}
+.bar-offline{background:rgba(248,113,113,.1);color:var(--red)}
+.bar-pending{background:rgba(251,191,36,.1);color:var(--yel)}
 
 /* topnav */
-.topnav{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:60px;border-bottom:2px solid var(--brd);background:var(--bg);flex-shrink:0}
+.topnav{display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;height:60px;border-bottom:2px solid var(--brd);
+  background:var(--bg);flex-shrink:0}
 .topnav-center{display:flex;flex-direction:column;align-items:center}
 .topnav h2{font-size:1.1em;font-weight:900}
 .ver-tag{font-size:11px;color:var(--txt3);margin-top:1px}
-.back-btn{width:44px;height:44px;border:none;border-radius:10px;background:var(--bg3);color:var(--txt);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-
-/* float back */
-.float-back{position:fixed;top:14px;right:14px;width:48px;height:48px;border-radius:14px;border:none;background:rgba(30,45,66,.92);color:var(--txt);font-size:24px;cursor:pointer;z-index:150;display:none;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.5)}
-.float-back.show{display:flex}
+.back-btn{width:44px;height:44px;border:none;border-radius:10px;
+  background:var(--bg3);color:var(--txt);font-size:22px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center}
 
 /* botnav */
-.botnav{position:sticky;bottom:0;display:flex;background:var(--bg);border-top:2px solid var(--brd);height:68px;flex-shrink:0}
-.bnt{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border:none;background:transparent;color:var(--txt3);font-size:13px;font-weight:700;cursor:pointer;gap:4px}
+.botnav{position:sticky;bottom:0;display:flex;background:var(--bg);
+  border-top:2px solid var(--brd);height:68px;flex-shrink:0}
+.bnt{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;border:none;background:transparent;
+  color:var(--txt3);font-size:13px;font-weight:700;cursor:pointer;gap:4px}
 .bnt .ic{font-size:26px}
 .bnt.active{color:var(--pri)}
 
 /* inputs */
-.fi{width:100%;padding:14px 16px;border-radius:12px;border:2px solid var(--brd);background:var(--bg3);color:var(--txt);font-size:19px;outline:none;font-family:inherit;transition:border-color .2s}
+.fi{width:100%;padding:14px 16px;border-radius:12px;border:2px solid var(--brd);
+  background:var(--bg3);color:var(--txt);font-size:19px;outline:none;
+  font-family:inherit;transition:border-color .2s}
 .fi:focus{border-color:var(--pri)}
 .fi::placeholder{color:var(--txt3)}
 .fg{margin-bottom:12px}
 .fg label{display:block;font-size:16px;font-weight:700;color:var(--txt2);margin-bottom:5px}
 
 /* buttons */
-.btn{width:100%;padding:16px;border:none;border-radius:12px;font-size:19px;font-weight:800;cursor:pointer;color:#fff;transition:opacity .2s}
+.btn{width:100%;padding:16px;border:none;border-radius:12px;
+  font-size:19px;font-weight:800;cursor:pointer;color:#fff;transition:opacity .2s}
 .btn:active{opacity:.8}
 .btn-pri{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}
 .btn-grn{background:linear-gradient(135deg,#065f46,#10b981)}
@@ -53,228 +71,451 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
 .btn-gray{background:var(--bg3);color:var(--txt2)}
 
 /* summary bar */
-.summary-bar{display:flex;align-items:center;justify-content:space-between;margin:10px 16px;padding:14px 20px;background:linear-gradient(135deg,#1e3a8a,#2563eb);border-radius:14px}
+.summary-bar{display:flex;align-items:center;justify-content:space-between;
+  margin:10px 16px;padding:14px 20px;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);border-radius:14px}
 .summary-total{font-size:30px;font-weight:900;color:#fff}
 .summary-lbl{font-size:12px;color:rgba(255,255,255,.7);margin-bottom:2px}
 .summary-count{font-size:24px;font-weight:900;color:#fff}
 .summary-count-lbl{font-size:11px;color:rgba(255,255,255,.7)}
 
 /* filter & sort */
-.filter-bar{display:flex;gap:8px;padding:6px 16px 4px}
-.filter-btn{flex:1;padding:9px 4px;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer}
+.filter-bar{display:flex;gap:6px;padding:6px 16px 4px}
+.filter-btn{flex:1;padding:9px 4px;border:none;border-radius:10px;
+  font-size:13px;font-weight:800;cursor:pointer}
 .filter-btn.active{background:var(--pri);color:#fff}
 .filter-btn:not(.active){background:var(--bg3);color:var(--txt2)}
 .sort-bar{display:flex;gap:6px;padding:4px 16px 6px;overflow-x:auto;scrollbar-width:none}
 .sort-bar::-webkit-scrollbar{display:none}
-.sort-btn{flex-shrink:0;padding:5px 11px;border-radius:16px;border:1.5px solid var(--brd);background:transparent;color:var(--txt3);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.sort-btn{flex-shrink:0;padding:5px 11px;border-radius:16px;
+  border:1.5px solid var(--brd);background:transparent;
+  color:var(--txt3);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
 .sort-btn.active{background:var(--bg3);color:var(--txt);border-color:var(--txt3)}
 
 /* debt item */
-.debt-item{display:flex;align-items:center;padding:13px 16px;border-bottom:2px solid var(--brd);min-height:70px;border-right:4px solid transparent}
+.debt-item{display:flex;align-items:center;padding:13px 16px;
+  border-bottom:2px solid var(--brd);min-height:70px;border-right:4px solid transparent}
 .debt-item:active{background:rgba(255,255,255,.04)}
 .debt-item.old{border-right-color:var(--red)}
 .debt-item.week{border-right-color:var(--yel)}
-.debt-item.pending{border-right-color:#a78bfa}
 .debt-amount-wrap{flex-shrink:0;margin-left:12px;cursor:pointer}
 .debt-amount{font-size:22px;font-weight:900;color:var(--red)}
 .debt-days{font-size:12px;color:var(--txt3);margin-top:2px}
 .debt-info{flex:1;min-width:0;cursor:pointer}
 .debt-name{font-size:18px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .debt-meta{font-size:13px;color:var(--txt3);margin-top:3px}
-.debt-avatar{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;margin-right:10px;flex-shrink:0;color:#fff;cursor:pointer}
+.debt-avatar{width:46px;height:46px;border-radius:12px;
+  background:linear-gradient(135deg,#1d4ed8,#3b82f6);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:900;margin-right:10px;flex-shrink:0;color:#fff;cursor:pointer}
 
-/* ===== الحاسبة الجديدة ===== */
-.calc-sheet{position:fixed;top:50%;left:50%;z-index:180;background:var(--bg);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,.6);transform:translate(-50%,-50%) scale(.9);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.22,.68,0,1.2);width:min(96vw,420px);max-height:90vh;overflow-y:auto}
+/* ===== الحاسبة ===== */
+.calc-sheet{
+  position:fixed;top:50%;left:50%;z-index:180;
+  background:#0b1622;
+  border:1.5px solid rgba(96,165,250,.25);
+  border-radius:20px;
+  box-shadow:0 8px 40px rgba(0,0,0,.8);
+  transform:translate(-50%,-50%) scale(.9);
+  opacity:0;pointer-events:none;
+  transition:all .25s cubic-bezier(.22,.68,0,1.2);
+  width:min(96vw,420px);max-height:92vh;overflow-y:auto
+}
 .calc-sheet.open{transform:translate(-50%,-50%) scale(1);opacity:1;pointer-events:all}
 .calc-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:170;display:none}
 .calc-overlay.show{display:block}
-.calc-handle{width:40px;height:4px;background:var(--brd);border-radius:2px;margin:10px auto 0}
+.calc-topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px 4px;
+}
+.calc-close-btn{
+  width:36px;height:36px;border:none;border-radius:10px;
+  background:rgba(255,255,255,.08);color:var(--txt3);
+  font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+.calc-close-btn:active{background:rgba(255,255,255,.15)}
+.calc-title-lbl{font-size:13px;font-weight:700;color:var(--txt3)}
 
-/* شاشة العرض الجديدة */
-.calc-display{background:var(--bg2);border-bottom:1px solid var(--brd);padding:12px 16px 10px;min-height:110px;display:flex;flex-direction:column;justify-content:flex-end}
-.calc-expr-area{direction:rtl;text-align:right;font-size:22px;font-weight:700;color:var(--txt2);line-height:1.3;min-height:36px;word-break:break-all;overflow:hidden}
-.calc-result-area{direction:rtl;text-align:right;font-size:42px;font-weight:900;color:var(--yel);margin-top:4px;min-height:52px;text-shadow:0 2px 8px rgba(251,191,36,.3)}
+/* شاشة عرض الحاسبة */
+.calc-display{
+  background:rgba(0,0,0,.35);
+  border-bottom:1px solid rgba(96,165,250,.15);
+  padding:12px 16px 10px;min-height:110px;
+  display:flex;flex-direction:column;justify-content:flex-end
+}
+.calc-expr-area{
+  direction:rtl;text-align:right;font-size:22px;font-weight:700;
+  color:var(--txt2);line-height:1.3;min-height:36px;word-break:break-all
+}
+.calc-result-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:6px;min-height:52px;
+}
+.calc-result-num{
+  font-size:42px;font-weight:900;color:var(--yel);
+  text-shadow:0 2px 8px rgba(251,191,36,.3);direction:ltr
+}
+.calc-result-lbl{
+  font-size:13px;color:var(--txt3);font-weight:700;
+  text-align:left;max-width:120px;line-height:1.4
+}
 
 /* مفاتيح الحاسبة */
-.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px;direction:ltr;background:var(--bg)}
-.ck{padding:18px 8px;border:none;border-radius:14px;background:var(--bg3);color:var(--txt);font-size:24px;font-weight:800;cursor:pointer;text-align:center;transition:all .15s;direction:ltr;box-shadow:0 2px 6px rgba(0,0,0,.25)}
-.ck:active{transform:scale(.93);opacity:.85}
+.calc-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:8px;padding:10px;direction:ltr;background:transparent
+}
+.ck{
+  padding:18px 8px;border:none;border-radius:14px;
+  background:#1a2a3e;color:var(--txt);font-size:24px;font-weight:800;
+  cursor:pointer;text-align:center;transition:all .15s;
+  box-shadow:0 2px 6px rgba(0,0,0,.3)
+}
+.ck:active{transform:scale(.93);opacity:.8}
 .ck.op{background:rgba(96,165,250,.15);color:var(--pri);border:1.5px solid rgba(96,165,250,.25)}
-.ck.eq{background:linear-gradient(135deg,#065f46,#10b981);color:#fff;font-size:16px;font-weight:900;border:none}
-.ck.eq:active{opacity:.85}
-.ck.del{background:rgba(251,191,36,.15);color:var(--yel);border:1.5px solid rgba(251,191,36,.2)}
-.ck.clr{background:rgba(248,113,113,.15);color:var(--red);border:1.5px solid rgba(248,113,113,.2)}
-.ck.pct{background:rgba(167,139,250,.15);color:#a78bfa;border:1.5px solid rgba(167,139,250,.2)}
+.ck.eq{background:linear-gradient(135deg,#065f46,#10b981);color:#fff;
+  font-size:14px;font-weight:900;border:none;line-height:1.3}
+.ck.del{background:rgba(251,191,36,.12);color:var(--yel);border:1.5px solid rgba(251,191,36,.2)}
+.ck.clr{background:rgba(248,113,113,.12);color:var(--red);border:1.5px solid rgba(248,113,113,.2)}
+.ck.pct{background:rgba(167,139,250,.12);color:#a78bfa;border:1.5px solid rgba(167,139,250,.2)}
 
-/* ===== فاتورة — bottom sheet كريمي ===== */
-.inv-sheet{position:fixed;top:50%;left:50%;z-index:190;background:var(--inv-bg);border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);transform:translate(-50%,-50%) scale(.9);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.22,.68,0,1.2);width:min(96vw,440px);max-height:92vh;display:flex;flex-direction:column;color:var(--inv-txt)}
+/* ===== فاتورة ===== */
+.inv-sheet{
+  position:fixed;top:50%;left:50%;z-index:190;
+  background:var(--inv-bg);border-radius:20px;
+  box-shadow:0 8px 40px rgba(0,0,0,.5);
+  transform:translate(-50%,-50%) scale(.9);opacity:0;pointer-events:none;
+  transition:all .25s cubic-bezier(.22,.68,0,1.2);
+  width:min(96vw,440px);max-height:92vh;
+  display:flex;flex-direction:column;color:var(--inv-txt);overflow:hidden
+}
 .inv-sheet.open{transform:translate(-50%,-50%) scale(1);opacity:1;pointer-events:all}
 .inv-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:185;display:none}
 .inv-overlay.show{display:block}
-.inv-handle{width:40px;height:4px;background:rgba(0,0,0,.15);border-radius:2px;margin:10px auto 0}
+
+/* hold bar فواتير معلقة */
+.hold-bar{
+  display:none;gap:6px;padding:6px 16px;
+  overflow-x:auto;scrollbar-width:none;
+  border-bottom:1px solid rgba(0,0,0,.12);
+  flex-shrink:0;background:rgba(0,0,0,.04);
+}
+.hold-bar.visible{display:flex}
+.hold-bar::-webkit-scrollbar{display:none}
+.hold-chip{
+  flex-shrink:0;padding:5px 12px;border-radius:14px;
+  background:rgba(0,0,0,.08);border:1.5px solid rgba(0,0,0,.12);
+  font-size:12px;font-weight:700;color:#8b6914;cursor:pointer;white-space:nowrap;
+}
+.hold-chip.active{background:#e8d88a;border-color:#b8941a;color:#3d2a00}
+.hold-new-btn{
+  flex-shrink:0;padding:5px 12px;border-radius:14px;
+  background:rgba(29,78,216,.08);border:1.5px solid rgba(29,78,216,.2);
+  font-size:12px;font-weight:700;color:#1d4ed8;cursor:pointer;white-space:nowrap;
+}
 
 /* رأس الفاتورة */
-.inv-header{padding:10px 20px 12px;border-bottom:1.5px dashed rgba(0,0,0,.15);flex-shrink:0}
+.inv-header{padding:10px 20px 10px;border-bottom:1.5px dashed rgba(0,0,0,.15);flex-shrink:0}
+.inv-type-lbl{text-align:center;font-size:13px;font-weight:800;color:#8b6914;margin-bottom:3px}
 .inv-shop-name{font-size:20px;font-weight:900;text-align:center;color:#2d1a00}
-.inv-meta{display:flex;justify-content:space-between;margin-top:6px;font-size:13px;color:#8b6914;font-weight:600}
+.inv-sub{text-align:center;font-size:13px;color:#8b6914;margin-top:3px;font-weight:600}
+.inv-meta{display:flex;justify-content:space-between;margin-top:6px;
+  font-size:13px;color:#8b6914;font-weight:600}
+.inv-day{text-align:center;font-size:12px;color:#8b6914;margin-top:2px;font-weight:600}
 
 /* حقل الزبون */
-.inv-cust-row{padding:10px 16px;border-bottom:1px solid rgba(0,0,0,.1);flex-shrink:0;position:relative}
-.inv-cust-label{font-size:13px;color:#8b6914;font-weight:700;margin-bottom:4px}
-.inv-cust-input{width:100%;background:transparent;border:none;border-bottom:1.5px solid rgba(0,0,0,.2);font-size:19px;font-weight:800;color:#2d1a00;outline:none;padding:4px 0;font-family:inherit}
-.inv-cust-input::placeholder{color:rgba(0,0,0,.3)}
-.cust-dropdown-inv{position:absolute;right:16px;left:16px;top:100%;background:#fff;border:1.5px solid rgba(0,0,0,.15);border-radius:0 0 12px 12px;z-index:10;max-height:180px;overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.15)}
-.cust-dd-item{padding:12px 16px;font-size:17px;font-weight:700;color:#2d1a00;border-bottom:1px solid rgba(0,0,0,.08);cursor:pointer}
-.cust-dd-item:active{background:rgba(251,191,36,.2)}
+.inv-cust-row{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 16px;border-bottom:1px solid rgba(0,0,0,.1);
+  flex-shrink:0;position:relative;
+}
+.inv-cust-lbl{font-size:14px;font-weight:800;color:#8b6914;white-space:nowrap}
+.inv-cust-phone{
+  width:110px;flex-shrink:0;background:transparent;border:none;
+  border-bottom:1.5px solid rgba(0,0,0,.2);
+  font-size:16px;font-weight:700;color:#2d1a00;
+  outline:none;padding:3px 0;direction:ltr;text-align:left;font-family:inherit
+}
+.inv-cust-phone::placeholder{color:rgba(0,0,0,.3);direction:rtl;text-align:right}
+.inv-cust-name-val{
+  flex:1;font-size:15px;font-weight:800;color:#c0392b;
+  padding:3px 0;min-height:28px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.cust-dropdown-inv{
+  position:absolute;right:16px;left:16px;top:100%;
+  background:#fff;border:1.5px solid rgba(0,0,0,.15);
+  border-radius:0 0 12px 12px;z-index:10;
+  max-height:180px;overflow-y:auto;
+  box-shadow:0 4px 16px rgba(0,0,0,.15)
+}
+.cust-dd-item{padding:11px 16px;font-size:16px;font-weight:700;color:#2d1a00;
+  border-bottom:1px solid rgba(0,0,0,.07);cursor:pointer}
+.cust-dd-item:active{background:rgba(251,191,36,.15)}
 .cust-dd-new{color:#1d4ed8;font-weight:800}
 
 /* أسطر الفاتورة */
-.inv-lines{flex:1;overflow-y:auto;padding:8px 16px}
-.inv-col-header{display:flex;align-items:center;gap:8px;padding:6px 0 4px;border-bottom:2px solid rgba(0,0,0,.2);margin-bottom:2px}
+.inv-lines{flex:1;overflow-y:auto;padding:4px 16px}
+.inv-lines::-webkit-scrollbar{display:none}
+.inv-col-header{
+  display:flex;align-items:center;gap:8px;
+  padding:5px 0 4px;border-bottom:2px solid rgba(0,0,0,.2);margin-bottom:2px
+}
 .inv-col-h{font-size:12px;font-weight:900;color:#8b6914;text-align:center}
-.inv-line{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.12)}
-.inv-line-num{width:24px;font-size:12px;font-weight:800;color:#8b6914;flex-shrink:0;text-align:center}
-.inv-line-amt{width:72px;background:transparent;border:none;border-bottom:1.5px solid rgba(0,0,0,.15);font-size:18px;font-weight:900;color:#c0392b;text-align:center;direction:ltr;outline:none;padding:2px 2px;font-family:inherit}
-.inv-line-cat{flex:1;background:transparent;border:none;border-bottom:1.5px solid rgba(0,0,0,.1);font-size:15px;font-weight:700;color:#2d1a00;outline:none;padding:2px 4px;cursor:pointer;font-family:inherit}
-.inv-line-del{width:22px;height:22px;border:none;background:none;color:rgba(0,0,0,.25);font-size:16px;cursor:pointer;flex-shrink:0}
+.inv-line{
+  display:flex;align-items:center;gap:8px;
+  padding:5px 0;border-bottom:1px solid rgba(0,0,0,.08)
+}
+.inv-line-num{
+  width:20px;font-size:12px;font-weight:800;color:#8b6914;
+  flex-shrink:0;text-align:center
+}
+.inv-line-cat{
+  flex:1;background:transparent;border:none;
+  border-bottom:1.5px solid rgba(0,0,0,.08);
+  font-size:15px;font-weight:700;color:#2d1a00;
+  outline:none;padding:3px 4px;cursor:pointer;font-family:inherit
+}
+.inv-line-amt{
+  width:72px;background:transparent;border:none;
+  border-bottom:1.5px solid rgba(0,0,0,.15);
+  font-size:18px;font-weight:900;color:#c0392b;
+  text-align:center;direction:ltr;outline:none;padding:3px 2px;font-family:inherit
+}
+.inv-line-del{
+  width:22px;height:22px;border:none;background:none;
+  color:rgba(0,0,0,.2);font-size:16px;cursor:pointer;flex-shrink:0
+}
 
-/* أزرار الفاتورة */
-.inv-footer{padding:10px 16px;border-top:1.5px dashed rgba(0,0,0,.15);flex-shrink:0}
-.inv-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.inv-total-lbl{font-size:16px;font-weight:700;color:#8b6914}
-.inv-total-val{font-size:28px;font-weight:900;color:#2d1a00}
-.inv-tax-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px;color:#8b6914;display:none}
+/* footer الفاتورة */
+.inv-footer{padding:8px 16px;border-top:1.5px dashed rgba(0,0,0,.15);flex-shrink:0}
+.inv-totals-wrap{margin-bottom:6px}
+.inv-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
+.inv-total-lbl{font-size:15px;font-weight:700;color:#8b6914}
+.inv-total-val{font-size:28px;font-weight:900;color:#2d1a00;direction:ltr}
+.inv-tax-row-line{
+  display:none;justify-content:space-between;
+  font-size:13px;color:#8b6914;margin-bottom:2px
+}
+.inv-grand-row{
+  display:none;justify-content:space-between;align-items:center;
+  border-top:1.5px solid rgba(0,0,0,.15);padding-top:5px;margin-top:3px
+}
+.inv-grand-lbl{font-size:16px;font-weight:900;color:#2d1a00}
+.inv-grand-val{font-size:28px;font-weight:900;color:#c0392b;direction:ltr}
+.inv-tafqeet-row{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:7px;min-height:16px;
+}
+.inv-tafqeet-num{font-size:14px;font-weight:900;color:#c0392b}
+.inv-tafqeet-txt{font-size:12px;color:#8b6914;font-style:italic}
 .inv-actions{display:flex;gap:8px}
-.inv-btn{flex:1;padding:14px;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer}
+.inv-btn{flex:1;padding:13px;border:none;border-radius:10px;
+  font-size:16px;font-weight:800;cursor:pointer}
 .inv-btn-save{background:linear-gradient(135deg,#065f46,#10b981);color:#fff}
 .inv-btn-tax{background:rgba(251,191,36,.2);border:1.5px solid rgba(251,191,36,.5);color:#8b6914}
 .inv-btn-tax.on{background:rgba(251,191,36,.4);border-color:#d97706}
 .inv-btn-wa{background:rgba(37,211,102,.15);border:1.5px solid rgba(37,211,102,.3);color:#16a34a}
-.inv-add-line{width:100%;padding:10px;border:none;background:rgba(0,0,0,.05);border-radius:8px;font-size:15px;font-weight:700;color:#8b6914;cursor:pointer;margin-top:4px}
 
 /* قائمة الأصناف */
-.cat-sheet{position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--bg);border-radius:20px 20px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.5);transform:translateY(100%);transition:transform .25s;max-height:60vh}
+.cat-sheet{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:var(--bg);border-radius:20px 20px 0 0;
+  box-shadow:0 -4px 24px rgba(0,0,0,.5);
+  transform:translateY(100%);transition:transform .25s;max-height:60vh
+}
 .cat-sheet.open{transform:translateY(0)}
 .cat-grid{display:flex;flex-wrap:wrap;gap:10px;padding:16px}
-.cat-chip{padding:12px 18px;border:1.5px solid var(--brd);border-radius:20px;background:var(--bg3);color:var(--txt2);font-size:16px;font-weight:700;cursor:pointer}
+.cat-chip{
+  padding:12px 18px;border:1.5px solid var(--brd);border-radius:20px;
+  background:var(--bg3);color:var(--txt2);font-size:16px;font-weight:700;cursor:pointer
+}
 .cat-chip:active{background:var(--pri);color:#fff;border-color:var(--pri)}
 
-/* bs زبون */
-.bs-wrap{position:fixed;bottom:0;left:0;right:0;z-index:190;background:var(--bg);border-radius:20px 20px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.5);transform:translateY(100%);transition:transform .3s cubic-bezier(.22,.68,0,1.2);max-height:85vh;display:flex;flex-direction:column}
-.bs-wrap.open{transform:translateY(0)}
-.bs-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:185;display:none}
-.bs-overlay.show{display:block}
-.bs-head{padding:14px 20px 10px;border-bottom:1px solid var(--brd);flex-shrink:0}
-.bs-title{font-size:19px;font-weight:900;margin-bottom:3px}
-.bs-amount{font-size:26px;font-weight:900;color:var(--grn)}
-.bs-body{flex:1;overflow-y:auto;padding:10px 16px;display:flex;flex-direction:column;gap:8px}
-.bs-cust-item{padding:13px 16px;border:1.5px solid var(--brd);border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:var(--bg2)}
-.bs-cust-item:active{border-color:var(--pri)}
-.bs-cust-name{font-size:17px;font-weight:800}
-.bs-cust-bal{font-size:15px;font-weight:700;color:var(--red)}
-
-/* tx list */
-.tx-item{padding:14px 16px;border-bottom:1.5px solid var(--brd);display:flex;justify-content:space-between;align-items:center}
+/* tx */
+.tx-item{padding:14px 16px;border-bottom:1.5px solid var(--brd);
+  display:flex;justify-content:space-between;align-items:center}
 .tx-left{flex:1}
 .tx-desc{font-size:17px;font-weight:700}
 .tx-date{font-size:13px;color:var(--txt3);margin-top:3px}
 .tx-amt{font-size:20px;font-weight:900}
 .tx-debt{color:var(--red)}.tx-pay{color:var(--grn)}.tx-pending{color:#a78bfa}
 
-/* login */
-.login-wrap{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;height:100%;padding:12px 16px;overflow-y:auto;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(59,130,246,.18),transparent)}
-.login-card{width:100%;max-width:360px;background:var(--bg2);border:2px solid var(--brd);border-radius:20px;padding:18px 18px 20px}
-.err{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);border-radius:10px;padding:12px;font-size:15px;color:#fca5a5;margin-bottom:14px;display:none}
+/* ===== شاشة الدخول ===== */
+.login-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;
+  height:100%;padding:12px 16px;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:radial-gradient(ellipse 80% 50% at 50% 50%,rgba(59,130,246,.18),transparent)
+}
+.login-card{
+  width:100%;max-width:360px;background:var(--bg2);
+  border:2px solid var(--brd);border-radius:20px;padding:18px 18px 20px
+}
+.err{
+  background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);
+  border-radius:10px;padding:12px;font-size:15px;color:#fca5a5;
+  margin-bottom:14px;min-height:46px;visibility:hidden;
+}
+.err.show{visibility:visible}
 
-/* book */
-.book-wrap{display:flex;justify-content:center;margin-bottom:16px;margin-top:8px;perspective:600px}
+/* كتاب 3D */
+.book-wrap{
+  display:flex;justify-content:center;
+  margin-bottom:16px;margin-top:8px;perspective:600px
+}
 .book-shadow-wrap{filter:drop-shadow(-4px 12px 20px rgba(0,0,0,.6))}
-.arabic-book{width:100px;height:128px;position:relative;transform-style:preserve-3d;transform:rotateX(12deg) rotateY(25deg)}
-.b-front{position:absolute;width:100px;height:128px;background:linear-gradient(135deg,#a06030,#7c4a1e,#4a2810);border-radius:3px 6px 6px 3px;transform:translateZ(11px);display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden}
-.b-front::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(transparent,transparent 11px,rgba(0,0,0,.08) 11px,rgba(0,0,0,.08) 12px)}
-.b-front::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.07),transparent 50%,rgba(0,0,0,.08))}
-.book-corner{position:absolute;top:0;left:0;width:22px;height:22px;background:linear-gradient(135deg,#f0f0f0,#909090,#d0d0d0);clip-path:polygon(0 0,100% 0,0 100%);z-index:3}
-.b-spine{position:absolute;width:22px;height:128px;background:linear-gradient(to right,#1e0c04,#4a2810,#2a1408);right:-11px;transform-origin:left center;transform:rotateY(90deg) translateZ(11px)}
-.b-top{position:absolute;width:90px;height:22px;left:5px;background:repeating-linear-gradient(90deg,#f8f0e0 0,#f8f0e0 1px,#d8c8a8 1px,#d8c8a8 2px);top:-11px;transform-origin:bottom center;transform:rotateX(90deg) translateZ(11px)}
-.b-pages{position:absolute;width:22px;height:116px;left:-11px;top:6px;background:repeating-linear-gradient(to bottom,#f8f0e0 0,#f8f0e0 1px,#e8d8b8 1px,#e8d8b8 2px);transform-origin:right center;transform:rotateY(-90deg) translateZ(11px)}
-.b-back{position:absolute;width:100px;height:128px;background:#3a2010;border-radius:3px 6px 6px 3px;transform:translateZ(-11px)}
+.arabic-book{
+  width:100px;height:128px;position:relative;
+  transform-style:preserve-3d;transform:rotateX(12deg) rotateY(25deg)
+}
+.b-front{
+  position:absolute;width:100px;height:128px;
+  background:linear-gradient(135deg,#a06030,#7c4a1e,#4a2810);
+  border-radius:3px 6px 6px 3px;transform:translateZ(11px);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden
+}
+.b-front::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(transparent,transparent 11px,rgba(0,0,0,.08) 11px,rgba(0,0,0,.08) 12px)
+}
+.b-front::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(120deg,rgba(255,255,255,.07),transparent 50%,rgba(0,0,0,.08))
+}
+.book-corner{
+  position:absolute;top:0;left:0;width:22px;height:22px;
+  background:linear-gradient(135deg,#f0f0f0,#909090,#d0d0d0);
+  clip-path:polygon(0 0,100% 0,0 100%);z-index:3
+}
+.b-spine{
+  position:absolute;width:22px;height:128px;
+  background:linear-gradient(to right,#1e0c04,#4a2810,#2a1408);
+  right:-11px;transform-origin:left center;transform:rotateY(90deg) translateZ(11px)
+}
+.b-top{
+  position:absolute;width:90px;height:22px;left:5px;
+  background:repeating-linear-gradient(90deg,#f8f0e0 0,#f8f0e0 1px,#d8c8a8 1px,#d8c8a8 2px);
+  top:-11px;transform-origin:bottom center;transform:rotateX(90deg) translateZ(11px)
+}
+.b-pages{
+  position:absolute;width:22px;height:116px;left:-11px;top:6px;
+  background:repeating-linear-gradient(to bottom,#f8f0e0 0,#f8f0e0 1px,#e8d8b8 1px,#e8d8b8 2px);
+  transform-origin:right center;transform:rotateY(-90deg) translateZ(11px)
+}
+.b-back{
+  position:absolute;width:100px;height:128px;
+  background:#3a2010;border-radius:3px 6px 6px 3px;transform:translateZ(-11px)
+}
 .book-title-cover{position:relative;z-index:2;text-align:center}
-.book-title-cover .line1{font-size:22px;font-weight:900;color:rgba(255,245,210,.95);text-shadow:0 2px 6px rgba(0,0,0,.7)}
-.book-title-cover .line2{font-size:11px;font-weight:700;color:rgba(255,230,170,.65);margin-top:4px}
-.book-ver{font-size:10px;color:rgba(255,215,130,.4);margin-top:6px;position:relative;z-index:2}
+.book-title-cover .line1{
+  font-size:22px;font-weight:900;
+  color:rgba(255,245,210,.95);text-shadow:0 2px 6px rgba(0,0,0,.7)
+}
 
 /* cust detail */
-.cust-header{padding:20px 16px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border-bottom:2px solid var(--brd)}
+.cust-header{
+  padding:20px 16px;
+  background:linear-gradient(135deg,var(--bg2),var(--bg3));border-bottom:2px solid var(--brd)
+}
 .cust-name-big{font-size:24px;font-weight:900}
 .cust-phone-lbl{font-size:15px;color:var(--txt3);margin-top:4px}
-.cust-balance-box{display:flex;justify-content:space-between;align-items:center;margin-top:14px;background:rgba(248,113,113,.1);border:1.5px solid rgba(248,113,113,.25);border-radius:12px;padding:12px 16px}
+.cust-balance-box{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:14px;background:rgba(248,113,113,.1);
+  border:1.5px solid rgba(248,113,113,.25);border-radius:12px;padding:12px 16px
+}
 .cust-balance-lbl{font-size:15px;color:var(--txt2);font-weight:700}
 .cust-balance-val{font-size:28px;font-weight:900;color:var(--red)}
 .cust-actions{display:flex;gap:8px;padding:14px 16px}
-.cust-btn{flex:1;padding:14px;border:none;border-radius:11px;font-size:16px;font-weight:800;cursor:pointer;color:#fff}
+.cust-btn{flex:1;padding:14px;border:none;border-radius:11px;
+  font-size:16px;font-weight:800;cursor:pointer;color:#fff}
 
 /* misc */
 .sec-hdr{padding:10px 16px 4px;font-size:13px;font-weight:700;color:var(--txt3)}
 .empty{text-align:center;padding:50px 24px;color:var(--txt3)}
 .empty .icon{font-size:4em;margin-bottom:16px}
 .empty p{font-size:17px;font-weight:600;line-height:1.6}
-.fab{position:fixed;bottom:80px;left:16px;width:64px;height:64px;border-radius:18px;border:none;font-size:32px;cursor:pointer;background:linear-gradient(135deg,#065f46,#10b981);color:#fff;box-shadow:0 4px 20px rgba(16,185,129,.4);display:flex;align-items:center;justify-content:center;z-index:50}
+.fab{
+  position:fixed;bottom:80px;left:16px;width:64px;height:64px;
+  border-radius:18px;border:none;font-size:32px;cursor:pointer;
+  background:linear-gradient(135deg,#1d4ed8,#3b82f6);
+  color:#fff;box-shadow:0 4px 20px rgba(59,130,246,.4);
+  display:flex;align-items:center;justify-content:center;z-index:50
+}
 
 /* modal */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:flex-end}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+  z-index:200;align-items:flex-end}
 .modal-bg.open{display:flex}
-.modal-sheet{width:100%;background:var(--bg);border-radius:20px 20px 0 0;padding:22px;max-height:72vh;overflow-y:auto}
+.modal-sheet{width:100%;background:var(--bg);border-radius:20px 20px 0 0;
+  padding:22px;max-height:72vh;overflow-y:auto}
 .modal-title{font-size:19px;font-weight:900;margin-bottom:18px}
 
 /* numpad */
 .numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px;direction:ltr}
-.npk{padding:18px 8px;border:none;border-radius:12px;background:var(--bg3);color:var(--txt);font-size:26px;font-weight:800;cursor:pointer}
+.npk{
+  padding:18px 8px;border:none;border-radius:12px;
+  background:var(--bg3);color:var(--txt);font-size:26px;font-weight:800;cursor:pointer
+}
 .npk:active{background:var(--pri)}
-.amount-display{text-align:center;font-size:48px;font-weight:900;padding:18px 16px;color:var(--yel);background:var(--bg2);border-bottom:2px solid var(--brd);min-height:90px}
+.amount-display{
+  text-align:center;font-size:48px;font-weight:900;
+  padding:18px 16px;color:var(--yel);
+  background:var(--bg2);border-bottom:2px solid var(--brd);min-height:90px
+}
 .amount-lbl{font-size:15px;color:var(--txt3);font-weight:600;margin-bottom:4px}
 
 /* match */
 .match-card{margin:10px 16px;background:var(--bg2);border:2px solid var(--brd);border-radius:14px;overflow:hidden}
-.match-head{padding:12px 16px;background:rgba(251,191,36,.1);border-bottom:1.5px solid rgba(251,191,36,.2);font-size:15px;font-weight:800;color:var(--yel)}
+.match-head{padding:12px 16px;background:rgba(251,191,36,.1);
+  border-bottom:1.5px solid rgba(251,191,36,.2);font-size:15px;font-weight:800;color:var(--yel)}
 .match-body{padding:12px 16px}
 .match-row{display:flex;justify-content:space-between;font-size:15px;margin-bottom:6px}
 .match-lbl{color:var(--txt3)}.match-val{font-weight:800}
 .match-btns{display:flex;gap:8px;padding:8px 16px}
-.mbtn{flex:1;padding:12px;border:none;border-radius:9px;font-size:16px;font-weight:800;cursor:pointer;color:#fff}
+.mbtn{flex:1;padding:12px;border:none;border-radius:9px;
+  font-size:16px;font-weight:800;cursor:pointer;color:#fff}
 .mbtn-ok{background:var(--grn)}.mbtn-no{background:var(--bg3);color:var(--txt3)}
 
 /* spinner */
-#spinner{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+#spinner{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
+  z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 #spinner.show{display:flex}
-.spin{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--pri);border-radius:50%;animation:sp .8s linear infinite}
+.spin{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);
+  border-top-color:var(--pri);border-radius:50%;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 .spin-txt{font-size:18px;font-weight:700;color:#fff}
 </style>
-
 </head>
 <body>
 
-<button class="float-back" id="float-back-btn" onclick="goBack()">←</button>
-
-<!-- الإعداد -->
+<!-- ===== إعداد أول مرة ===== -->
 <div class="screen" id="s-setup">
 <div style="flex:1;overflow-y:auto;padding:28px 18px 20px">
-  <div style="text-align:center;font-size:28px;font-weight:900;color:var(--yel);margin-bottom:16px;cursor:pointer" onclick="devLogin()">دفتر الدين</div>
-  <div style="font-size:20px;font-weight:800;margin-bottom:20px">إنشاء حساب جديد <span style="font-size:11px;color:var(--txt3)">v1.3</span></div>
-  <div class="err" id="setup-err"></div>
-  <div class="fg"><label>اسم التاجر *</label><input type="text" id="setup-owner" class="fi" placeholder="مثال: أبو محمد"></div>
-  <div class="fg"><label>اسم المحل <span style="font-size:13px;color:var(--txt3)">— اختياري</span></label><input type="text" id="setup-shop" class="fi" placeholder="اتركه فارغاً"></div>
-  <div class="fg"><label>رقم الجوال</label><input type="tel" id="setup-phone" class="fi" placeholder="05XXXXXXXX" style="direction:ltr;letter-spacing:1px;font-size:22px"></div>
-  <div class="fg"><label>رقم سري <span style="font-size:13px;color:var(--txt3)">— 6 أرقام</span></label><input type="password" id="setup-pin" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900"></div>
-  <div class="fg"><label>رقم السجل التجاري <span style="font-size:13px;color:var(--txt3)">— اختياري · 6–15 رقم</span></label><input type="tel" id="setup-tax-id" class="fi" placeholder="أرقام فقط" inputmode="numeric" maxlength="15" oninput="this.value=this.value.replace(/\D/g,&#39;&#39;)" style="direction:ltr;letter-spacing:2px;font-size:20px"></div>
+  <div style="text-align:center;font-size:28px;font-weight:900;color:var(--yel);
+    margin-bottom:20px;cursor:pointer" onclick="devLogin()">دفتر الدين</div>
+  <div style="font-size:20px;font-weight:800;margin-bottom:20px">إنشاء حساب جديد</div>
+  <div class="err show" id="setup-err" style="visibility:hidden;min-height:0;padding:0;border:none;background:none"></div>
+  <div class="fg"><label>اسم التاجر *</label>
+    <input type="text" id="setup-owner" class="fi" placeholder="مثال: أبو محمد"></div>
+  <div class="fg"><label>اسم المحل <span style="font-size:13px;color:var(--txt3)">— اختياري</span></label>
+    <input type="text" id="setup-shop" class="fi" placeholder="اتركه فارغاً"></div>
+  <div class="fg"><label>رقم الجوال</label>
+    <input type="tel" id="setup-phone" class="fi" placeholder="05XXXXXXXX" style="direction:ltr;letter-spacing:1px;font-size:22px"></div>
+  <div class="fg"><label>رقم سري <span style="font-size:13px;color:var(--txt3)">— 6 أرقام</span></label>
+    <input type="password" id="setup-pin" class="fi" placeholder="••••••" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:28px;font-weight:900"></div>
   <button class="btn btn-grn" onclick="doSetup()">إنشاء الحساب</button>
 </div>
 </div>
 
-<!-- الدخول -->
+<!-- ===== الدخول ===== -->
 <div class="screen active" id="s-login">
 <div class="login-wrap">
   <div class="login-card">
+    <!-- الكتاب: بدون اسم محل أو رقم إصدار -->
     <div class="book-wrap" onclick="devLogin()" style="cursor:pointer">
       <div class="book-shadow-wrap">
         <div class="arabic-book">
@@ -283,43 +524,54 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
             <div class="book-title-cover">
               <div class="line1">دفتر</div>
               <div class="line1">الدين</div>
-              <div class="line2" id="login-shop-on-book">مطور</div>
             </div>
-            <div class="book-ver">v1.3</div>
           </div>
           <div class="b-spine"></div><div class="b-top"></div>
           <div class="b-pages"></div><div class="b-back"></div>
         </div>
       </div>
     </div>
+    <!-- اسم المحل + جوال فقط -->
     <div style="text-align:center;margin-bottom:18px">
-      <div style="font-size:19px;font-weight:900" id="login-shop">مطور</div>
+      <div style="font-size:20px;font-weight:900" id="login-shop">مطور</div>
       <div style="font-size:14px;color:var(--txt3);margin-top:4px" id="login-phone">0599123456</div>
-      <div style="font-size:11px;color:var(--txt3);margin-top:4px">v1.3</div>
     </div>
+    <!-- خطأ بمساحة محجوزة -->
     <div class="err" id="login-err"></div>
     <div class="fg">
-      <label>الرقم السري</label>
-      <input type="password" id="login-pin" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:32px;font-weight:900" onkeydown="if(event.key===&#39;Enter&#39;)doLogin()">
+      <label style="font-size:24px;text-align:center;display:block">🔑</label>
+      <input type="password" id="login-pin" class="fi" placeholder="••••••" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:32px;font-weight:900;font-size:16px" onkeydown="if(event.key===&#39;Enter&#39;)doLogin()">
     </div>
     <button class="btn btn-pri" id="login-btn" onclick="doLogin()">دخول</button>
-    <button onclick="openForgotPin()" style="width:100%;margin-top:10px;background:none;border:none;color:var(--pri);font-size:15px;font-weight:700;cursor:pointer;padding:8px">نسيت الرقم السري؟</button>
-    <button id="btn-new-account" onclick="showScreen(&#39;s-setup&#39;)" style="width:100%;margin-top:4px;background:none;border:none;color:var(--txt3);font-size:14px;cursor:pointer;padding:8px;display:none">إنشاء حساب جديد</button>
+    <button onclick="openForgotPin()" style="width:100%;margin-top:10px;background:none;border:none;
+      color:var(--pri);font-size:15px;font-weight:700;cursor:pointer;padding:8px">
+      نسيت الرقم السري؟
+    </button>
+    <button id="btn-new-account" onclick="showScreen(&#39;s-setup&#39;)" style="width:100%;margin-top:4px;background:none;border:none;
+      color:var(--txt3);font-size:14px;cursor:pointer;padding:8px;display:none">
+      إنشاء حساب جديد
+    </button>
   </div>
 </div>
 </div>
 
-<!-- الرئيسية -->
+<!-- ===== الرئيسية ===== -->
 <div class="screen" id="s-home">
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:70px;border-bottom:2px solid var(--brd);background:var(--bg);flex-shrink:0">
-    <button onclick="openSettings()" style="width:46px;height:46px;border:none;border-radius:12px;background:var(--bg3);font-size:26px;cursor:pointer" id="home-shop-logo">🏪</button>
-    <div style="text-align:center;flex:1;cursor:pointer" onclick="openSettings()">
-      <div style="font-size:22px;font-weight:900;color:var(--yel);letter-spacing:.5px" id="home-shop-name">مطور</div>
-      <div style="font-size:12px;color:var(--txt3);margin-top:2px;font-weight:600">الصفحة الرئيسية</div>
-    </div>
+  <!-- الهيدر: إعدادات على اليسار -->
+  <div style="display:flex;align-items:center;justify-content:space-between;
+    padding:0 16px;height:60px;border-bottom:2px solid var(--brd);
+    background:var(--bg);flex-shrink:0">
     <div style="width:46px"></div>
+    <div style="text-align:center;flex:1">
+      <div style="font-size:20px;font-weight:900;color:var(--yel)" id="home-shop-name">مطور</div>
+      <div style="font-size:11px;color:var(--txt3);margin-top:1px">الصفحة الرئيسية</div>
+    </div>
+    <button onclick="openSettings()" style="width:46px;height:46px;border:none;border-radius:12px;
+      background:var(--bg3);font-size:22px;cursor:pointer">⚙️</button>
   </div>
-  <div class="status-bar bar-offline" id="status-bar"><span id="status-txt">جاري التحقق...</span></div>
+  <div class="status-bar bar-offline" id="status-bar">
+    <span id="status-txt">جاري التحقق...</span>
+  </div>
   <div class="content">
     <div class="summary-bar">
       <div>
@@ -331,9 +583,11 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
         <div class="summary-count-lbl">زبون</div>
       </div>
     </div>
+    <!-- فلاتر: اليوم | الأسبوع | الشهر | الكل -->
     <div class="filter-bar">
       <button class="filter-btn active" id="filter-today" onclick="setHomeFilter(&#39;today&#39;)">اليوم</button>
-      <button class="filter-btn" id="filter-pending" onclick="setHomeFilter(&#39;pending&#39;)">في الانتظار</button>
+      <button class="filter-btn" id="filter-week" onclick="setHomeFilter(&#39;week&#39;)">الأسبوع</button>
+      <button class="filter-btn" id="filter-month" onclick="setHomeFilter(&#39;month&#39;)">الشهر</button>
       <button class="filter-btn" id="filter-all" onclick="setHomeFilter(&#39;all&#39;)">الكل</button>
     </div>
     <div class="sort-bar">
@@ -352,12 +606,13 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
   </div>
 </div>
 
-<!-- الزبائن -->
+<!-- ===== الزبائن ===== -->
 <div class="screen" id="s-customers">
   <div class="topnav">
     <button class="back-btn" onclick="showTab(&#39;home&#39;)">←</button>
-    <div class="topnav-center"><h2>الزبائن</h2><div class="ver-tag">v1.3</div></div>
-    <button onclick="openCalc()" style="padding:8px 14px;border:none;border-radius:10px;background:var(--pri);color:#fff;font-size:15px;font-weight:700;cursor:pointer">+ فاتورة</button>
+    <div class="topnav-center"><h2>الزبائن</h2></div>
+    <button onclick="openCalc()" style="padding:8px 14px;border:none;border-radius:10px;
+      background:var(--pri);color:#fff;font-size:15px;font-weight:700;cursor:pointer">🛒</button>
   </div>
   <div style="padding:10px 16px;flex-shrink:0">
     <input type="text" id="cust-search" class="fi" placeholder="بحث بالاسم أو الجوال..." oninput="filterCustomers(this.value)" style="font-size:17px">
@@ -365,12 +620,14 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
   <div class="content" style="padding-bottom:20px"><div id="customers-list"></div></div>
 </div>
 
-<!-- تفاصيل الزبون -->
+<!-- ===== تفاصيل الزبون ===== -->
 <div class="screen" id="s-cust">
   <div class="topnav">
     <button class="back-btn" onclick="goBack()">←</button>
-    <div class="topnav-center"><h2 id="cust-title">الزبون</h2><div class="ver-tag">v1.3</div></div>
-    <button onclick="sendReminder()" style="padding:7px 12px;border:none;border-radius:10px;background:rgba(37,211,102,.15);color:#25d366;font-size:14px;font-weight:700;cursor:pointer;border:1px solid rgba(37,211,102,.3)">واتساب</button>
+    <div class="topnav-center"><h2 id="cust-title">الزبون</h2></div>
+    <button onclick="sendReminder()" style="padding:7px 12px;border:none;border-radius:10px;
+      background:rgba(37,211,102,.15);color:#25d366;font-size:14px;font-weight:700;
+      cursor:pointer;border:1px solid rgba(37,211,102,.3)">واتساب</button>
   </div>
   <div class="content">
     <div class="cust-header">
@@ -386,124 +643,162 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
       <button class="cust-btn" onclick="openPartialPay()" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">دفع جزئي</button>
       <button class="cust-btn" onclick="addDebtForCust()" style="background:var(--bg3);color:var(--txt2);font-size:14px">+ فاتورة</button>
     </div>
+    <div style="display:flex;gap:8px;padding:0 16px 12px">
+      <button onclick="sendAccountStatement()" style="flex:1;padding:12px;border:none;border-radius:10px;
+        background:rgba(96,165,250,.15);border:1px solid rgba(96,165,250,.3);
+        color:var(--pri);font-size:14px;font-weight:700;cursor:pointer">
+        كشف حساب
+      </button>
+      <button onclick="sendPaymentInfo()" style="flex:1;padding:12px;border:none;border-radius:10px;
+        background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);
+        color:var(--grn);font-size:14px;font-weight:700;cursor:pointer">
+        بيانات الدفع
+      </button>
+    </div>
     <div class="sec-hdr">سجل المعاملات</div>
     <div id="cust-tx-list"></div>
   </div>
 </div>
 
-<!-- مطابقة البنك -->
+<!-- ===== مطابقة البنك ===== -->
 <div class="screen" id="s-bank">
   <div class="topnav">
     <button class="back-btn" onclick="showTab(&#39;home&#39;)">←</button>
-    <div class="topnav-center"><h2>مطابقة البنك</h2><div class="ver-tag">v1.3</div></div>
+    <div class="topnav-center"><h2>مطابقة البنك</h2></div>
     <div style="width:44px"></div>
   </div>
   <div class="content"><div style="padding:16px">
+    <div style="background:rgba(59,130,246,.1);border:1.5px solid rgba(59,130,246,.2);
+      border-radius:14px;padding:14px;margin-bottom:16px;font-size:15px;color:var(--txt2);line-height:1.8">
+      <div style="font-size:16px;font-weight:800;color:var(--pri);margin-bottom:6px">كيف تستخدم؟</div>
+      الصق نص رسالة واتساب من الزبون أو نص الكشف البنكي
+    </div>
     <div class="fg">
-      <label>نص كشف الحساب</label>
-      <textarea id="bank-text" class="fi" placeholder="الصق هنا..." style="height:130px;resize:none;font-size:15px;line-height:1.7" oninput="autoMatchBank()"></textarea>
+      <label>نص الحركة أو الرسالة</label>
+      <textarea id="bank-text" class="fi" placeholder="الصق هنا نص الحركات الواردة..." style="height:130px;resize:none;font-size:15px;line-height:1.7" oninput="autoMatchBank()"></textarea>
     </div>
     <div id="bank-results"></div>
   </div></div>
 </div>
 
-<!-- الإعدادات -->
+<!-- ===== الإعدادات ===== -->
 <div class="screen" id="s-settings">
   <div class="topnav">
     <button class="back-btn" onclick="goBack()">←</button>
-    <div class="topnav-center"><h2>الإعدادات</h2><div class="ver-tag">v1.3</div></div>
+    <div class="topnav-center"><h2>الإعدادات</h2></div>
     <div style="width:44px"></div>
   </div>
   <div class="content" style="padding:16px;padding-bottom:40px">
     <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;padding:18px;margin-bottom:14px">
       <div style="font-size:12px;font-weight:700;color:var(--txt3);margin-bottom:12px">معلومات الحساب</div>
       <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:24px" id="settings-logo">🏪</div>
+        <div style="width:52px;height:52px;border-radius:12px;
+          background:linear-gradient(135deg,#1d4ed8,#3b82f6);
+          display:flex;align-items:center;justify-content:center;font-size:24px">🏪</div>
         <div>
           <div style="font-size:19px;font-weight:900" id="settings-shop"></div>
           <div style="font-size:14px;color:var(--txt3);margin-top:2px" id="settings-phone"></div>
         </div>
       </div>
     </div>
-    <!-- إعداد الضريبة -->
     <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;padding:18px;margin-bottom:14px">
-      <div style="font-size:12px;font-weight:700;color:var(--txt3);margin-bottom:12px">الضريبة والسجل التجاري</div>
-      <!-- رقم السجل التجاري ثابت يُعرض فقط -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-        <div style="font-size:15px;font-weight:700">رقم السجل التجاري</div>
-        <div id="tax-id-display" style="font-size:17px;font-weight:900;color:var(--yel);direction:ltr;letter-spacing:2px">—</div>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px">
-        <label style="font-size:15px;font-weight:700">نسبة الضريبة</label>
-        <div style="display:flex;align-items:center;gap:8px">
-          <input type="number" id="tax-rate-input" class="fi" value="17.5" min="0" max="50" step="0.5" style="width:90px;text-align:center;direction:ltr;font-size:18px;padding:10px">
-          <span style="font-size:18px;font-weight:700">%</span>
-        </div>
+      <div style="font-size:12px;font-weight:700;color:var(--txt3);margin-bottom:12px">نسبة الضريبة</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input type="number" id="tax-rate-input" class="fi" value="17.5" min="0" max="50" step="0.5" style="width:90px;text-align:center;direction:ltr;font-size:18px;padding:10px">
+        <span style="font-size:18px;font-weight:700">%</span>
       </div>
       <button onclick="saveTaxSettings()" class="btn btn-pri" style="margin-top:12px;font-size:16px;padding:12px">حفظ</button>
     </div>
     <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;overflow:hidden;margin-bottom:14px">
       <div style="font-size:12px;font-weight:700;color:var(--txt3);padding:14px 16px 0">الأمان</div>
-      <button onclick="openChangePin()" style="width:100%;padding:16px;border:none;border-top:1.5px solid var(--brd);margin-top:10px;background:transparent;color:var(--txt);font-size:17px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">🔒</span><span>تغيير الرقم السري</span></div>
-        <span style="color:var(--txt3);font-size:20px">›</span>
+      <button onclick="openChangePin()" style="width:100%;padding:16px;border:none;border-top:1.5px solid var(--brd);
+        margin-top:10px;background:transparent;color:var(--txt);font-size:17px;font-weight:700;
+        cursor:pointer;display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:10px"><span>🔒</span><span>تغيير الرقم السري</span></div>
+        <span style="color:var(--txt3)">›</span>
       </button>
     </div>
     <div style="background:var(--bg2);border:2px solid var(--brd);border-radius:16px;overflow:hidden;margin-bottom:14px">
       <div style="font-size:12px;font-weight:700;color:var(--txt3);padding:14px 16px 0">البيانات</div>
-      <button onclick="doSync()" style="width:100%;padding:16px;border:none;border-top:1.5px solid var(--brd);margin-top:10px;background:transparent;color:var(--txt);font-size:17px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">🔄</span><span>مزامنة البيانات الآن</span></div>
-        <span style="color:var(--txt3);font-size:20px">›</span>
+      <button onclick="doSync()" style="width:100%;padding:16px;border:none;border-top:1.5px solid var(--brd);
+        margin-top:10px;background:transparent;color:var(--txt);font-size:17px;font-weight:700;
+        cursor:pointer;display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:10px"><span>🔄</span><span>مزامنة البيانات الآن</span></div>
+        <span style="color:var(--txt3)">›</span>
       </button>
     </div>
-    <button onclick="doLogout()" class="btn btn-red" style="margin-top:8px;font-size:17px">تسجيل الخروج</button>
-    <div style="text-align:center;margin-top:18px;font-size:12px;color:var(--txt3)">دفتر الدين — v1.3</div>
+    <button onclick="doLogout()" class="btn btn-red" style="margin-top:8px">تسجيل الخروج</button>
+    <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--txt3)">دفتر الدين — v1.4</div>
   </div>
 </div>
 
-<!-- مودال نسيت الرقم -->
+<!-- ===== مودال نسيت الرقم ===== -->
 <div class="modal-bg" id="m-forgot-pin">
 <div class="modal-sheet">
   <div class="modal-title">نسيت الرقم السري</div>
   <div id="forgot-step-1">
-    <div class="fg"><label>رقم الجوال المسجل</label><input type="tel" id="forgot-phone" class="fi" placeholder="05XXXXXXXX" style="direction:ltr;font-size:20px;letter-spacing:1px"></div>
+    <div class="fg">
+      <label>رقم الجوال المسجل</label>
+      <!-- readonly: لا يقبل تعديل -->
+      <input type="tel" id="forgot-phone" class="fi" readonly="" style="direction:ltr;font-size:20px;letter-spacing:1px;
+        background:var(--bg2);cursor:default;color:var(--txt2)">
+    </div>
     <div class="err" id="forgot-err"></div>
-    <div style="display:flex;gap:8px"><button class="btn btn-pri" style="font-size:17px" onclick="sendForgotOTP()">إرسال الرمز</button><button class="btn btn-gray" style="font-size:17px" onclick="closeForgotPin()">إلغاء</button></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-pri" onclick="sendForgotOTP()">إرسال الرمز</button>
+      <button class="btn btn-gray" onclick="closeForgotPin()">إلغاء</button>
+    </div>
   </div>
   <div id="forgot-step-2" style="display:none">
-    <div class="fg"><label>رمز التحقق</label><input type="text" id="forgot-otp" class="fi" placeholder="000000" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900;direction:ltr"></div>
-    <div class="fg"><label>الرقم السري الجديد</label><input type="password" id="forgot-new-pin" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900"></div>
+    <div class="fg"><label>رمز التحقق</label>
+      <input type="text" id="forgot-otp" class="fi" placeholder="000000" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900;direction:ltr">
+    </div>
+    <div class="fg"><label>الرقم السري الجديد</label>
+      <input type="password" id="forgot-new-pin" class="fi" placeholder="••••••" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900">
+    </div>
     <div class="err" id="forgot-err2"></div>
-    <div style="display:flex;gap:8px"><button class="btn btn-grn" style="font-size:17px" onclick="confirmForgotPin()">تغيير الرقم</button><button class="btn btn-gray" style="font-size:17px" onclick="closeForgotPin()">إلغاء</button></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-grn" onclick="confirmForgotPin()">تغيير الرقم</button>
+      <button class="btn btn-gray" onclick="closeForgotPin()">إلغاء</button>
+    </div>
   </div>
   <div id="forgot-step-3" style="display:none;text-align:center;padding:16px 0">
     <div style="font-size:4em;margin-bottom:12px">✅</div>
     <div style="font-size:19px;font-weight:900;color:var(--grn)">تم تغيير الرقم بنجاح</div>
-    <button class="btn btn-pri" style="margin-top:18px;font-size:17px" onclick="closeForgotPin()">دخول</button>
+    <button class="btn btn-pri" style="margin-top:18px" onclick="closeForgotPin()">دخول</button>
   </div>
 </div>
 </div>
 
-<!-- مودال تغيير الرقم -->
+<!-- ===== مودال تغيير الرقم ===== -->
 <div class="modal-bg" id="m-change-pin">
 <div class="modal-sheet">
   <div class="modal-title">تغيير الرقم السري</div>
   <div id="pin-step-1">
-    <div class="fg"><label>الرقم الحالي</label><input type="password" id="pin-old" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900"></div>
-    <div class="fg"><label>الرقم الجديد</label><input type="password" id="pin-new1" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900"></div>
-    <div class="fg"><label>تأكيد الرقم الجديد</label><input type="password" id="pin-new2" class="fi" placeholder="●●●●●●" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900"></div>
+    <div class="fg"><label>الرقم الحالي</label>
+      <input type="password" id="pin-old" class="fi" placeholder="••••••" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900">
+    </div>
+    <div class="fg"><label>الرقم الجديد</label>
+      <input type="password" id="pin-new1" class="fi" placeholder="••••••" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900">
+    </div>
+    <div class="fg"><label>تأكيد الرقم الجديد</label>
+      <input type="password" id="pin-new2" class="fi" placeholder="••••••" maxlength="6" inputmode="numeric" style="text-align:center;letter-spacing:10px;font-size:26px;font-weight:900">
+    </div>
     <div class="err" id="pin-err"></div>
-    <div style="display:flex;gap:8px;margin-top:4px"><button class="btn btn-grn" style="font-size:17px" onclick="saveNewPin()">حفظ</button><button class="btn btn-gray" style="font-size:17px" onclick="closeChangePin()">إلغاء</button></div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn btn-grn" onclick="saveNewPin()">حفظ</button>
+      <button class="btn btn-gray" onclick="closeChangePin()">إلغاء</button>
+    </div>
   </div>
   <div id="pin-step-2" style="display:none;text-align:center;padding:16px 0">
     <div style="font-size:4em;margin-bottom:12px">✅</div>
     <div style="font-size:19px;font-weight:900;color:var(--grn)">تم تغيير الرقم بنجاح</div>
-    <button class="btn btn-pri" style="margin-top:18px;font-size:17px" onclick="closeChangePin()">تم</button>
+    <button class="btn btn-pri" style="margin-top:18px" onclick="closeChangePin()">تم</button>
   </div>
 </div>
 </div>
 
-<!-- الدفع الجزئي -->
+<!-- ===== الدفع الجزئي ===== -->
 <div class="modal-bg" id="m-partial">
 <div class="modal-sheet">
   <div class="modal-title">دفع جزئي</div>
@@ -512,28 +807,43 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
     <div id="partial-display">0</div>
   </div>
   <div class="numpad">
-    <button class="npk" onclick="partialKey(&#39;1&#39;)">1</button><button class="npk" onclick="partialKey(&#39;2&#39;)">2</button><button class="npk" onclick="partialKey(&#39;3&#39;)">3</button>
-    <button class="npk" onclick="partialKey(&#39;4&#39;)">4</button><button class="npk" onclick="partialKey(&#39;5&#39;)">5</button><button class="npk" onclick="partialKey(&#39;6&#39;)">6</button>
-    <button class="npk" onclick="partialKey(&#39;7&#39;)">7</button><button class="npk" onclick="partialKey(&#39;8&#39;)">8</button><button class="npk" onclick="partialKey(&#39;9&#39;)">9</button>
-    <button class="npk" onclick="partialKey(&#39;.&#39;)">.</button><button class="npk" onclick="partialKey(&#39;0&#39;)">0</button><button class="npk" onclick="partialDel()">⌫</button>
+    <button class="npk" onclick="partialKey(&#39;1&#39;)">1</button>
+    <button class="npk" onclick="partialKey(&#39;2&#39;)">2</button>
+    <button class="npk" onclick="partialKey(&#39;3&#39;)">3</button>
+    <button class="npk" onclick="partialKey(&#39;4&#39;)">4</button>
+    <button class="npk" onclick="partialKey(&#39;5&#39;)">5</button>
+    <button class="npk" onclick="partialKey(&#39;6&#39;)">6</button>
+    <button class="npk" onclick="partialKey(&#39;7&#39;)">7</button>
+    <button class="npk" onclick="partialKey(&#39;8&#39;)">8</button>
+    <button class="npk" onclick="partialKey(&#39;9&#39;)">9</button>
+    <button class="npk" onclick="partialKey(&#39;.&#39;)">.</button>
+    <button class="npk" onclick="partialKey(&#39;0&#39;)">0</button>
+    <button class="npk" onclick="partialDel()">⌫</button>
   </div>
   <div style="display:flex;gap:8px;margin-top:10px">
-    <button class="btn btn-grn" style="font-size:17px" onclick="savePartial()">تأكيد الدفع</button>
-    <button class="btn btn-gray" style="font-size:17px" onclick="document.getElementById(&#39;m-partial&#39;).classList.remove(&#39;open&#39;)">إلغاء</button>
+    <button class="btn btn-grn" onclick="savePartial()">تأكيد الدفع</button>
+    <button class="btn btn-gray" onclick="document.getElementById(&#39;m-partial&#39;).classList.remove(&#39;open&#39;)">إلغاء</button>
   </div>
 </div>
 </div>
 
-<!-- الحاسبة الجديدة -->
+<!-- ===== الآلة الحاسبة ===== -->
 <div class="calc-overlay" id="calc-overlay" onclick="closeCalc()"></div>
 <div class="calc-sheet" id="calc-sheet">
+  <div class="calc-topbar">
+    <div class="calc-title-lbl">🧮 الآلة الحاسبة</div>
+    <button class="calc-close-btn" onclick="closeCalc()">✕</button>
+  </div>
   <div class="calc-display">
     <div class="calc-expr-area" id="calc-expr">0</div>
-    <div class="calc-result-area" id="calc-result"></div>
+    <div class="calc-result-row">
+      <div class="calc-result-num" id="calc-result-num"></div>
+      <div class="calc-result-lbl" id="calc-result-lbl"></div>
+    </div>
   </div>
   <div class="calc-grid">
     <button class="ck clr" onclick="calcKey(&#39;C&#39;)">C</button>
-    <button class="ck op" onclick="calcSmartParen()">()</button>
+    <button class="ck del" onclick="calcDel()">⌫</button>
     <button class="ck pct" onclick="calcPct()">%</button>
     <button class="ck op" onclick="calcKey(&#39;/&#39;)">÷</button>
 
@@ -554,48 +864,65 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
 
     <button class="ck" onclick="calcKey(&#39;0&#39;)">0</button>
     <button class="ck" onclick="calcKey(&#39;00&#39;)">00</button>
-    <button class="ck" onclick="calcKey(&#39;.&#39;)">.</button>
-    <button class="ck eq" onclick="openInvSheet()">إصدار<br>فاتورة</button>
+    <button class="ck op" onclick="calcSmartParen()">()</button>
+    <button class="ck eq" onclick="openInvSheet()">🛒<br>فاتورة</button>
   </div>
 </div>
 
-<!-- الفاتورة -->
+<!-- ===== الفاتورة ===== -->
 <div class="inv-overlay" id="inv-overlay" onclick="closeInvSheet()"></div>
 <div class="inv-sheet" id="inv-sheet">
+  <!-- شريط الفواتير المعلقة -->
+  <div class="hold-bar" id="hold-bar"></div>
+  <!-- رأس الفاتورة -->
   <div class="inv-header">
-    <div style="text-align:center;font-size:13px;font-weight:800;color:#8b6914;margin-bottom:4px" id="inv-type-lbl">فاتورة</div>
-    <div class="inv-shop-name" id="inv-shop-name">بقالة الأمانة</div>
-    <div id="inv-tax-id-row" style="text-align:center;font-size:13px;color:#8b6914;font-weight:600;margin-top:3px;display:none">سجل تجاري: <span id="inv-tax-id-val"></span></div>
+    <div class="inv-type-lbl" id="inv-type-lbl">فاتورة</div>
+    <div class="inv-shop-name" id="inv-shop-name">المحل</div>
+    <div class="inv-sub" id="inv-sub-info"></div>
     <div class="inv-meta">
-      <span id="inv-num-lbl">فاتورة 1001</span>
+      <span id="inv-num-lbl">#1001</span>
       <span id="inv-date-lbl"></span>
     </div>
-    <div id="inv-day-lbl" style="text-align:center;font-size:12px;color:#8b6914;margin-top:2px;font-weight:600"></div>
+    <div class="inv-day" id="inv-day-lbl"></div>
   </div>
+  <!-- حقل الزبون: جوال → اسم -->
   <div class="inv-cust-row">
-    <div class="inv-cust-label">الاسم</div>
-    <input type="text" id="inv-cust-input" class="inv-cust-input" placeholder="___________________________" autocomplete="off" oninput="onInvCustInput(this.value)" onfocus="onInvCustInput(this.value)">
+    <span class="inv-cust-lbl">📱</span>
+    <input type="tel" id="inv-cust-phone-input" class="inv-cust-phone" placeholder="الجوال" inputmode="numeric" oninput="onInvPhoneInput(this.value)">
+    <div class="inv-cust-name-val" id="inv-cust-name-val"></div>
     <div id="inv-cust-dropdown" class="cust-dropdown-inv" style="display:none"></div>
   </div>
+  <!-- أعمدة الفاتورة -->
   <div style="padding:0 16px;flex-shrink:0">
     <div class="inv-col-header">
-      <div class="inv-col-h" style="width:24px">#</div>
+      <div class="inv-col-h" style="width:20px">#</div>
       <div class="inv-col-h" style="flex:1;text-align:right">البيان</div>
-      <div class="inv-col-h" style="width:72px">المبلغ</div>
+      <div class="inv-col-h" style="width:72px">المبلغ ₪</div>
       <div class="inv-col-h" style="width:22px"></div>
     </div>
   </div>
   <div class="inv-lines" id="inv-lines"></div>
-  <button class="inv-add-line" onclick="addInvLine()">+ إضافة سطر</button>
+  <!-- footer -->
   <div class="inv-footer">
-    <div class="inv-total-row">
-      <span class="inv-total-lbl">الإجمالي</span>
-      <span class="inv-total-val" id="inv-total">0 ₪</span>
+    <div class="inv-totals-wrap">
+      <!-- فاتورة ضريبية: 3 أسطر | عادية: سطر واحد -->
+      <div class="inv-total-row" id="inv-subtotal-row" style="display:none">
+        <span class="inv-total-lbl">قبل الضريبة</span>
+        <span class="inv-total-val" id="inv-subtotal-val">0</span>
+      </div>
+      <div class="inv-tax-row-line" id="inv-tax-row-line">
+        <span>ضريبة (<span id="inv-tax-pct">17.5</span>%)</span>
+        <span id="inv-tax-val">0</span>
+      </div>
+      <div class="inv-total-row">
+        <span class="inv-total-lbl" id="inv-total-lbl">الإجمالي</span>
+        <span class="inv-total-val" id="inv-total">0 ₪</span>
+      </div>
     </div>
-    <div id="inv-tafqeet" style="font-size:13px;color:#8b6914;font-weight:700;font-style:italic;text-align:right;margin-bottom:8px;min-height:18px"></div>
-    <div class="inv-tax-row" id="inv-tax-row">
-      <span>منها ضريبة (<span id="inv-tax-pct">17.5</span>%)</span>
-      <span id="inv-tax-val">0 ₪</span>
+    <!-- التفقيط بجانب الإجمالي -->
+    <div class="inv-tafqeet-row">
+      <span class="inv-tafqeet-num" id="inv-tafqeet-num"></span>
+      <span class="inv-tafqeet-txt" id="inv-tafqeet-txt"></span>
     </div>
     <div class="inv-actions">
       <button class="inv-btn inv-btn-save" onclick="saveInvoice(false)">حفظ</button>
@@ -605,7 +932,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
   </div>
 </div>
 
-<!-- قائمة الأصناف -->
+<!-- ===== قائمة الأصناف ===== -->
 <div style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:205;display:none" id="cat-overlay" onclick="closeCatSheet()"></div>
 <div class="cat-sheet" id="cat-sheet">
   <div style="padding:14px 16px 6px;border-bottom:1px solid var(--brd)">
@@ -616,16 +943,22 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font
 </div>
 
 <div id="spinner"><div class="spin"></div><div class="spin-txt" id="spinner-txt">...</div></div>
+
 <script>
 const SUPA_URL='https://ziehhwdphavnbmltxnmc.supabase.co';
 const LOGIN_URL=SUPA_URL+'/functions/v1/login-final';
-const SYNC_URL=SUPA_URL+'/functions/v1/offline-sync';
-const CUR='\u20AA';
-let SESSION=null,prevScreen='s-home',currentCustomer=null,partialAmountStr='0';
-let homeFilter='today',homeSort='old-first';
+const SYNC_URL =SUPA_URL+'/functions/v1/offline-sync';
+const CUR='₪';
+
+let SESSION=null, prevScreen='s-home', currentCustomer=null, partialAmountStr='0';
+let homeFilter='today', homeSort='old-first';
 let calcStr='';
-let invLines=[],invTaxOn=false,invCustId=null,invCustName='',invCustPhone='',activeCatLineIdx=-1;
-let pendingAmount=0;
+let invLines=[], invTaxOn=false, invCustId=null, invCustName='', invCustPhone='';
+let activeCatLineIdx=-1;
+
+// فواتير متعددة معلقة
+let heldInvoices=[];
+let activeInvIdx=0;
 
 // ── DB ──────────────────────────────────────────────────────────
 class LocalDB{
@@ -634,13 +967,31 @@ class LocalDB{
     const req=indexedDB.open(this.name,2);
     req.onupgradeneeded=e=>{
       const d=e.target.result;
-      if(!d.objectStoreNames.contains('customers')){const s=d.createObjectStore('customers',{keyPath:'id'});s.createIndex('merchant_id','merchant_id')}
-      if(!d.objectStoreNames.contains('invoices')){const s=d.createObjectStore('invoices',{keyPath:'id'});s.createIndex('merchant_id','merchant_id');s.createIndex('customer_id','customer_id')}
-      if(!d.objectStoreNames.contains('inv_lines')){const s=d.createObjectStore('inv_lines',{keyPath:'id'});s.createIndex('invoice_id','invoice_id')}
-      if(!d.objectStoreNames.contains('categories')){const s=d.createObjectStore('categories',{keyPath:'id'});s.createIndex('merchant_id','merchant_id')}
-      if(!d.objectStoreNames.contains('sync_queue')){const s=d.createObjectStore('sync_queue',{keyPath:'qid'});s.createIndex('synced','synced')}
-      // keep old transactions store for migration
-      if(!d.objectStoreNames.contains('transactions')){const s=d.createObjectStore('transactions',{keyPath:'id'});s.createIndex('customer_id','customer_id')}
+      if(!d.objectStoreNames.contains('customers')){
+        const s=d.createObjectStore('customers',{keyPath:'id'});
+        s.createIndex('merchant_id','merchant_id');
+      }
+      if(!d.objectStoreNames.contains('invoices')){
+        const s=d.createObjectStore('invoices',{keyPath:'id'});
+        s.createIndex('merchant_id','merchant_id');
+        s.createIndex('customer_id','customer_id');
+      }
+      if(!d.objectStoreNames.contains('inv_lines')){
+        const s=d.createObjectStore('inv_lines',{keyPath:'id'});
+        s.createIndex('invoice_id','invoice_id');
+      }
+      if(!d.objectStoreNames.contains('categories')){
+        const s=d.createObjectStore('categories',{keyPath:'id'});
+        s.createIndex('merchant_id','merchant_id');
+      }
+      if(!d.objectStoreNames.contains('sync_queue')){
+        const s=d.createObjectStore('sync_queue',{keyPath:'qid'});
+        s.createIndex('synced','synced');
+      }
+      if(!d.objectStoreNames.contains('transactions')){
+        const s=d.createObjectStore('transactions',{keyPath:'id'});
+        s.createIndex('customer_id','customer_id');
+      }
     };
     req.onsuccess=e=>{this.db=e.target.result;res(this)};
     req.onerror=e=>rej(e);
@@ -654,323 +1005,488 @@ class LocalDB{
   getByIndex(s,idx,val){return new Promise((r,j)=>{const q=this.tx(s).index(idx).getAll(val);q.onsuccess=()=>r(q.result||[]);q.onerror=e=>j(e)})}
   getPendingSync(){return new Promise((r,j)=>{const q=this.tx('sync_queue').index('synced').getAll(0);q.onsuccess=()=>r(q.result||[]);q.onerror=e=>j(e)})}
   markSynced(ids){return new Promise((r,j)=>{
-    const tx=this.db.transaction('sync_queue','readwrite');const s=tx.objectStore('sync_queue');
+    const tx=this.db.transaction('sync_queue','readwrite');
+    const s=tx.objectStore('sync_queue');
     ids.forEach(id=>{const q=s.get(id);q.onsuccess=e=>{if(e.target.result){e.target.result.synced=1;s.put(e.target.result)}}});
     tx.oncomplete=()=>r();tx.onerror=e=>j(e);
   })}
 }
 const db=new LocalDB('GazaDafter');
 
-function getNextInvNum(){let n=parseInt(localStorage.getItem('gz_inv_num')||'1000');n++;localStorage.setItem('gz_inv_num',n.toString());return n}
+function getNextInvNum(){
+  let n=parseInt(localStorage.getItem('gz_inv_num')||'1000');
+  n++;
+  localStorage.setItem('gz_inv_num',String(n));
+  return n;
+}
 function getTaxRate(){return parseFloat(localStorage.getItem('gz_tax_rate')||'17.5')}
-function saveTaxRate(){const v=parseFloat(document.getElementById('tax-rate-input').value);if(!isNaN(v)&&v>=0&&v<=50){localStorage.setItem('gz_tax_rate',v.toString());alert('\u062a\u0645 \u062d\u0641\u0638 \u0627\u0644\u0646\u0633\u0628\u0629: '+v+'%');}}
+function getTaxId(){return localStorage.getItem('gz_tax_id')||''}
+function saveTaxSettings(){
+  const v=parseFloat(document.getElementById('tax-rate-input').value);
+  if(!isNaN(v)&&v>=0&&v<=50){localStorage.setItem('gz_tax_rate',String(v));alert('تم حفظ النسبة: '+v+'%')}
+}
 
-// ── Navigation ──────────────────────────────────────────────────
+// ── Navigation ───────────────────────────────────────────────────
 function showScreen(id){
   const p=document.querySelector('.screen.active');
   if(p){prevScreen=p.id;p.classList.remove('active')}
   document.getElementById(id).classList.add('active');
-  const fb=document.getElementById('float-back-btn');
-  if(fb)fb.className='float-back'+(['s-cust','s-settings'].includes(id)?' show':'');
 }
 function goBack(){showScreen(prevScreen)}
 function showTab(tab){
   const map={home:'s-home',customers:'s-customers',bank:'s-bank'};
   document.querySelectorAll('.bnt').forEach(b=>b.classList.remove('active'));
-  if(tab==='home')document.querySelectorAll('.bnt')[0].classList.add('active');
+  if(tab==='home')     document.querySelectorAll('.bnt')[0].classList.add('active');
   if(tab==='customers')document.querySelectorAll('.bnt')[1].classList.add('active');
-  if(tab==='bank')document.querySelectorAll('.bnt')[2].classList.add('active');
+  if(tab==='bank')     document.querySelectorAll('.bnt')[2].classList.add('active');
   showScreen(map[tab]||'s-home');
-  if(tab==='home')loadHome();
-  if(tab==='customers')loadCustomers();
+  if(tab==='home')      loadHome();
+  if(tab==='customers') loadCustomers();
 }
 function showSpinner(t){document.getElementById('spinner-txt').textContent=t||'...';document.getElementById('spinner').classList.add('show')}
 function hideSpinner(){document.getElementById('spinner').classList.remove('show')}
-function showErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.style.display='block';setTimeout(()=>e.style.display='none',4000)}
 
-// ── Auth ────────────────────────────────────────────────────────
+function showErr(id,msg){
+  const e=document.getElementById(id);
+  e.textContent=msg;
+  e.classList.add('show');
+  setTimeout(()=>{e.classList.remove('show');e.textContent=''},4000);
+}
+
+// ── PIN Hash للدخول أوف لاين ─────────────────────────────────────
+async function hashPin(pin,merchantId){
+  const text=pin+'|'+merchantId;
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+// ── Auth ─────────────────────────────────────────────────────────
 async function doSetup(){
   const owner=document.getElementById('setup-owner').value.trim();
-  const shop=document.getElementById('setup-shop').value.trim();
+  const shop =document.getElementById('setup-shop').value.trim();
   const phone=document.getElementById('setup-phone').value.trim();
-  const pin=document.getElementById('setup-pin').value.trim();
-  const name=shop||owner;
-  if(!owner){showErr('setup-err','\u0627\u062f\u062e\u0644 \u0627\u0633\u0645 \u0627\u0644\u062a\u0627\u062c\u0631');return}
-  if(!phone){showErr('setup-err','\u0627\u062f\u062e\u0644 \u0631\u0642\u0645 \u0627\u0644\u062c\u0648\u0627\u0644');return}
-  if(pin.length<6){showErr('setup-err','6 \u0623\u0631\u0642\u0627\u0645 \u0644\u0644\u0631\u0642\u0645 \u0627\u0644\u0633\u0631\u064a');return}
-  showSpinner('...');
+  const pin  =document.getElementById('setup-pin').value.trim();
+  const name =shop||owner;
+  if(!owner){showErr('setup-err','أدخل اسم التاجر');return}
+  if(!phone){showErr('setup-err','أدخل رقم الجوال');return}
+  if(pin.length<6){showErr('setup-err','الرقم السري 6 أرقام');return}
+  showSpinner('جاري إنشاء الحساب...');
   try{
-    const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'register',phone,name})});
-    const d1=await r1.json();if(d1.error){hideSpinner();showErr('setup-err',d1.error);return}
-    const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'set_pin',merchant_id:d1.merchant_id,pin})});
-    const d2=await r2.json();if(d2.error){hideSpinner();showErr('setup-err',d2.error);return}
-    const taxId=document.getElementById('setup-tax-id').value.trim();
-    if(taxId&&(taxId.length<6||taxId.length>15||!/^\d+$/.test(taxId))){
-      hideSpinner();showErr('setup-err','رقم السجل غير صحيح — بين 6 و 15 رقم');return;
-    }
-    localStorage.setItem('gz_phone',phone);localStorage.setItem('gz_shop',name);localStorage.setItem('gz_owner',owner);
-    if(taxId) localStorage.setItem('gz_tax_id',taxId);
-    hideSpinner();await doLoginWithCredentials(phone,pin);
-  }catch(e){hideSpinner();showErr('setup-err','\u0644\u0627 \u064a\u0648\u062c\u062f \u0627\u062a\u0635\u0627\u0644')}
+    const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'register',phone,name})});
+    const d1=await r1.json();
+    if(d1.error){hideSpinner();showErr('setup-err',d1.error);return}
+    const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'set_pin',merchant_id:d1.merchant_id,pin})});
+    const d2=await r2.json();
+    if(d2.error){hideSpinner();showErr('setup-err',d2.error);return}
+    localStorage.setItem('gz_phone',phone);
+    localStorage.setItem('gz_shop',name);
+    localStorage.setItem('gz_owner',owner);
+    hideSpinner();
+    await doLoginWithCredentials(phone,pin);
+  }catch(e){hideSpinner();showErr('setup-err','لا يوجد اتصال')}
 }
+
 async function doLogin(){
   const pin=document.getElementById('login-pin').value.trim();
   const phone=localStorage.getItem('gz_phone')||'';
   if(!phone){showScreen('s-setup');return}
-  if(pin.length<4){showErr('login-err','\u0627\u062f\u062e\u0644 \u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0633\u0631\u064a');return}
-  const btn=document.getElementById('login-btn');btn.textContent='...';btn.disabled=true;
+  if(pin.length<4){showErr('login-err','أدخل الرقم السري');return}
+  const btn=document.getElementById('login-btn');
+  btn.textContent='...';btn.disabled=true;
   await doLoginWithCredentials(phone,pin);
-  btn.textContent='\u062f\u062e\u0648\u0644';btn.disabled=false;
+  btn.textContent='دخول';btn.disabled=false;
 }
+
 async function doLoginWithCredentials(phone,pin){
-  try{
-    const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',phone,pin})});
-    const d=await res.json();
-    if(!d.ok){showErr('login-err',d.error||'\u0631\u0642\u0645 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d');return}
-    SESSION={...d,phone};localStorage.setItem('gz_session',JSON.stringify(SESSION));
-    document.getElementById('login-pin').value='';
-    document.getElementById('home-shop-name').textContent=localStorage.getItem('gz_shop')||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';
-    showTab('home');if(navigator.onLine)pullFromServer();
-  }catch(e){
-    const c=localStorage.getItem('gz_session');
-    if(c){SESSION=JSON.parse(c);document.getElementById('home-shop-name').textContent=localStorage.getItem('gz_shop')||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';showTab('home');}
-    else showErr('login-err','\u0644\u0627 \u064a\u0648\u062c\u062f \u0627\u062a\u0635\u0627\u0644');
+  // أولاً: حاول السيرفر
+  if(navigator.onLine){
+    try{
+      const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({action:'login',phone,pin})});
+      const d=await res.json();
+      if(!d.ok){showErr('login-err',d.error||'الرقم السري غير صحيح');return}
+      SESSION={...d,phone};
+      localStorage.setItem('gz_session',JSON.stringify(SESSION));
+      // حفظ hash للدخول أوف لاين
+      const h=await hashPin(pin,d.merchant_id);
+      localStorage.setItem('gz_pin_hash',h);
+      document.getElementById('login-pin').value='';
+      document.getElementById('home-shop-name').textContent=localStorage.getItem('gz_shop')||'دفتر الدين';
+      showTab('home');
+      pullFromServer();
+      return;
+    }catch(e){}
   }
+  // أوف لاين: تحقق من الـ hash المحلي
+  const savedSession=localStorage.getItem('gz_session');
+  const savedHash   =localStorage.getItem('gz_pin_hash');
+  if(!savedSession||!savedHash){
+    showErr('login-err','لا يوجد اتصال — سجّل دخولك مرة واحدة وأنت متصل أولاً');
+    return;
+  }
+  const SESSION_TMP=JSON.parse(savedSession);
+  const enteredHash=await hashPin(pin,SESSION_TMP.merchant_id);
+  if(enteredHash!==savedHash){
+    showErr('login-err','الرقم السري غير صحيح');
+    return;
+  }
+  SESSION=SESSION_TMP;
+  document.getElementById('login-pin').value='';
+  document.getElementById('home-shop-name').textContent=localStorage.getItem('gz_shop')||'دفتر الدين';
+  showTab('home');
 }
-const DEV_PHONE='0599123456',DEV_PIN='000000',DEV_SHOP='\u0645\u0637\u0648\u0631';
+
+const DEV_PHONE='0599123456',DEV_PIN='000000',DEV_SHOP='مطور';
 async function devLogin(){
   showSpinner('...');
   try{
-    const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',phone:DEV_PHONE,pin:DEV_PIN})});
+    const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'login',phone:DEV_PHONE,pin:DEV_PIN})});
     const d=await res.json();
-    if(d.ok){SESSION={...d,phone:DEV_PHONE};localStorage.setItem('gz_session',JSON.stringify(SESSION));localStorage.setItem('gz_shop',DEV_SHOP);localStorage.setItem('gz_phone',DEV_PHONE);document.getElementById('home-shop-name').textContent=DEV_SHOP;hideSpinner();showTab('home');}
-    else{hideSpinner();alert(d.error||'\u062e\u0637\u0623');}
-  }catch(e){hideSpinner();alert('\u0644\u0627 \u064a\u0648\u062c\u062f \u0627\u062a\u0635\u0627\u0644');}
+    if(d.ok){
+      SESSION={...d,phone:DEV_PHONE};
+      localStorage.setItem('gz_session',JSON.stringify(SESSION));
+      localStorage.setItem('gz_shop',DEV_SHOP);
+      localStorage.setItem('gz_phone',DEV_PHONE);
+      const h=await hashPin(DEV_PIN,d.merchant_id);
+      localStorage.setItem('gz_pin_hash',h);
+      document.getElementById('home-shop-name').textContent=DEV_SHOP;
+      hideSpinner();showTab('home');
+    }else{hideSpinner();alert(d.error||'خطأ');}
+  }catch(e){hideSpinner();alert('لا يوجد اتصال');}
 }
 
-// ── Sync ────────────────────────────────────────────────────────
+// ── Sync ─────────────────────────────────────────────────────────
 async function pullFromServer(){
   if(!SESSION||!navigator.onLine)return;
   try{
     const res=await fetch(SYNC_URL+'?tok='+encodeURIComponent(SESSION.token));
     const d=await res.json();if(!d.ok)return;
-    if(d.customers?.length)for(const c of d.customers)await db.put('customers',c);
+    if(d.customers?.length)   for(const c of d.customers)   await db.put('customers',c);
     if(d.transactions?.length)for(const t of d.transactions)await db.put('transactions',t);
     await loadHome();updateStatusBar();
   }catch(e){}
 }
+
 async function doSync(){
-  if(!SESSION)return;if(!navigator.onLine){updateStatusBar();return}
+  if(!SESSION)return;
+  if(!navigator.onLine){updateStatusBar();return}
   updateStatusBar('syncing');
   try{
     const pending=await db.getPendingSync();
-    if(!pending.length){await pullFromServer();localStorage.setItem('gz_last_sync',Date.now());updateStatusBar();return}
-    const res=await fetch(SYNC_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tok:SESSION.token,changes:pending.map(p=>p.data)})});
+    if(!pending.length){
+      await pullFromServer();
+      localStorage.setItem('gz_last_sync',String(Date.now()));
+      updateStatusBar();return;
+    }
+    const res=await fetch(SYNC_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({tok:SESSION.token,changes:pending.map(p=>p.data)})});
     const d=await res.json();
-    if(d.ok){await db.markSynced(pending.map(p=>p.qid));await pullFromServer();localStorage.setItem('gz_last_sync',Date.now())}
+    if(d.ok){
+      await db.markSynced(pending.map(p=>p.qid));
+      await pullFromServer();
+      localStorage.setItem('gz_last_sync',String(Date.now()));
+    }
     updateStatusBar();
   }catch(e){updateStatusBar()}
 }
-async function addToQueue(type,data){return db.add('sync_queue',{type,data,created_at:new Date().toISOString(),synced:0})}
+
+async function addToQueue(type,data){
+  return db.add('sync_queue',{type,data,created_at:new Date().toISOString(),synced:0});
+}
 
 async function updateStatusBar(state){
-  const bar=document.getElementById('status-bar'),txt=document.getElementById('status-txt');
+  const bar=document.getElementById('status-bar');
+  const txt=document.getElementById('status-txt');
   if(!bar)return;
   const pending=await db.getPendingSync();
-  if(state==='syncing'){bar.className='status-bar bar-pending';txt.textContent='\u062c\u0627\u0631\u064a \u0627\u0644\u0645\u0632\u0627\u0645\u0646\u0629...';return}
-  if(!navigator.onLine){bar.className='status-bar bar-offline';txt.textContent=pending.length?'\u063a\u064a\u0631 \u0645\u062a\u0635\u0644 \u2014 '+pending.length+' \u0645\u0639\u0644\u0642':'\u063a\u064a\u0631 \u0645\u062a\u0635\u0644';return}
-  if(pending.length){bar.className='status-bar bar-pending';txt.textContent='\u0645\u062a\u0635\u0644 \u2014 '+pending.length+' \u0644\u0645 \u064a\u064f\u0632\u0627\u0645\u0646';}
-  else{
-    const last=localStorage.getItem('gz_last_sync');let ts='';
-    if(last){const d=Math.floor((Date.now()-parseInt(last))/1000);if(d<60)ts='\u0623\u0642\u0644 \u062f\u0642\u064a\u0642\u0629';else if(d<3600)ts=Math.floor(d/60)+'\u062f';else ts=Math.floor(d/3600)+'\u0633';}
-    bar.className='status-bar bar-online';txt.textContent=ts?'\u0645\u062a\u0635\u0644 \u2014 \u0622\u062e\u0631 \u0645\u0632\u0627\u0645\u0646\u0629 \u0645\u0646\u0630 '+ts:'\u0645\u062a\u0635\u0644 \u2714';
+  if(state==='syncing'){
+    bar.className='status-bar bar-pending';
+    txt.textContent='جاري المزامنة...';
+    return;
+  }
+  if(!navigator.onLine){
+    bar.className='status-bar bar-offline';
+    txt.textContent=pending.length?`غير متصل — ${pending.length} تغيير معلق`:'غير متصل — محفوظ محلياً';
+    return;
+  }
+  if(pending.length){
+    bar.className='status-bar bar-pending';
+    txt.textContent=`متصل — ${pending.length} تغيير لم يُزامن`;
+    // مزامنة تلقائية
+    setTimeout(doSync,1000);
+  }else{
+    const last=localStorage.getItem('gz_last_sync');
+    let ts='';
+    if(last){
+      const d=new Date(parseInt(last));
+      ts=d.toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'});
+    }
+    bar.className='status-bar bar-online';
+    txt.textContent=ts?`متصل — آخر مزامنة ${ts}`:'متصل ✓';
   }
 }
 
-// ── Filter/Sort ─────────────────────────────────────────────────
+// ── Filter/Sort ──────────────────────────────────────────────────
 function setHomeFilter(f){
   homeFilter=f;
-  ['today','pending','all'].forEach(k=>{const b=document.getElementById('filter-'+k);if(b)b.className='filter-btn'+(k===f?' active':'');});
+  ['today','week','month','all'].forEach(k=>{
+    const b=document.getElementById('filter-'+k);
+    if(b)b.className='filter-btn'+(k===f?' active':'');
+  });
   loadHome();
 }
 function setHomeSort(s){
   homeSort=s;
-  ['old-first','new-first','high-first','low-first'].forEach(k=>{const b=document.getElementById('sort-'+k);if(b)b.className='sort-btn'+(k===s?' active':'');});
+  ['old-first','new-first','high-first','low-first'].forEach(k=>{
+    const b=document.getElementById('sort-'+k);
+    if(b)b.className='sort-btn'+(k===s?' active':'');
+  });
   loadHome();
 }
 
-// ── Home ────────────────────────────────────────────────────────
+// ── Home ─────────────────────────────────────────────────────────
 async function loadHome(){
   if(!SESSION)return;
   const custs=await db.getAll('customers');
-  // دعم invoices الجديدة + transactions القديمة
-  let allInvoices=[];
-  try{allInvoices=await db.getAll('invoices');}catch(e){}
-  let allTx=[];
-  try{allTx=await db.getAll('transactions');}catch(e){}
+  let allInvoices=[];try{allInvoices=await db.getAll('invoices');}catch(e){}
   const mine=custs.filter(c=>c.merchant_id===SESSION.merchant_id);
   const mInv=allInvoices.filter(i=>i.merchant_id===SESSION.merchant_id);
-  const mTx=allTx.filter(t=>t.merchant_id===SESSION.merchant_id);
-
-  const bal={},oldest={},invNums={},statuses={};
-
-  // من invoices الجديدة
+  const bal={},oldest={},invNums={};
   mInv.forEach(inv=>{
     const cid=inv.customer_id;if(!cid)return;
     if(!bal[cid])bal[cid]=0;
-    const d=new Date(inv.created_at);
-    const isPending=inv.status==='\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631';
-    const isUnpaid=inv.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639';
-    if(isUnpaid||isPending){
+    if(inv.status==='غير مدفوع'){
       bal[cid]+=(inv.total||0);
-      if(!oldest[cid]||d<oldest[cid])oldest[cid]=d;
-      if(!invNums[cid])invNums[cid]=inv.inv_num;
-      // pending يطغى على unpaid
-      if(!statuses[cid]||statuses[cid]==='unpaid') statuses[cid]=isPending?'pending':'unpaid';
-      if(isPending) statuses[cid]='pending';
+      const d=new Date(inv.created_at);
+      if(!oldest[cid]||d<oldest[cid]){oldest[cid]=d;invNums[cid]=inv.inv_num;}
     }
   });
-  // من transactions القديمة
-  mTx.forEach(t=>{
-    const cid=t.customer_id;if(!cid)return;
-    if(!bal[cid])bal[cid]=0;
-    const d=new Date(t.created_at);
-    if(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'){
-      bal[cid]+=(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b'?(t.remaining||t.amount):t.amount);
-      if(!oldest[cid]||d<oldest[cid])oldest[cid]=d;
-      if(!invNums[cid]&&t.inv_num)invNums[cid]=t.inv_num;
-    }
-  });
-
-  const todayStr=new Date().toDateString();
-  let debtors=mine.filter(c=>(bal[c.id]||0)>0);
-  if(homeFilter==='today')debtors=debtors.filter(c=>oldest[c.id]&&new Date(oldest[c.id]).toDateString()===todayStr&&statuses[c.id]!=='pending');
-  else if(homeFilter==='all')debtors=debtors.filter(c=>statuses[c.id]!=='pending');
-  else if(homeFilter==='pending')debtors=debtors.filter(c=>statuses[c.id]==='pending');
   const now=Date.now();
-  if(homeSort==='old-first')debtors.sort((a,b)=>(oldest[a.id]||0)-(oldest[b.id]||0));
+  const todayStr=new Date().toDateString();
+  const weekMs=7*86400000,monthMs=30*86400000;
+  let debtors=mine.filter(c=>(bal[c.id]||0)>0);
+  if(homeFilter==='today')
+    debtors=debtors.filter(c=>oldest[c.id]&&new Date(oldest[c.id]).toDateString()===todayStr);
+  else if(homeFilter==='week')
+    debtors=debtors.filter(c=>oldest[c.id]&&(now-oldest[c.id])<=weekMs);
+  else if(homeFilter==='month')
+    debtors=debtors.filter(c=>oldest[c.id]&&(now-oldest[c.id])<=monthMs);
+  // 'all' = كل الديون المعلقة
+  if(homeSort==='old-first')     debtors.sort((a,b)=>(oldest[a.id]||0)-(oldest[b.id]||0));
   else if(homeSort==='new-first')debtors.sort((a,b)=>(oldest[b.id]||0)-(oldest[a.id]||0));
   else if(homeSort==='high-first')debtors.sort((a,b)=>(bal[b.id]||0)-(bal[a.id]||0));
   else debtors.sort((a,b)=>(bal[a.id]||0)-(bal[b.id]||0));
-
   const total=mine.filter(c=>(bal[c.id]||0)>0).reduce((s,c)=>s+(bal[c.id]||0),0);
   const count=mine.filter(c=>(bal[c.id]||0)>0).length;
   document.getElementById('home-total').textContent=total.toFixed(0)+' '+CUR;
   document.getElementById('home-count').textContent=count;
-
   const list=document.getElementById('home-list');
   if(!debtors.length){
-    list.innerHTML='<div class="empty"><div class="icon">\uD83D\uDE0A</div><p>\u0645\u0627 \u0641\u064a \u062f\u064a\u0648\u0646 \u0645\u0639\u0644\u0642\u0629<br>\u0627\u0636\u063a\u0637 \uD83E\uDDEE \u0644\u0625\u0636\u0627\u0641\u0629 \u0641\u0627\u062a\u0648\u0631\u0629</p></div>';
+    list.innerHTML='<div class="empty"><div class="icon">😊</div><p>ما في ديون معلقة<br>اضغط 🧮 لإضافة فاتورة</p></div>';
     updateStatusBar();return;
   }
   list.innerHTML=debtors.map(c=>{
     const b=bal[c.id]||0,o=oldest[c.id];
     const days=o?Math.floor((now-o)/86400000):0;
-    const isPend=statuses[c.id]==='pending';
-    const cls='debt-item'+(isPend?' pending':days>7?' old':days>3?' week':'');
-    const dl=isPend?'\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631':days===0?'\u0627\u0644\u064a\u0648\u0645':days===1?'\u0623\u0645\u0633':'\u0645\u0646\u0630 '+days+' \u064a\u0648\u0645';
-    const inv=invNums[c.id]||'\u2014';
-    return '<div class="'+cls+'"><div class="debt-amount-wrap" onclick="openCustomer(\''+c.id+'\')"><div class="debt-amount">'+b.toFixed(0)+' '+CUR+'</div><div class="debt-days">'+dl+'</div></div><div class="debt-info" onclick="openCustomer(\''+c.id+'\')"><div class="debt-name">'+c.name+'</div><div class="debt-meta">'+(c.phone||'\u0628\u062f\u0648\u0646 \u062c\u0648\u0627\u0644')+'</div></div><div class="debt-avatar" onclick="openCustomer(\''+c.id+'\')">'+inv+'</div></div>';
+    const cls='debt-item'+(days>7?' old':days>3?' week':'');
+    const dl=days===0?'اليوم':days===1?'أمس':'منذ '+days+' يوم';
+    const inv=invNums[c.id]||'—';
+    return `<div class="${cls}">
+      <div class="debt-amount-wrap" onclick="openCustomer('${c.id}')">
+        <div class="debt-amount">${b.toFixed(0)} ${CUR}</div>
+        <div class="debt-days">${dl}</div>
+      </div>
+      <div class="debt-info" onclick="openCustomer('${c.id}')">
+        <div class="debt-name">${c.name}</div>
+        <div class="debt-meta">${c.phone||'بدون جوال'}</div>
+      </div>
+      <div class="debt-avatar" onclick="openCustomer('${c.id}')">${inv}</div>
+    </div>`;
   }).join('');
   updateStatusBar();
 }
 
-// ── Customers ───────────────────────────────────────────────────
+// ── Customers ────────────────────────────────────────────────────
 async function loadCustomers(q){
   q=q||'';
   const all=await db.getAll('customers');
-  let allInvoices=[];try{allInvoices=await db.getAll('invoices');}catch(e){}
-  let allTx=[];try{allTx=await db.getAll('transactions');}catch(e){}
+  let allInv=[];try{allInv=await db.getAll('invoices');}catch(e){}
   const mine=all.filter(c=>c.merchant_id===SESSION.merchant_id);
   const bal={};
-  allInvoices.filter(i=>i.merchant_id===SESSION.merchant_id).forEach(i=>{if(!bal[i.customer_id])bal[i.customer_id]=0;if(i.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||i.status==='\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631')bal[i.customer_id]+=(i.total||0);});
-  allTx.filter(t=>t.merchant_id===SESSION.merchant_id).forEach(t=>{if(!bal[t.customer_id])bal[t.customer_id]=0;if(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639')bal[t.customer_id]+=t.amount;else if(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b')bal[t.customer_id]+=(t.remaining||t.amount);});
-  const filtered=mine.filter(c=>!q||c.name.includes(q)||(c.phone||'').includes(q)).sort((a,b)=>(bal[b.id]||0)-(bal[a.id]||0));
+  allInv.filter(i=>i.merchant_id===SESSION.merchant_id&&i.status==='غير مدفوع')
+    .forEach(i=>{if(!bal[i.customer_id])bal[i.customer_id]=0;bal[i.customer_id]+=(i.total||0);});
+  const filtered=mine.filter(c=>!q||c.name.includes(q)||(c.phone||'').includes(q))
+    .sort((a,b)=>(bal[b.id]||0)-(bal[a.id]||0));
   const list=document.getElementById('customers-list');
-  if(!filtered.length){list.innerHTML='<div class="empty"><div class="icon">\uD83D\uDC65</div><p>\u0645\u0627 \u0641\u064a \u0632\u0628\u0627\u0626\u0646 \u0628\u0639\u062f</p></div>';return}
-  list.innerHTML=filtered.map(c=>{const b=bal[c.id]||0,bc=b>0?'var(--red)':'var(--grn)',bt=b>0?b.toFixed(0)+' '+CUR:'\u0645\u0633\u0648\u0651\u0649 \u2713';return '<div class="debt-item" onclick="openCustomer(\''+c.id+'\')"><div class="debt-amount-wrap"><div class="debt-amount" style="color:'+bc+'">'+bt+'</div></div><div class="debt-info"><div class="debt-name">'+c.name+'</div><div class="debt-meta">'+(c.phone||'\u0628\u062f\u0648\u0646 \u062c\u0648\u0627\u0644')+'</div></div><div class="debt-avatar">'+(c.name||'?').charAt(0)+'</div></div>';}).join('');
+  if(!filtered.length){list.innerHTML='<div class="empty"><div class="icon">👥</div><p>ما في زبائن بعد</p></div>';return}
+  list.innerHTML=filtered.map(c=>{
+    const b=bal[c.id]||0;
+    const bc=b>0?'var(--red)':'var(--grn)';
+    const bt=b>0?b.toFixed(0)+' '+CUR:'مسوَّى ✓';
+    return `<div class="debt-item" onclick="openCustomer('${c.id}')">
+      <div class="debt-avatar">${(c.name||'?').charAt(0)}</div>
+      <div class="debt-info">
+        <div class="debt-name">${c.name}</div>
+        <div class="debt-meta">${c.phone||'بدون جوال'}</div>
+      </div>
+      <div class="debt-amount-wrap">
+        <div class="debt-amount" style="color:${bc}">${bt}</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 function filterCustomers(q){loadCustomers(q)}
 
-// ── الحاسبة ─────────────────────────────────────────────────────
-function openCalc(){calcStr='';renderCalc();document.getElementById('calc-sheet').classList.add('open');document.getElementById('calc-overlay').classList.add('show')}
-function closeCalc(){document.getElementById('calc-sheet').classList.remove('open');document.getElementById('calc-overlay').classList.remove('show')}
-
+// ── الآلة الحاسبة ─────────────────────────────────────────────────
+function openCalc(){
+  calcStr='';
+  renderCalc();
+  document.getElementById('calc-sheet').classList.add('open');
+  document.getElementById('calc-overlay').classList.add('show');
+}
+function closeCalc(){
+  document.getElementById('calc-sheet').classList.remove('open');
+  document.getElementById('calc-overlay').classList.remove('show');
+}
 function calcKey(k){
   if(k==='C'){calcStr='';renderCalc();return}
   calcStr+=k;renderCalc();
 }
 function calcDel(){calcStr=calcStr.slice(0,-1);renderCalc()}
 function calcSmartParen(){
-  // احسب عدد الأقواس المفتوحة
   const open=(calcStr.match(/\(/g)||[]).length;
   const close=(calcStr.match(/\)/g)||[]).length;
-  if(open>close&&calcStr.length>0){calcStr+=')'; }
-  else{calcStr+='(';}
+  calcStr+=open>close?')':'(';
   renderCalc();
 }
 function calcPct(){
-  // تحويل آخر رقم إلى نسبة مئوية
   try{const r=Function('"use strict";return ('+calcStr+')')();calcStr=(r/100).toString();}catch(e){}
   renderCalc();
 }
-
 function calcEval(str){
-  try{const r=Function('"use strict";return ('+str+')')();if(!isNaN(r)&&isFinite(r))return parseFloat(r.toFixed(2));} catch(e){}return null;
+  try{const r=Function('"use strict";return ('+str+')')();if(!isNaN(r)&&isFinite(r))return parseFloat(r.toFixed(2));}catch(e){}return null;
 }
-
 function renderCalc(){
   const exprEl=document.getElementById('calc-expr');
-  const resEl=document.getElementById('calc-result');
+  const numEl =document.getElementById('calc-result-num');
+  const lblEl =document.getElementById('calc-result-lbl');
   if(!exprEl)return;
-  // عرض التعبير بخط كبير RTL
   let display=calcStr||'0';
-  // تجميل الأرقام: مسافات حول العمليات
   display=display.replace(/([+\-*/])/g,' $1 ').replace(/\s+/g,' ').trim();
   exprEl.textContent=display;
-  // عرض النتيجة صغيرة
   const result=calcEval(calcStr);
-  if(result!==null&&calcStr&&calcStr!==result.toString()){
-    resEl.textContent='= '+result.toLocaleString('ar');
+  if(result!==null&&calcStr&&calcStr!==String(result)){
+    numEl.textContent=result.toLocaleString('ar-EG');
+    lblEl.textContent='إجمالي المشتريات';
   }else{
-    resEl.textContent='';
+    numEl.textContent='';
+    lblEl.textContent='';
   }
 }
 
-// ── الفاتورة ────────────────────────────────────────────────────
+// ── الفواتير المعلقة ──────────────────────────────────────────────
+function saveCurrentInvState(){
+  if(!heldInvoices[activeInvIdx])return;
+  heldInvoices[activeInvIdx].lines    =JSON.parse(JSON.stringify(invLines));
+  heldInvoices[activeInvIdx].custId   =invCustId;
+  heldInvoices[activeInvIdx].custName =invCustName;
+  heldInvoices[activeInvIdx].custPhone=invCustPhone;
+  heldInvoices[activeInvIdx].taxOn    =invTaxOn;
+}
+function loadInvFromState(state){
+  invLines    =JSON.parse(JSON.stringify(state.lines));
+  invCustId   =state.custId;
+  invCustName =state.custName;
+  invCustPhone=state.custPhone;
+  invTaxOn    =state.taxOn;
+  window._currentInvNum=state.invNum;
+  document.getElementById('inv-cust-phone-input').value=state.custPhone||'';
+  document.getElementById('inv-cust-name-val').textContent=state.custName||'';
+  document.getElementById('inv-num-lbl').textContent='#'+state.invNum;
+  document.getElementById('inv-tax-btn').className='inv-btn inv-btn-tax'+(invTaxOn?' on':'');
+  document.getElementById('inv-type-lbl').textContent=invTaxOn?'فاتورة ضريبية':'فاتورة';
+  renderInvLines();updateInvTotal();updateTaxDisplay();
+}
+function renderHoldBar(){
+  const bar=document.getElementById('hold-bar');
+  if(!bar)return;
+  if(heldInvoices.length<=1){bar.className='hold-bar';return}
+  bar.className='hold-bar visible';
+  bar.innerHTML=heldInvoices.map((inv,i)=>
+    `<button class="hold-chip${i===activeInvIdx?' active':''}" onclick="switchInvoice(${i})">
+      #${inv.invNum}${inv.custName?' · '+inv.custName.substring(0,8):''}
+    </button>`
+  ).join('')+`<button class="hold-new-btn" onclick="addNewInvoice()">+ جديد</button>`;
+}
+function switchInvoice(idx){
+  saveCurrentInvState();
+  activeInvIdx=idx;
+  loadInvFromState(heldInvoices[idx]);
+  renderHoldBar();
+}
+function addNewInvoice(){
+  saveCurrentInvState();
+  activeInvIdx=heldInvoices.length;
+  const invNum=getNextInvNum();
+  heldInvoices.push({invNum,lines:[{id:Date.now(),amount:0,category:'',empty:true}],
+    custId:null,custName:'',custPhone:'',taxOn:false});
+  loadInvFromState(heldInvoices[activeInvIdx]);
+  renderHoldBar();
+}
+
+// ── الفاتورة ──────────────────────────────────────────────────────
 function openInvSheet(){
-  // استخرج الأرقام من تعبير الحاسبة
-  const rawNums=[];
   const expr=calcStr.trim();
-  if(!expr){alert('ادخل مبلغاً');return}
-  // تقسيم التعبير على + فقط (كل مبلغ سطر)
-  const parts=expr.split('+').map(p=>p.trim()).filter(p=>p);
-  parts.forEach(p=>{const n=calcEval(p);if(n!==null&&n>0)rawNums.push(n);});
-  if(!rawNums.length){const t=calcEval(expr)||0;if(t>0)rawNums.push(t);}
-  if(!rawNums.length){alert('ادخل مبلغاً صحيحاً');return}
+  if(!expr){alert('أدخل مبلغاً');return}
+  const parts=expr.split('+').map(p=>p.trim()).filter(Boolean);
+  const nums=[];
+  parts.forEach(p=>{const n=calcEval(p);if(n!==null&&n>0)nums.push(n);});
+  if(!nums.length){const t=calcEval(expr)||0;if(t>0)nums.push(t);}
+  if(!nums.length){alert('أدخل مبلغاً صحيحاً');return}
   closeCalc();
   const invNum=getNextInvNum();
+  // إنشاء فاتورة جديدة في مصفوفة الفواتير
+  activeInvIdx=heldInvoices.length;
+  invLines=nums.map(n=>({id:Date.now()+Math.random(),amount:n,category:'مبيعات',empty:false}));
+  // سطر فارغ في الآخر دائماً
+  invLines.push({id:Date.now()+Math.random(),amount:0,category:'',empty:true});
+  invTaxOn=false;invCustId=null;invCustName='';invCustPhone='';
   window._currentInvNum=invNum;
-  // سطر لكل رقم + 4 أسطر فارغة
-  invLines=rawNums.map(n=>({id:Date.now()+Math.random(),amount:n,category:'مبيعات',empty:false}));
-  for(let i=0;i<4;i++) invLines.push({id:Date.now()+Math.random(),amount:0,category:'',empty:true});
-  invTaxOn=false;invCustId=null;invCustName='';
+  heldInvoices.push({invNum,lines:JSON.parse(JSON.stringify(invLines)),
+    custId:null,custName:'',custPhone:'',taxOn:false});
+  // ملء رأس الفاتورة
   document.getElementById('inv-shop-name').textContent=localStorage.getItem('gz_shop')||'المحل';
-  document.getElementById('inv-num-lbl').textContent='فاتورة '+invNum;
+  document.getElementById('inv-num-lbl').textContent='#'+invNum;
   const now_d=new Date();
-  document.getElementById('inv-date-lbl').textContent=now_d.toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'});
+  document.getElementById('inv-date-lbl').textContent=
+    now_d.toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'});
   const days=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
   document.getElementById('inv-day-lbl').textContent=days[now_d.getDay()];
-  document.getElementById('inv-cust-input').value='';
-  document.getElementById('inv-cust-dropdown').style.display='none';
-  document.getElementById('inv-tax-btn').className='inv-btn inv-btn-tax';
+  // جوال المحل في الفاتورة العادية
+  updateInvSubInfo();
   document.getElementById('inv-type-lbl').textContent='فاتورة';
-  document.getElementById('inv-tax-row').style.display='none';
+  document.getElementById('inv-tax-btn').className='inv-btn inv-btn-tax';
   document.getElementById('inv-tax-pct').textContent=getTaxRate();
-  renderInvLines();
-  updateInvTotal();
+  document.getElementById('inv-cust-phone-input').value='';
+  document.getElementById('inv-cust-name-val').textContent='';
+  document.getElementById('inv-cust-dropdown').style.display='none';
+  renderInvLines();updateInvTotal();renderHoldBar();
   document.getElementById('inv-sheet').classList.add('open');
   document.getElementById('inv-overlay').classList.add('show');
+}
+
+function updateInvSubInfo(){
+  const subEl=document.getElementById('inv-sub-info');
+  if(invTaxOn){
+    const taxId=getTaxId();
+    subEl.textContent=taxId?'مشغل مرخص: '+taxId:'مشغل مرخص';
+  }else{
+    const phone=localStorage.getItem('gz_phone')||'';
+    subEl.textContent=phone?'📱 '+phone:'';
+  }
 }
 
 function closeInvSheet(){
@@ -981,124 +1497,167 @@ function closeInvSheet(){
 
 function renderInvLines(){
   const container=document.getElementById('inv-lines');
+  let lineNum=0;
   container.innerHTML=invLines.map((line,i)=>{
-    const isEmpty=line.empty&&!(line.amount>0);
-    return '<div class="inv-line">'
-      +'<div class="inv-line-num" style="'+(isEmpty?'color:rgba(0,0,0,.2)':'')+'">'+(!isEmpty?i+1:'&mdash;')+'</div>'
-      +'<input class="inv-line-amt" type="number" value="'+(isEmpty?'':line.amount||'')+'" min="0" placeholder="0" '
-      +'oninput="invLines['+i+'].amount=parseFloat(this.value)||0;invLines['+i+'].empty=false;updateInvTotal()" '
-      +'style="direction:ltr;'+(isEmpty?'color:rgba(0,0,0,.25)':'')+'">'
-      +'<input class="inv-line-cat" type="text" value="'+line.category+'" placeholder="مبيعات" '
-      +'oninput="invLines['+i+'].category=this.value;invLines['+i+'].empty=false" '
-      +'onclick="openCatSheet('+i+')" readonly '
-      +'style="'+(isEmpty?'color:rgba(0,0,0,.25)':'')+'">'
-      +'<button class="inv-line-del" onclick="removeInvLine('+i+')" style="'+(isEmpty?'visibility:hidden':'')+'">&#x2715;</button>'
-      +'</div>';
-  }).join('');
+    const hasData=line.amount>0||(!line.empty&&line.category);
+    if(hasData)lineNum++;
+    const showLine=hasData||i===invLines.length-1; // الأخير دائماً يظهر
+    if(!showLine)return '';
+    const numDisplay=hasData?lineNum:'';
+    return `<div class="inv-line">
+      <div class="inv-line-num">${numDisplay}</div>
+      <input class="inv-line-cat" type="text"
+        value="${line.category||''}"
+        placeholder="البيان"
+        onclick="openCatSheet(${i})" readonly
+        oninput="invLines[${i}].category=this.value;invLines[${i}].empty=false">
+      <input class="inv-line-amt" type="number"
+        value="${line.amount||''}"
+        min="0" placeholder="0"
+        oninput="invLines[${i}].amount=parseFloat(this.value)||0;invLines[${i}].empty=!this.value;checkAutoAddLine(${i});updateInvTotal()"
+        style="direction:ltr">
+      <button class="inv-line-del"
+        onclick="removeInvLine(${i})"
+        style="${!hasData?'visibility:hidden':''}">✕</button>
+    </div>`;
+  }).filter(Boolean).join('');
 }
 
-function addInvLine(){
-  invLines.push({id:Date.now(),amount:0,category:'\u0645\u0628\u064a\u0639\u0627\u062a'});
-  renderInvLines();updateInvTotal();
-  // scroll to bottom
-  setTimeout(()=>{const el=document.getElementById('inv-lines');if(el)el.scrollTop=el.scrollHeight;},100);
+function checkAutoAddLine(idx){
+  // لو عبّى السطر الأخير، أضف سطراً جديداً فارغاً
+  if(idx===invLines.length-1&&invLines[idx].amount>0){
+    invLines.push({id:Date.now()+Math.random(),amount:0,category:'',empty:true});
+    setTimeout(()=>{renderInvLines();},50);
+  }
 }
 
 function removeInvLine(i){
   if(invLines.length<=1)return;
-  invLines.splice(i,1);renderInvLines();updateInvTotal();
+  // لا تحذف آخر سطر فارغ
+  if(i===invLines.length-1&&invLines[i].empty)return;
+  invLines.splice(i,1);
+  // تأكد دائماً من وجود سطر فارغ في الآخر
+  if(!invLines[invLines.length-1].empty||invLines[invLines.length-1].amount>0){
+    invLines.push({id:Date.now()+Math.random(),amount:0,category:'',empty:true});
+  }
+  renderInvLines();updateInvTotal();
 }
 
-
-// ── التفقيط ─────────────────────────────────────────────────────
+// ── التفقيط ──────────────────────────────────────────────────────
 function tafqeet(n){
-  n=Math.round(n);
-  if(n===0) return 'صفر';
-  const ones=['صفر','واحد','اثنان','ثلاثة','أربعة','خمسة','ستة','سبعة','ثمانية','تسعة'];
-  const tens=['صفر','عشرة','عشرون','ثلاثون','أربعون','خمسون','ستون','سبعون','ثمانون','تسعون'];
-  const hundreds=['صفر','مائة','مائتان','ثلاثمائة','أربعمائة','خمسمائة','ستمائة','سبعمائة','ثمانمائة','تسعمائة'];
-  function readLessThan1000(num){
-    if(num===0) return '';
-    let result='';
-    const h=Math.floor(num/100);
-    const rem=num%100;
-    const t=Math.floor(rem/10);
-    const o=rem%10;
-    if(h>0) result+=hundreds[h];
-    if(rem>0){
-      if(result) result+=' و';
-      if(rem<=10) result+=' '+ones[rem];
-      else if(rem<20) result+=' '+ones[o]+' عشر';
-      else if(o===0) result+=' '+tens[t];
-      else result+=' '+ones[o]+' و'+tens[t];
+  n=Math.round(n);if(n===0)return'صفر شيكلاً';
+  const ones=['','واحد','اثنان','ثلاثة','أربعة','خمسة','ستة','سبعة','ثمانية','تسعة',
+    'عشرة','أحد عشر','اثنا عشر','ثلاثة عشر','أربعة عشر','خمسة عشر',
+    'ستة عشر','سبعة عشر','ثمانية عشر','تسعة عشر'];
+  const tens=['','','عشرون','ثلاثون','أربعون','خمسون','ستون','سبعون','ثمانون','تسعون'];
+  const hundreds=['','مائة','مائتان','ثلاثمائة','أربعمائة','خمسمائة','ستمائة','سبعمائة','ثمانمائة','تسعمائة'];
+  function read999(num){
+    if(!num)return'';
+    let r='';
+    const h=Math.floor(num/100),rem=num%100;
+    if(h)r+=hundreds[h];
+    if(rem){
+      if(r)r+=' و';
+      if(rem<20)r+=ones[rem];
+      else{r+=ones[rem%10];if(rem%10&&r)r+=' و';r+=tens[Math.floor(rem/10)];}
     }
-    return result.trim();
+    return r.trim();
   }
-  let result='';
-  const billions=Math.floor(n/1000000000);
-  const millions=Math.floor((n%1000000000)/1000000);
-  const thousands=Math.floor((n%1000000)/1000);
-  const remainder=n%1000;
-  if(billions>0) result+=readLessThan1000(billions)+' مليار';
-  if(millions>0){if(result)result+=' و';result+=' '+readLessThan1000(millions)+' مليون';}
-  if(thousands>0){
-    if(result)result+=' و';
-    if(thousands===1) result+=' ألف';
-    else if(thousands===2) result+=' ألفان';
-    else result+=' '+readLessThan1000(thousands)+' آلاف';
-  }
-  if(remainder>0){if(result)result+=' و';result+=' '+readLessThan1000(remainder);}
-  return result.trim()+' شيكلاً لا غير';
+  let r='',th=Math.floor(n/1000),rm=n%1000;
+  if(th===1)r='ألف';
+  else if(th===2)r='ألفان';
+  else if(th>2)r=read999(th)+' آلاف';
+  if(rm){if(r)r+=' و';r+=read999(rm);}
+  return r.trim()+' شيكلاً لا غير';
 }
 
 function updateInvTotal(){
-  const total=invLines.filter(l=>!l.empty||l.amount>0).reduce((s,l)=>s+(l.amount||0),0);
+  const activeLines=invLines.filter(l=>l.amount>0);
+  const subtotal=activeLines.reduce((s,l)=>s+(l.amount||0),0);
+  const rate=getTaxRate();
+  const taxAmt=invTaxOn?subtotal*(rate/100):0;
+  const total=invTaxOn?subtotal+taxAmt:subtotal;
+  // تحديث العرض
   document.getElementById('inv-total').textContent=total.toFixed(0)+' '+CUR;
+  document.getElementById('inv-total-lbl').textContent=invTaxOn?'الإجمالي شامل الضريبة':'الإجمالي';
   // التفقيط
-  const tafEl=document.getElementById('inv-tafqeet');
-  if(tafEl) tafEl.textContent=total>0?tafqeet(total):'';
+  const tNum=document.getElementById('inv-tafqeet-num');
+  const tTxt=document.getElementById('inv-tafqeet-txt');
+  if(total>0){
+    tNum.textContent=total.toFixed(0)+' '+CUR;
+    tTxt.textContent=tafqeet(total);
+  }else{tNum.textContent='';tTxt.textContent='';}
+  updateTaxDisplay(subtotal,taxAmt,total);
+}
+
+function updateTaxDisplay(subtotal,taxAmt,total){
+  const subRow=document.getElementById('inv-subtotal-row');
+  const taxRow=document.getElementById('inv-tax-row-line');
   if(invTaxOn){
-    const rate=getTaxRate();
-    const taxAmt=total*(rate/(100+rate));
-    document.getElementById('inv-tax-val').textContent=taxAmt.toFixed(2)+' '+CUR;
+    const s=subtotal||invLines.filter(l=>l.amount>0).reduce((a,l)=>a+l.amount,0);
+    const rate=getTaxRate(),ta=s*(rate/100);
+    subRow.style.display='flex';
+    taxRow.style.display='flex';
+    document.getElementById('inv-subtotal-val').textContent=s.toFixed(0)+' '+CUR;
+    document.getElementById('inv-tax-val').textContent=ta.toFixed(2)+' '+CUR;
+  }else{
+    subRow.style.display='none';
+    taxRow.style.display='none';
   }
 }
 
 function toggleTax(){
   invTaxOn=!invTaxOn;
   document.getElementById('inv-tax-btn').className='inv-btn inv-btn-tax'+(invTaxOn?' on':'');
-  document.getElementById('inv-tax-row').style.display=invTaxOn?'flex':'none';
-  // تحديث عنوان الفاتورة
   document.getElementById('inv-type-lbl').textContent=invTaxOn?'فاتورة ضريبية':'فاتورة';
-  const taxId=getTaxId();
-  const taxIdRow=document.getElementById('inv-tax-id-row');
-  if(invTaxOn&&taxId){document.getElementById('inv-tax-id-val').textContent=taxId;taxIdRow.style.display='block';}
-  else{taxIdRow.style.display='none';}
+  updateInvSubInfo();
   updateInvTotal();
 }
 
-// ── اختيار الزبون في الفاتورة ───────────────────────────────────
-async function onInvCustInput(q){
+// ── اختيار الزبون بالجوال ────────────────────────────────────────
+async function onInvPhoneInput(phone){
+  invCustPhone=phone;
+  invCustId=null;
+  const nameEl=document.getElementById('inv-cust-name-val');
   const dd=document.getElementById('inv-cust-dropdown');
-  if(!q){dd.style.display='none';invCustId=null;return}
+  if(phone.length<4){nameEl.textContent='';dd.style.display='none';invCustName=phone;return}
   const all=await db.getAll('customers');
-  const mine=all.filter(c=>c.merchant_id===SESSION.merchant_id&&(c.name.includes(q)||(c.phone||'').includes(q)));
-  dd.style.display='block';
-  let html=mine.map(c=>`<div class="cust-dd-item" onclick="selectInvCust('${c.id}','${c.name.replace(/'/g,"\\'")}')">
-    ${c.name} <span style="font-size:13px;color:#8b6914">${c.phone||''}</span></div>`).join('');
-  html+=`<div class="cust-dd-item cust-dd-new" onclick="selectInvCust(null,'${q.replace(/'/g,"\\'")}')">+ \u0625\u0636\u0627\u0641\u0629 &quot;${q}&quot;</div>`;
-  dd.innerHTML=html;
+  const clean=phone.replace(/\D/g,'');
+  const found=all.find(c=>c.merchant_id===SESSION.merchant_id&&
+    (c.phone||'').replace(/\D/g,'').includes(clean));
+  if(found){
+    invCustId=found.id;invCustName=found.name;
+    nameEl.textContent=found.name;
+    dd.style.display='none';
+  }else{
+    invCustName=phone; // رقم الجوال كاسم مؤقت
+    nameEl.textContent='';
+    // اقتراحات قريبة
+    const similar=all.filter(c=>c.merchant_id===SESSION.merchant_id&&
+      (c.phone||'').replace(/\D/g,'').startsWith(clean.substring(0,6)));
+    if(similar.length){
+      dd.style.display='block';
+      dd.innerHTML=similar.map(c=>
+        `<div class="cust-dd-item" onclick="selectInvCustById('${c.id}','${c.name.replace(/'/g,"\\'")}','${c.phone||''}')">
+          ${c.name} <span style="font-size:13px;color:#8b6914">${c.phone||''}</span>
+        </div>`
+      ).join('')+`<div class="cust-dd-item cust-dd-new"
+        onclick="document.getElementById('inv-cust-dropdown').style.display='none'">
+        + تسجيل "${phone}" كزبون جديد</div>`;
+    }else{dd.style.display='none';}
+  }
 }
 
-async function selectInvCust(id,name){
-  invCustId=id;invCustName=name;
-  document.getElementById('inv-cust-input').value=name;
+function selectInvCustById(id,name,phone){
+  invCustId=id;invCustName=name;invCustPhone=phone;
+  document.getElementById('inv-cust-phone-input').value=phone;
+  document.getElementById('inv-cust-name-val').textContent=name;
   document.getElementById('inv-cust-dropdown').style.display='none';
-  if(id){const custs=await db.getAll('customers');const c=custs.find(x=>x.id===id);invCustPhone=c?.phone||'';}
 }
 
 // ── قائمة الأصناف ────────────────────────────────────────────────
-const DEFAULT_CATS=['\u062e\u0636\u0627\u0631','\u0641\u0627\u0643\u0647\u0629','\u0644\u062d\u0645\u0629','\u062f\u062c\u0627\u062c','\u0628\u0642\u0627\u0644\u0629','\u062f\u0648\u0627\u0621','\u0645\u0634\u0631\u0648\u0628\u0627\u062a','\u062e\u0628\u0632','\u062c\u0628\u0646','\u0628\u064a\u0636','\u0632\u064a\u062a','\u0633\u0643\u0631','\u0623\u0631\u0632','\u0645\u0639\u0643\u0631\u0648\u0646\u0629','\u0635\u0627\u0628\u0648\u0646','\u0645\u0646\u0638\u0641\u0627\u062a','\u0645\u0628\u064a\u0639\u0627\u062a'];
+const DEFAULT_CATS=['خضار','فاكهة','لحمة','دجاج','بقالة','دواء','مشروبات',
+  'خبز','جبن','بيض','زيت','سكر','أرز','معكرونة','صابون','منظفات','مبيعات'];
 
 async function openCatSheet(lineIdx){
   activeCatLineIdx=lineIdx;
@@ -1123,8 +1682,13 @@ async function getUserCats(){
 function renderCatGrid(cats,q){
   const filtered=q?cats.filter(c=>c.includes(q)):cats;
   const g=document.getElementById('cat-grid');
-  let html=filtered.map(c=>`<button class="cat-chip" onclick="selectCat('${c.replace(/'/g,"\\'")}')"> ${c}</button>`).join('');
-  if(q&&!cats.includes(q)){html+=`<button class="cat-chip" style="border-color:var(--pri);color:var(--pri)" onclick="selectCat('${q.replace(/'/g,"\\'")}')">+ \u0625\u0636\u0627\u0641\u0629 &quot;${q}&quot;</button>`;}
+  let html=filtered.map(c=>
+    `<button class="cat-chip" onclick="selectCat('${c.replace(/'/g,"\\'")}')"> ${c}</button>`
+  ).join('');
+  if(q&&!cats.includes(q)){
+    html+=`<button class="cat-chip" style="border-color:var(--pri);color:var(--pri)"
+      onclick="selectCat('${q.replace(/'/g,"\\'")}')">+ إضافة "${q}"</button>`;
+  }
   g.innerHTML=html;
 }
 async function filterCats(q){
@@ -1135,11 +1699,15 @@ async function filterCats(q){
 async function selectCat(name){
   if(activeCatLineIdx>=0&&activeCatLineIdx<invLines.length){
     invLines[activeCatLineIdx].category=name;
+    invLines[activeCatLineIdx].empty=false;
     renderInvLines();
-    // حفظ الصنف في قاعدة البيانات
+    // حفظ الصنف
     const existing=await db.getAll('categories');
     const mine=existing.filter(c=>c.merchant_id===SESSION.merchant_id&&c.name===name);
-    if(!mine.length){await db.put('categories',{id:crypto.randomUUID(),merchant_id:SESSION.merchant_id,name,created_at:new Date().toISOString()});}
+    if(!mine.length){
+      await db.put('categories',{id:crypto.randomUUID(),
+        merchant_id:SESSION.merchant_id,name,created_at:new Date().toISOString()});
+    }
   }
   closeCatSheet();
 }
@@ -1148,224 +1716,420 @@ async function selectCat(name){
 async function saveInvoice(sendWA){
   const activeLines=invLines.filter(l=>l.amount>0);
   const total=activeLines.reduce((s,l)=>s+(l.amount||0),0);
-  if(total<=0){alert('\u0627\u0644\u0645\u062c\u0645\u0648\u0639 0 \u2014 \u0623\u062f\u062e\u0644 \u0645\u0628\u0644\u063a\u0627\u064b');return}
-  showSpinner('\u062c\u0627\u0631\u064a \u0627\u0644\u062d\u0641\u0638...');
+  if(total<=0){alert('الإجمالي 0 — أدخل مبلغاً');return}
+  showSpinner('جاري الحفظ...');
   const now=new Date().toISOString();
   let custId=invCustId;
   if(!custId){
     custId=crypto.randomUUID();
-    const name=invCustName||('\u0632\u0628\u0648\u0646 #'+window._currentInvNum);
-    await db.put('customers',{id:custId,merchant_id:SESSION.merchant_id,name,phone:'',created_at:now});
-    await addToQueue('add_customer',{local_id:custId,name,phone:'',created_at:now});
+    const custName=invCustName||('زبون #'+window._currentInvNum);
+    await db.put('customers',{id:custId,merchant_id:SESSION.merchant_id,
+      name:custName,phone:invCustPhone,created_at:now});
+    await addToQueue('add_customer',{local_id:custId,name:custName,
+      phone:invCustPhone,created_at:now});
     invCustId=custId;
   }
   const invId=crypto.randomUUID();
-  const taxRate=invTaxOn?getTaxRate():0;
-  const taxAmt=invTaxOn?total*(taxRate/(100+taxRate)):0;
-  const invData={id:invId,merchant_id:SESSION.merchant_id,customer_id:custId,inv_num:window._currentInvNum,total,tax_enabled:invTaxOn,tax_rate:taxRate,tax_amount:taxAmt,status:'\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639',created_at:now};
+  const rate=invTaxOn?getTaxRate():0;
+  const taxAmt=invTaxOn?total*(rate/100):0;
+  const grandTotal=invTaxOn?total+taxAmt:total;
+  const invData={id:invId,merchant_id:SESSION.merchant_id,customer_id:custId,
+    inv_num:window._currentInvNum,total:grandTotal,
+    tax_enabled:invTaxOn,tax_rate:rate,tax_amount:taxAmt,
+    status:'غير مدفوع',created_at:now};
   await db.put('invoices',invData);
-  await addToQueue('add_invoice',{...invData,lines:invLines});
-  // حفظ أسطر الفاتورة
+  await addToQueue('add_invoice',{...invData,lines:activeLines});
   for(const line of activeLines){
-    const lineId=crypto.randomUUID();
-    await db.put('inv_lines',{id:lineId,invoice_id:invId,merchant_id:SESSION.merchant_id,amount:line.amount,category:line.category,created_at:now});
+    await db.put('inv_lines',{id:crypto.randomUUID(),invoice_id:invId,
+      merchant_id:SESSION.merchant_id,amount:line.amount,
+      category:line.category,created_at:now});
   }
+  // إزالة الفاتورة من المعلقة
+  heldInvoices.splice(activeInvIdx,1);
+  activeInvIdx=Math.max(0,activeInvIdx-1);
   calcStr='';renderCalc();
   hideSpinner();
   if(navigator.onLine)doSync();
   closeInvSheet();
-  if(sendWA)sendInvWA(invData,invLines,invCustName);
+  if(sendWA)sendInvWA(invData,activeLines,invCustName,invCustPhone);
   await openCustomer(custId);
 }
 
-function sendInvWA(inv,lines,custName){
-  lines=lines.filter(l=>l.amount>0);
-  const phone=(currentCustomer?.phone||'').replace(/^0/,'970').replace(/\D/g,'');
-  if(!phone){alert('\u0645\u0627 \u0641\u064a \u0631\u0642\u0645 \u062c\u0648\u0627\u0644');return}
-  const shop=localStorage.getItem('gz_shop')||'\u0627\u0644\u0645\u062d\u0644';
-  let msg=shop+'\n\u0641\u0627\u062a\u0648\u0631\u0629 #'+inv.inv_num+'\n\u0627\u0644\u062a\u0627\u0631\u064a\u062e: '+new Date(inv.created_at).toLocaleDateString('ar-EG')+'\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n';
-  lines.forEach((l,i)=>{msg+='\u202f'+(i+1)+'. '+l.category+': '+l.amount.toFixed(0)+' '+CUR+'\n';});
-  msg+='\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\u0627\u0644\u0625\u062c\u0645\u0627\u0644\u064a: '+inv.total.toFixed(0)+' '+CUR;
-  if(inv.tax_enabled)msg+='\n\u0645\u0646\u0647\u0627 \u0636\u0631\u064a\u0628\u0629 ('+inv.tax_rate+'%): '+inv.tax_amount.toFixed(2)+' '+CUR;
-  window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank');
+function sendInvWA(inv,lines,custName,phone){
+  if(!phone){
+    const p=prompt('أدخل رقم جوال الزبون لإرسال الفاتورة:');
+    if(!p)return;
+    phone=p;
+  }
+  const waPhone=phone.replace(/^0/,'970').replace(/\D/g,'');
+  const shop=localStorage.getItem('gz_shop')||'المحل';
+  let msg=shop+'\n'+(inv.tax_enabled?'فاتورة ضريبية':'فاتورة')+' #'+inv.inv_num;
+  msg+='\n'+new Date(inv.created_at).toLocaleDateString('ar-EG');
+  msg+='\n───────────────\n';
+  lines.forEach((l,i)=>{msg+=`${i+1}. ${l.category||'مبيعات'}: ${l.amount.toFixed(0)} ${CUR}\n`;});
+  msg+='───────────────\n';
+  if(inv.tax_enabled){
+    const sub=lines.reduce((s,l)=>s+l.amount,0);
+    msg+=`قبل الضريبة: ${sub.toFixed(0)} ${CUR}\n`;
+    msg+=`الضريبة (${inv.tax_rate}%): ${inv.tax_amount.toFixed(2)} ${CUR}\n`;
+  }
+  msg+=`الإجمالي: ${inv.total.toFixed(0)} ${CUR}`;
+  window.open('https://wa.me/'+waPhone+'?text='+encodeURIComponent(msg),'_blank');
 }
 
-// ── Customer Detail ──────────────────────────────────────────────
+// ── تفاصيل الزبون ────────────────────────────────────────────────
 async function openCustomer(id){
   const all=await db.getAll('customers');
   const cust=all.find(c=>c.id===id);if(!cust)return;
   currentCustomer=cust;
-  let allInvoices=[];try{allInvoices=await db.getAll('invoices');}catch(e){}
-  let allTx=[];try{allTx=await db.getAll('transactions');}catch(e){}
-  const custInv=allInvoices.filter(i=>i.customer_id===id).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-  const custTx=allTx.filter(t=>t.customer_id===id).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  let allInv=[];try{allInv=await db.getAll('invoices');}catch(e){}
+  const custInv=allInv.filter(i=>i.customer_id===id)
+    .sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
   let balance=0;
-  custInv.forEach(i=>{if(i.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||i.status==='\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631')balance+=(i.total||0);});
-  custTx.forEach(t=>{if(t.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639')balance+=t.amount;else if(t.status==='\u0645\u062f\u0641\u0648\u0639 \u062c\u0632\u0626\u064a\u0627\u064b')balance+=(t.remaining||t.amount);});
+  custInv.forEach(i=>{if(i.status==='غير مدفوع')balance+=(i.total||0);});
   document.getElementById('cust-title').textContent=cust.name;
   document.getElementById('cust-name-big').textContent=cust.name;
-  document.getElementById('cust-phone-lbl').textContent=cust.phone||'\u0628\u062f\u0648\u0646 \u0631\u0642\u0645 \u062c\u0648\u0627\u0644';
+  document.getElementById('cust-phone-lbl').textContent=cust.phone||'بدون رقم جوال';
   const balEl=document.getElementById('cust-balance');
   balEl.style.color=balance>0?'var(--red)':'var(--grn)';
-  balEl.textContent=balance>0?balance.toFixed(0)+' '+CUR:'\u0645\u0633\u0648\u0651\u0649 \u2713';
+  balEl.textContent=balance>0?balance.toFixed(0)+' '+CUR:'مسوَّى ✓';
   document.querySelector('.cust-actions').style.display=balance>0?'flex':'none';
   const el=document.getElementById('cust-tx-list');
-  const allItems=[...custInv.map(i=>({...i,_type:'inv'})),...custTx.map(t=>({...t,_type:'tx'}))].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-  if(!allItems.length){el.innerHTML='<div class="empty"><div class="icon">\uD83D\uDCCB</div><p>\u0644\u0627 \u062a\u0648\u062c\u062f \u0645\u0639\u0627\u0645\u0644\u0627\u062a</p></div>';showScreen('s-cust');return}
-  el.innerHTML=allItems.map(item=>{
-    const d=new Date(item.created_at),ds=d.toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'});
-    if(item._type==='inv'){
-      const isPaid=item.status==='\u0645\u062f\u0641\u0648\u0639';
-      const isPend=item.status==='\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631';
-      const icon=isPaid?'\u2705':isPend?'\u23F3':'\uD83D\uDD34';
-      const cls=isPaid?'tx-pay':isPend?'tx-pending':'tx-debt';
-      return '<div class="tx-item"><div class="tx-left"><div class="tx-desc">'+icon+' <span style="font-size:12px;color:var(--pri)">#'+item.inv_num+'</span> \u0641\u0627\u062a\u0648\u0631\u0629</div><div class="tx-date">'+ds+(item.tax_enabled?' \u00b7 \u0636\u0631\u064a\u0628\u0629 '+item.tax_rate+'%':'')+'</div></div><div class="tx-amt '+cls+'">'+item.total.toFixed(0)+' '+CUR+'</div></div>';
-    }else{
-      const isPay=item.type==='payment';
-      const icon=item.status==='\u0645\u062f\u0641\u0648\u0639'?'\u2705':'\uD83D\uDD34';
-      return '<div class="tx-item"><div class="tx-left"><div class="tx-desc">'+icon+' '+(item.description||'\u062f\u064a\u0646')+'</div><div class="tx-date">'+ds+'</div></div><div class="tx-amt '+(isPay?'tx-pay':'tx-debt')+'">'+(isPay?'-':'+')+' '+item.amount.toFixed(0)+' '+CUR+'</div></div>';
-    }
+  if(!custInv.length){
+    el.innerHTML='<div class="empty"><div class="icon">📋</div><p>لا توجد معاملات</p></div>';
+    showScreen('s-cust');return;
+  }
+  el.innerHTML=custInv.map(inv=>{
+    const d=new Date(inv.created_at);
+    const ds=d.toLocaleDateString('ar-EG',{day:'numeric',month:'short',year:'numeric'});
+    const isPaid=inv.status==='مدفوع';
+    const icon=isPaid?'✅':'🔴';
+    const cls=isPaid?'tx-pay':'tx-debt';
+    return `<div class="tx-item">
+      <div class="tx-left">
+        <div class="tx-desc">${icon} فاتورة #${inv.inv_num}${inv.tax_enabled?' · ضريبية':''}</div>
+        <div class="tx-date">${ds}</div>
+      </div>
+      <div class="tx-amt ${cls}">${inv.total.toFixed(0)} ${CUR}</div>
+    </div>`;
   }).join('');
   showScreen('s-cust');
 }
 
 function addDebtForCust(){
   if(!currentCustomer)return;
-  invCustId=currentCustomer.id;invCustName=currentCustomer.name;
+  invCustId=currentCustomer.id;
+  invCustName=currentCustomer.name;
+  invCustPhone=currentCustomer.phone||'';
   calcStr='';renderCalc();openCalc();
 }
 
-// ── Pay ─────────────────────────────────────────────────────────
+// ── كشف الحساب ───────────────────────────────────────────────────
+async function sendAccountStatement(){
+  if(!currentCustomer)return;
+  let phone=currentCustomer.phone;
+  if(!phone){phone=prompt('أدخل رقم جوال الزبون:');if(!phone)return;}
+  const waPhone=phone.replace(/^0/,'970').replace(/\D/g,'');
+  let allInv=[];try{allInv=await db.getAll('invoices');}catch(e){}
+  const custInv=allInv.filter(i=>i.customer_id===currentCustomer.id)
+    .sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
+  const shop=localStorage.getItem('gz_shop')||'المحل';
+  let msg=`كشف حساب — ${shop}\n`;
+  msg+=`الزبون: ${currentCustomer.name}\n`;
+  msg+=`بتاريخ: ${new Date().toLocaleDateString('ar-EG')}\n`;
+  msg+=`───────────────\n`;
+  let totalOwed=0;
+  custInv.forEach(inv=>{
+    const st=inv.status==='مدفوع'?'✓ مدفوع':'⬤ معلق';
+    msg+=`#${inv.inv_num} — ${inv.total.toFixed(0)} ${CUR} — ${st}\n`;
+    if(inv.status==='غير مدفوع')totalOwed+=inv.total;
+  });
+  msg+=`───────────────\n`;
+  msg+=`الرصيد المستحق: ${totalOwed.toFixed(0)} ${CUR}`;
+  window.open('https://wa.me/'+waPhone+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+async function sendPaymentInfo(){
+  if(!currentCustomer)return;
+  let phone=currentCustomer.phone;
+  if(!phone){phone=prompt('أدخل رقم جوال الزبون:');if(!phone)return;}
+  const waPhone=phone.replace(/^0/,'970').replace(/\D/g,'');
+  const shop=localStorage.getItem('gz_shop')||'المحل';
+  const shopPhone=localStorage.getItem('gz_phone')||'';
+  const bal=document.getElementById('cust-balance').textContent;
+  let msg=`مرحباً ${currentCustomer.name}،\n`;
+  msg+=`رصيدك المستحق لـ ${shop}: ${bal}\n`;
+  msg+=`───────────────\n`;
+  msg+=`لإتمام الدفع، يرجى التحويل على:\n📱 ${shopPhone}\n`;
+  msg+=`شكراً لتعاملكم معنا 🙏`;
+  window.open('https://wa.me/'+waPhone+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+// ── Pay ──────────────────────────────────────────────────────────
 async function payFull(){
   if(!currentCustomer)return;
-  let allInvoices=[];try{allInvoices=await db.getAll('invoices');}catch(e){}
-  let allTx=[];try{allTx=await db.getAll('transactions');}catch(e){}
-  const pendInv=allInvoices.filter(i=>i.customer_id===currentCustomer.id&&(i.status==='غير مدفوع'||i.status==='في الانتظار'));
-  const pendTx=allTx.filter(t=>t.customer_id===currentCustomer.id&&(t.status==='غير مدفوع'||t.status==='مدفوع جزئياً'));
-  const total=pendInv.reduce((s,i)=>s+(i.total||0),0)+pendTx.reduce((s,t)=>s+(t.status==='مدفوع جزئياً'?(t.remaining||t.amount):t.amount),0);
-  if(!total){alert('لا توجد ديون');return}
-  if(!confirm('تسجيل دفع '+total.toFixed(0)+' '+CUR+' من '+currentCustomer.name+' — سيبقى في الانتظار حتى تأكيد كشف البنك'))return;
-  showSpinner('جاري...');
+  let allInv=[];try{allInv=await db.getAll('invoices');}catch(e){}
+  const pending=allInv.filter(i=>i.customer_id===currentCustomer.id&&i.status==='غير مدفوع');
+  if(!pending.length){alert('لا توجد ديون معلقة');return}
+  const total=pending.reduce((s,i)=>s+(i.total||0),0);
+  if(!confirm(`تأكيد استلام ${total.toFixed(0)} ${CUR} من ${currentCustomer.name}؟`))return;
+  showSpinner('جاري التسجيل...');
   const now=new Date().toISOString();
-  // يصبح "في الانتظار" حتى تأكيد كشف البنك
-  for(const inv of pendInv){
-    await db.put('invoices',{...inv,status:'في الانتظار',paid_at:now});
-    await addToQueue('update_invoice',{id:inv.id,status:'في الانتظار',paid_at:now});
+  for(const inv of pending){
+    await db.put('invoices',{...inv,status:'مدفوع',paid_at:now});
+    await addToQueue('update_invoice',{id:inv.id,status:'مدفوع',paid_at:now});
   }
-  for(const t of pendTx){
-    await db.put('transactions',{...t,status:'في الانتظار',paid_at:now});
-    await addToQueue('update_tx',{id:t.id,status:'في الانتظار',paid_at:now});
-  }
-  hideSpinner();if(navigator.onLine)doSync();sendThanks(total);await openCustomer(currentCustomer.id);
+  hideSpinner();
+  if(navigator.onLine)doSync();
+  sendThanks(total);
+  await openCustomer(currentCustomer.id);
 }
 
-function openPartialPay(){partialAmountStr='0';document.getElementById('partial-display').textContent='0';document.getElementById('m-partial').classList.add('open')}
-function partialKey(k){if(k==='.'&&partialAmountStr.includes('.'))return;if(partialAmountStr==='0'&&k!=='.')partialAmountStr=k;else partialAmountStr+=k;if(partialAmountStr.length>8)partialAmountStr=partialAmountStr.slice(0,-1);document.getElementById('partial-display').textContent=partialAmountStr}
-function partialDel(){partialAmountStr=partialAmountStr.length>1?partialAmountStr.slice(0,-1):'0';document.getElementById('partial-display').textContent=partialAmountStr}
+function openPartialPay(){
+  partialAmountStr='0';
+  document.getElementById('partial-display').textContent='0';
+  document.getElementById('m-partial').classList.add('open');
+}
+function partialKey(k){
+  if(k==='.'&&partialAmountStr.includes('.'))return;
+  if(partialAmountStr==='0'&&k!=='.')partialAmountStr=k;
+  else partialAmountStr+=k;
+  if(partialAmountStr.length>8)partialAmountStr=partialAmountStr.slice(0,-1);
+  document.getElementById('partial-display').textContent=partialAmountStr;
+}
+function partialDel(){
+  partialAmountStr=partialAmountStr.length>1?partialAmountStr.slice(0,-1):'0';
+  document.getElementById('partial-display').textContent=partialAmountStr;
+}
 async function savePartial(){
-  const paid=parseFloat(partialAmountStr);if(!paid||paid<=0){alert('\u0627\u062f\u062e\u0644 \u0645\u0628\u0644\u063a\u0627\u064b');return}
+  const paid=parseFloat(partialAmountStr);
+  if(!paid||paid<=0){alert('أدخل مبلغاً صحيحاً');return}
   if(!currentCustomer)return;
   document.getElementById('m-partial').classList.remove('open');
-  showSpinner('...');
+  showSpinner('جاري التسجيل...');
+  let allInv=[];try{allInv=await db.getAll('invoices');}catch(e){}
+  const pending=allInv.filter(i=>i.customer_id===currentCustomer.id&&i.status==='غير مدفوع')
+    .sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
   const now=new Date().toISOString();
-  let allInvoices=[];try{allInvoices=await db.getAll('invoices');}catch(e){}
-  const pendInv=allInvoices.filter(i=>i.customer_id===currentCustomer.id&&(i.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639'||i.status==='\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631')).sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
   let rem=paid;
-  for(const inv of pendInv){
+  for(const inv of pending){
     if(rem<=0)break;
-    const owed=inv.total||0;
-    if(rem>=owed){await db.put('invoices',{...inv,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});await addToQueue('update_invoice',{id:inv.id,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});rem-=owed;}
-    else{await db.put('invoices',{...inv,status:'\u0641\u064a \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631',remaining:owed-rem,paid_at:now});rem=0;}
+    if(rem>=inv.total){
+      await db.put('invoices',{...inv,status:'مدفوع',paid_at:now});
+      await addToQueue('update_invoice',{id:inv.id,status:'مدفوع',paid_at:now});
+      rem-=inv.total;
+    }else{
+      // فاتورة مدفوعة جزئياً — تبقى معلقة بالمبلغ المتبقي
+      const newTotal=inv.total-rem;
+      await db.put('invoices',{...inv,total:newTotal,partial_paid:rem,paid_at:now});
+      await addToQueue('update_invoice',{id:inv.id,total:newTotal,partial_paid:rem});
+      rem=0;
+    }
   }
-  const pid=crypto.randomUUID();
-  await db.put('transactions',{id:pid,merchant_id:SESSION.merchant_id,customer_id:currentCustomer.id,amount:paid,description:'\u062f\u0641\u0639 \u062c\u0632\u0626\u064a',status:'\u0645\u062f\u0641\u0648\u0639',type:'payment',created_at:now});
-  await addToQueue('add_tx',{local_id:pid,customer_id:currentCustomer.id,amount:paid,description:'\u062f\u0641\u0639 \u062c\u0632\u0626\u064a',status:'\u0645\u062f\u0641\u0648\u0639',type:'payment',created_at:now});
-  hideSpinner();if(navigator.onLine)doSync();sendThanks(paid);await openCustomer(currentCustomer.id);
+  hideSpinner();
+  if(navigator.onLine)doSync();
+  sendThanks(paid);
+  await openCustomer(currentCustomer.id);
 }
 
-// ── WhatsApp ────────────────────────────────────────────────────
+// ── WhatsApp ─────────────────────────────────────────────────────
 function sendReminder(){
-  if(!currentCustomer?.phone){alert('\u0645\u0627 \u0641\u064a \u0631\u0642\u0645 \u062c\u0648\u0627\u0644');return}
+  if(!currentCustomer?.phone){alert('ما في رقم جوال');return}
   const phone=currentCustomer.phone.replace(/^0/,'970').replace(/\D/g,'');
-  const shop=localStorage.getItem('gz_shop')||'\u0627\u0644\u0645\u062d\u0644';
+  const shop=localStorage.getItem('gz_shop')||'المحل';
   const bal=document.getElementById('cust-balance').textContent;
-  window.open('https://wa.me/'+phone+'?text='+encodeURIComponent('\u0627\u0644\u0633\u0644\u0627\u0645 \u0639\u0644\u064a\u0643\u0645 '+currentCustomer.name+',\n\u062a\u0630\u0643\u064a\u0631 \u0648\u062f\u064a \u0645\u0646 '+shop+'.\n\u0631\u0635\u064a\u062f\u0643: '+bal),'_blank');
+  const msg=`السلام عليكم ${currentCustomer.name}،\nتذكير ودّي من ${shop}.\nرصيدك المستحق: ${bal}\nبارك الله فيك`;
+  window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank');
 }
 function sendThanks(amount){
   if(!currentCustomer?.phone)return;
   const phone=currentCustomer.phone.replace(/^0/,'970').replace(/\D/g,'');
-  const shop=localStorage.getItem('gz_shop')||'\u0627\u0644\u0645\u062d\u0644';
-  if(confirm('\u0625\u0631\u0633\u0627\u0644 \u0634\u0643\u0631 \u0639\u0644\u0649 \u0648\u0627\u062a\u0633\u0627\u0628\u061f'))
-    window.open('https://wa.me/'+phone+'?text='+encodeURIComponent('\u0634\u0643\u0631\u0627\u064b '+currentCustomer.name+',\n\u062a\u0645 \u0627\u0633\u062a\u0644\u0627\u0645 '+amount.toFixed(0)+' '+CUR+' \u2713\n'+shop),'_blank');
+  const shop=localStorage.getItem('gz_shop')||'المحل';
+  const msg=`شكراً ${currentCustomer.name}،\nتم استلام ${amount.toFixed(0)} ${CUR} ✓\nشكراً لتعاملكم مع ${shop}`;
+  if(confirm('إرسال شكر للزبون على واتساب؟'))
+    window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank');
 }
 
-// ── Bank ────────────────────────────────────────────────────────
-function autoMatchBank(){const t=document.getElementById('bank-text').value;if(!t||t.length<20){document.getElementById('bank-results').innerHTML='';return}parseAndMatch(t)}
+// ── مطابقة البنك ──────────────────────────────────────────────────
+function autoMatchBank(){
+  const t=document.getElementById('bank-text').value;
+  if(!t||t.length<10){document.getElementById('bank-results').innerHTML='';return}
+  parseAndMatch(t);
+}
 async function parseAndMatch(text){
-  const amounts=[];const rx=/(\d+(?:\.\d+)?)\s*(?:\u0634\u064a\u0643\u0644|\u20AA|ILS|NIS)/gi;let m;
-  while((m=rx.exec(text))!==null){const a=parseFloat(m[1]);if(a>0&&a<100000)amounts.push(a);}
-  if(!amounts.length){document.getElementById('bank-results').innerHTML='<div style="padding:20px;text-align:center;color:var(--txt3)">\u0644\u0645 \u0623\u062c\u062f \u0645\u0628\u0627\u0644\u063a</div>';return}
-  let allInvoices=[];try{allInvoices=await db.getAll('invoices');}catch(e){}
+  // استخراج المبالغ
+  const amounts=[];
+  const rx=/(\d+(?:\.\d+)?)\s*(?:شيكل|₪|ILS|NIS)/gi;
+  let m;
+  while((m=rx.exec(text))!==null){
+    const a=parseFloat(m[1]);
+    if(a>0&&a<100000)amounts.push(a);
+  }
+  if(!amounts.length){
+    document.getElementById('bank-results').innerHTML=
+      '<div style="padding:20px;text-align:center;color:var(--txt3)">لم أجد مبالغ في النص</div>';
+    return;
+  }
+  let allInv=[];try{allInv=await db.getAll('invoices');}catch(e){}
   const custAll=await db.getAll('customers');
-  const pending=allInvoices.filter(i=>i.merchant_id===SESSION.merchant_id&&i.status==='\u063a\u064a\u0631 \u0645\u062f\u0641\u0648\u0639');
-  let html='<div style="padding:8px 16px 4px;font-size:13px;color:var(--txt3)">\u0646\u062a\u0627\u0626\u062c: '+amounts.length+' \u062d\u0631\u0643\u0629</div>';
+  const pending=allInv.filter(i=>i.merchant_id===SESSION.merchant_id&&i.status==='غير مدفوع');
+  let html=`<div class="sec-hdr">نتائج: ${amounts.length} حركة</div>`;
   amounts.forEach((amt,i)=>{
     const match=pending.find(inv=>Math.abs((inv.total||0)-amt)<0.5);
     const cust=match?custAll.find(c=>c.id===match.customer_id):null;
-    html+='<div class="match-card"><div class="match-head">\u062d\u0631\u0643\u0629 '+(i+1)+': '+amt.toFixed(0)+' '+CUR+'</div><div class="match-body">'+(match&&cust?'<div class="match-row"><span class="match-lbl">\u064a\u0637\u0627\u0628\u0642:</span><span class="match-val">'+cust.name+'</span></div>':'<div style="color:var(--txt3)">\u0644\u0645 \u0623\u062c\u062f \u0645\u0637\u0627\u0628\u0642</div>')+'</div>'+(match&&cust?'<div class="match-btns"><button class="mbtn mbtn-ok" onclick="confirmMatch(\''+match.id+'\')">\u062a\u0623\u0643\u064a\u062f</button><button class="mbtn mbtn-no">\u062a\u062c\u0627\u0647\u0644</button></div>':'')+'</div>';
+    html+=`<div class="match-card">
+      <div class="match-head">حركة ${i+1}: ${amt.toFixed(0)} ${CUR}</div>
+      <div class="match-body">
+        ${match&&cust
+          ?`<div class="match-row"><span class="match-lbl">يطابق:</span>
+              <span class="match-val">${cust.name}</span></div>`
+          :'<div style="font-size:15px;color:var(--txt3)">لم أجد زبون مطابق</div>'}
+      </div>
+      ${match&&cust?`<div class="match-btns">
+        <button class="mbtn mbtn-ok" onclick="confirmMatch('${match.id}')">تأكيد</button>
+        <button class="mbtn mbtn-no" onclick="this.closest('.match-card').remove()">تجاهل</button>
+      </div>`:''}
+    </div>`;
   });
   document.getElementById('bank-results').innerHTML=html;
 }
 async function confirmMatch(invId){
-  showSpinner('...');const now=new Date().toISOString();
+  showSpinner('...');
+  const now=new Date().toISOString();
   let inv=null;try{inv=await db.get('invoices',invId);}catch(e){}
-  if(inv){await db.put('invoices',{...inv,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});await addToQueue('update_invoice',{id:invId,status:'\u0645\u062f\u0641\u0648\u0639',paid_at:now});}
-  hideSpinner();if(navigator.onLine)doSync();
+  if(inv){
+    await db.put('invoices',{...inv,status:'مدفوع',paid_at:now});
+    await addToQueue('update_invoice',{id:invId,status:'مدفوع',paid_at:now});
+  }
+  hideSpinner();
+  if(navigator.onLine)doSync();
   document.getElementById('bank-text').value='';
-  document.getElementById('bank-results').innerHTML='<div style="padding:24px;text-align:center"><div style="font-size:3em">\u2705</div><div style="font-size:18px;font-weight:800;color:var(--grn);margin-top:12px">\u062a\u0645 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u0641\u0639\u0629</div></div>';
+  document.getElementById('bank-results').innerHTML=
+    '<div style="padding:24px;text-align:center"><div style="font-size:3em">✅</div>'
+    +'<div style="font-size:18px;font-weight:800;color:var(--grn);margin-top:12px">تم تسجيل الدفعة</div></div>';
   setTimeout(()=>showTab('home'),1500);
 }
 
-// ── Settings ────────────────────────────────────────────────────
+// ── الإعدادات ─────────────────────────────────────────────────────
 function openSettings(){
-  const shop=localStorage.getItem('gz_shop')||'',owner=localStorage.getItem('gz_owner')||'',phone=localStorage.getItem('gz_phone')||'';
-  document.getElementById('settings-shop').textContent=shop;
-  document.getElementById('settings-phone').textContent=owner?owner+' \u2014 '+phone:phone;
+  document.getElementById('settings-shop').textContent =localStorage.getItem('gz_shop')||'';
+  const owner=localStorage.getItem('gz_owner')||'';
+  const phone=localStorage.getItem('gz_phone')||'';
+  document.getElementById('settings-phone').textContent=owner?owner+' — '+phone:phone;
   document.getElementById('tax-rate-input').value=getTaxRate();
   showScreen('s-settings');
 }
 function doLogout(){
-  if(!confirm('\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062e\u0631\u0648\u062c\u061f\n\n\u0628\u064a\u0627\u0646\u0627\u062a\u0643 \u0645\u062d\u0641\u0648\u0638\u0629 \u0639\u0644\u0649 \u0627\u0644\u0633\u062d\u0627\u0628\u0629 \u0648\u0633\u062a\u064f\u0633\u062a\u0639\u0627\u062f \u0639\u0646\u062f \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644.'))return;
-  localStorage.removeItem('gz_session');SESSION=null;showScreen('s-login');
+  if(!confirm('تسجيل الخروج؟\n\nبياناتك محفوظة على الجهاز.'))return;
+  localStorage.removeItem('gz_session');
+  SESSION=null;showScreen('s-login');
 }
 
-// ── Forgot/Change PIN ────────────────────────────────────────────
+// ── نسيت الرقم / تغييره ──────────────────────────────────────────
 let forgotMerchantId=null;
-function openForgotPin(){['forgot-step-1','forgot-step-2','forgot-step-3'].forEach((id,i)=>document.getElementById(id).style.display=i===0?'block':'none');document.getElementById('forgot-err').style.display='none';document.getElementById('forgot-otp').value='';document.getElementById('forgot-new-pin').value='';document.getElementById('forgot-phone').value=localStorage.getItem('gz_phone')||'';document.getElementById('m-forgot-pin').classList.add('open')}
+function openForgotPin(){
+  document.getElementById('forgot-step-1').style.display='block';
+  document.getElementById('forgot-step-2').style.display='none';
+  document.getElementById('forgot-step-3').style.display='none';
+  document.getElementById('forgot-err').classList.remove('show');
+  document.getElementById('forgot-phone').value=localStorage.getItem('gz_phone')||'';
+  document.getElementById('m-forgot-pin').classList.add('open');
+}
 function closeForgotPin(){document.getElementById('m-forgot-pin').classList.remove('open')}
-async function sendForgotOTP(){const phone=document.getElementById('forgot-phone').value.trim(),errEl=document.getElementById('forgot-err');if(!phone){errEl.textContent='\u0627\u062f\u062e\u0644 \u0631\u0642\u0645 \u0627\u0644\u062c\u0648\u0627\u0644';errEl.style.display='block';return}if(!navigator.onLine){errEl.textContent='\u064a\u062d\u062a\u0627\u062c \u0627\u062a\u0635\u0627\u0644\u0627\u064b';errEl.style.display='block';return}errEl.style.display='none';showSpinner('...');try{const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'gen_otp',phone})});const d=await res.json();hideSpinner();if(d.error){errEl.textContent=d.error;errEl.style.display='block';return}forgotMerchantId=d.merchant_id;document.getElementById('forgot-step-1').style.display='none';document.getElementById('forgot-step-2').style.display='block';}catch(e){hideSpinner();errEl.textContent='\u062a\u0639\u0630\u0651\u0631 \u0627\u0644\u0627\u062a\u0635\u0627\u0644';errEl.style.display='block'}}
-async function confirmForgotPin(){const otp=document.getElementById('forgot-otp').value.trim(),newPin=document.getElementById('forgot-new-pin').value.trim(),errEl=document.getElementById('forgot-err2');if(otp.length<4){errEl.textContent='\u0627\u062f\u062e\u0644 \u0631\u0645\u0632 \u0627\u0644\u062a\u062d\u0642\u0642';errEl.style.display='block';return}if(newPin.length<6){errEl.textContent='6 \u0623\u0631\u0642\u0627\u0645';errEl.style.display='block';return}errEl.style.display='none';showSpinner('...');try{const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'verify_otp',merchant_id:forgotMerchantId,otp})});const d1=await r1.json();if(d1.error||!d1.ok){hideSpinner();errEl.textContent='\u0631\u0645\u0632 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d';errEl.style.display='block';return}const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'set_pin',merchant_id:forgotMerchantId,pin:newPin})});const d2=await r2.json();hideSpinner();if(d2.error){errEl.textContent=d2.error;errEl.style.display='block';return}document.getElementById('forgot-step-2').style.display='none';document.getElementById('forgot-step-3').style.display='block';}catch(e){hideSpinner();errEl.textContent='\u062a\u0639\u0630\u0651\u0631';errEl.style.display='block'}}
-function openChangePin(){['pin-old','pin-new1','pin-new2'].forEach(id=>document.getElementById(id).value='');document.getElementById('pin-err').style.display='none';document.getElementById('pin-step-1').style.display='block';document.getElementById('pin-step-2').style.display='none';document.getElementById('m-change-pin').classList.add('open')}
+async function sendForgotOTP(){
+  const phone=document.getElementById('forgot-phone').value.trim();
+  if(!phone){showErr('forgot-err','أدخل رقم الجوال');return}
+  if(!navigator.onLine){showErr('forgot-err','يحتاج اتصالاً بالإنترنت');return}
+  showSpinner('جاري إرسال الرمز...');
+  try{
+    const res=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'gen_otp',phone})});
+    const d=await res.json();hideSpinner();
+    if(d.error){showErr('forgot-err',d.error);return}
+    forgotMerchantId=d.merchant_id;
+    document.getElementById('forgot-step-1').style.display='none';
+    document.getElementById('forgot-step-2').style.display='block';
+  }catch(e){hideSpinner();showErr('forgot-err','تعذّر الاتصال')}
+}
+async function confirmForgotPin(){
+  const otp   =document.getElementById('forgot-otp').value.trim();
+  const newPin=document.getElementById('forgot-new-pin').value.trim();
+  if(otp.length<4)   {showErr('forgot-err2','أدخل رمز التحقق');return}
+  if(newPin.length<6){showErr('forgot-err2','الرقم الجديد 6 أرقام');return}
+  showSpinner('...');
+  try{
+    const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'verify_otp',merchant_id:forgotMerchantId,otp})});
+    const d1=await r1.json();
+    if(!d1.ok){hideSpinner();showErr('forgot-err2','رمز غير صحيح');return}
+    const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'set_pin',merchant_id:forgotMerchantId,pin:newPin})});
+    const d2=await r2.json();hideSpinner();
+    if(d2.error){showErr('forgot-err2',d2.error);return}
+    // تحديث الـ hash المحلي
+    const h=await hashPin(newPin,forgotMerchantId);
+    localStorage.setItem('gz_pin_hash',h);
+    document.getElementById('forgot-step-2').style.display='none';
+    document.getElementById('forgot-step-3').style.display='block';
+  }catch(e){hideSpinner();showErr('forgot-err2','تعذّر الاتصال')}
+}
+function openChangePin(){
+  ['pin-old','pin-new1','pin-new2'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pin-err').classList.remove('show');
+  document.getElementById('pin-step-1').style.display='block';
+  document.getElementById('pin-step-2').style.display='none';
+  document.getElementById('m-change-pin').classList.add('open');
+}
 function closeChangePin(){document.getElementById('m-change-pin').classList.remove('open')}
-async function saveNewPin(){const old=document.getElementById('pin-old').value.trim(),n1=document.getElementById('pin-new1').value.trim(),n2=document.getElementById('pin-new2').value.trim();if(old.length<4){showPinErr('\u0627\u062f\u062e\u0644 \u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062d\u0627\u0644\u064a');return}if(n1.length<6){showPinErr('6 \u0623\u0631\u0642\u0627\u0645');return}if(n1!==n2){showPinErr('\u063a\u064a\u0631 \u0645\u062a\u0637\u0627\u0628\u0642\u064a\u0646');return}if(n1===old){showPinErr('\u0646\u0641\u0633 \u0627\u0644\u0631\u0642\u0645');return}if(!navigator.onLine){showPinErr('\u064a\u062d\u062a\u0627\u062c \u0627\u062a\u0635\u0627\u0644\u0627\u064b');return}showSpinner('...');try{const phone=localStorage.getItem('gz_phone')||SESSION?.phone;const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',phone,pin:old})});const d1=await r1.json();if(!d1.ok){hideSpinner();showPinErr('\u0627\u0644\u0631\u0642\u0645 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d');return}const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'set_pin',merchant_id:SESSION.merchant_id,pin:n1})});const d2=await r2.json();hideSpinner();if(d2.error){showPinErr(d2.error);return}document.getElementById('pin-step-1').style.display='none';document.getElementById('pin-step-2').style.display='block';}catch(e){hideSpinner();showPinErr('\u062a\u0639\u0630\u0651\u0631')}}
-function showPinErr(msg){const e=document.getElementById('pin-err');e.textContent=msg;e.style.display='block'}
+async function saveNewPin(){
+  const old=document.getElementById('pin-old').value.trim();
+  const n1 =document.getElementById('pin-new1').value.trim();
+  const n2 =document.getElementById('pin-new2').value.trim();
+  if(old.length<4){showPinErr('أدخل الرقم الحالي');return}
+  if(n1.length<6) {showPinErr('الرقم الجديد 6 أرقام');return}
+  if(n1!==n2)     {showPinErr('الرقمان غير متطابقين');return}
+  if(n1===old)    {showPinErr('الرقم الجديد نفس القديم');return}
+  if(!navigator.onLine){showPinErr('يحتاج اتصالاً بالإنترنت');return}
+  showSpinner('...');
+  try{
+    const phone=localStorage.getItem('gz_phone')||SESSION?.phone;
+    const r1=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'login',phone,pin:old})});
+    const d1=await r1.json();
+    if(!d1.ok){hideSpinner();showPinErr('الرقم الحالي غير صحيح');return}
+    const r2=await fetch(LOGIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'set_pin',merchant_id:SESSION.merchant_id,pin:n1})});
+    const d2=await r2.json();hideSpinner();
+    if(d2.error){showPinErr(d2.error);return}
+    // تحديث الـ hash المحلي بالرقم الجديد
+    const h=await hashPin(n1,SESSION.merchant_id);
+    localStorage.setItem('gz_pin_hash',h);
+    document.getElementById('pin-step-1').style.display='none';
+    document.getElementById('pin-step-2').style.display='block';
+  }catch(e){hideSpinner();showPinErr('تعذّر الاتصال')}
+}
+function showPinErr(msg){showErr('pin-err',msg)}
 
-// ── Init ─────────────────────────────────────────────────────────
+// ── Init ──────────────────────────────────────────────────────────
 async function init(){
   await db.open();
-  const savedSession=localStorage.getItem('gz_session'),savedPhone=localStorage.getItem('gz_phone'),savedShop=localStorage.getItem('gz_shop');
+  const savedSession=localStorage.getItem('gz_session');
+  const savedPhone  =localStorage.getItem('gz_phone');
+  const savedShop   =localStorage.getItem('gz_shop');
   document.getElementById('btn-new-account').style.display=savedPhone?'none':'block';
   if(savedSession||savedPhone){
-    document.getElementById('login-shop').textContent=savedShop||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';
-    document.getElementById('login-shop-on-book').textContent=savedShop||'\u0646\u0633\u062e\u0629 \u062e\u0641\u064a\u0641\u0629';
+    document.getElementById('login-shop').textContent=savedShop||'دفتر الدين';
     document.getElementById('login-phone').textContent=savedPhone||'';
     if(savedSession)SESSION=JSON.parse(savedSession);
-    document.getElementById('home-shop-name').textContent=savedShop||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';
+    document.getElementById('home-shop-name').textContent=savedShop||'دفتر الدين';
     showScreen('s-login');
-  }else showScreen('s-setup');
-  window.addEventListener('online',()=>{updateStatusBar();doSync()});
+  }else{
+    showScreen('s-setup');
+  }
+  window.addEventListener('online', ()=>{updateStatusBar();doSync()});
   window.addEventListener('offline',()=>updateStatusBar());
 }
+
 if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{});
 init();
 </script>
