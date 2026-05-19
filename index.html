@@ -1517,14 +1517,13 @@ async function init(){
   await db.open();
   const savedSession=localStorage.getItem('gz_session'),savedPhone=localStorage.getItem('gz_phone'),savedShop=localStorage.getItem('gz_shop');
   document.getElementById('btn-new-account').style.display=savedPhone?'none':'block';
-  if(savedSession||savedPhone){
-    document.getElementById('login-shop').textContent=savedShop||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';
-    document.getElementById('login-shop-on-book').textContent=savedShop||'\u0646\u0633\u062e\u0629 \u062e\u0641\u064a\u0641\u0629';
-    document.getElementById('login-phone').textContent=savedPhone||'';
-    if(savedSession)SESSION=JSON.parse(savedSession);
-    document.getElementById('home-shop-name').textContent=savedShop||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';
-    showScreen('s-login');
-  }else showScreen('s-setup');
+  const shopName=savedShop||'\u062f\u0641\u062a\u0631 \u0627\u0644\u062f\u064a\u0646';
+  document.getElementById('login-shop').textContent=shopName;
+  document.getElementById('login-shop-on-book').textContent=savedShop||'\u0646\u0633\u062e\u0629 \u062e\u0641\u064a\u0641\u0629';
+  document.getElementById('login-phone').textContent=savedPhone||'';
+  if(savedSession)SESSION=JSON.parse(savedSession);
+  document.getElementById('home-shop-name').textContent=shopName;
+  showScreen('s-login');
   window.addEventListener('online',()=>{updateStatusBar();doSync()});
   window.addEventListener('offline',()=>updateStatusBar());
 }
