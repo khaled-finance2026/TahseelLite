@@ -829,18 +829,18 @@ function setHomeMode(m){
   if(m==='debt'){
     homeFilter='today';
     fw.innerHTML=
-      '<button class="filter-btn active" id="filter-today" onclick="setHomeFilter('today')">اليوم</button>'
-     +'<button class="filter-btn" id="filter-pending" onclick="setHomeFilter('pending')">في الانتظار</button>'
-     +'<button class="filter-btn" id="filter-all" onclick="setHomeFilter('all')">الكل</button>';
+      '<button class="filter-btn active" id="filter-today" onclick="setHomeFilter(\'today\')">اليوم</button>'
+     +'<button class="filter-btn" id="filter-pending" onclick="setHomeFilter(\'pending\')">في الانتظار</button>'
+     +'<button class="filter-btn" id="filter-all" onclick="setHomeFilter(\'all\')">الكل</button>';
     // إظهار شريط الترتيب
     const sb=document.querySelector('.sort-bar');if(sb)sb.style.display='flex';
   }else{
     paidFilter='all';
     fw.innerHTML=
-      '<button class="filter-btn" id="pf-today" onclick="setPaidFilter('today')">اليوم</button>'
-     +'<button class="filter-btn" id="pf-week" onclick="setPaidFilter('week')">الأسبوع</button>'
-     +'<button class="filter-btn" id="pf-month" onclick="setPaidFilter('month')">الشهر</button>'
-     +'<button class="filter-btn active" id="pf-all" onclick="setPaidFilter('all')">الكل</button>';
+      '<button class="filter-btn" id="pf-today" onclick="setPaidFilter(\'today\')">اليوم</button>'
+     +'<button class="filter-btn" id="pf-week" onclick="setPaidFilter(\'week\')">الأسبوع</button>'
+     +'<button class="filter-btn" id="pf-month" onclick="setPaidFilter(\'month\')">الشهر</button>'
+     +'<button class="filter-btn active" id="pf-all" onclick="setPaidFilter(\'all\')">الكل</button>';
     // إخفاء شريط الترتيب
     const sb=document.querySelector('.sort-bar');if(sb)sb.style.display='none';
   }
